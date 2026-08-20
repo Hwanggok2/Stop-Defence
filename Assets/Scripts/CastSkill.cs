@@ -37,7 +37,7 @@ public class CastSkill : MonoBehaviour
             GameObject target = FindEnemy(player);
             if (target != null)
             {
-                // target의 hp 감소시키는 로직 추가
+                 // target의 hp 감소시키는 로직 추가
                 
             }
         }
