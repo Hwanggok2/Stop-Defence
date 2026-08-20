@@ -15,7 +15,7 @@ public class StopWatch : MonoBehaviour
     private TextMeshProUGUI timerText;
 
     Dictionary<int, string> playerSkill = new Dictionary<int, string>
-    { /* 스킬 인덱스, 스킬 매크로*/
+    { /* skill index, skill macro*/
         { 2, "1" }
     };
 
