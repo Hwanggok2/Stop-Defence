@@ -21,6 +21,7 @@ public sealed class Player : MonoBehaviour
     public float MaxHp { get; private set; }
     public float DamageReduction { get; private set; }
     public float HealingReceivedBonus { get; private set; }
+    public int AttackPowerLevel { get; private set; }
     public bool IsDead => Hp <= 0f;
     public float HealthNormalized => MaxHp > 0f ? Hp / MaxHp : 0f;
     public float ExperienceNormalized =>
@@ -117,6 +118,9 @@ public sealed class Player : MonoBehaviour
             case PlayerStatType.HealingReceived:
                 HealingReceivedBonus = nextValue;
                 break;
+            case PlayerStatType.AttackPowerLevel:
+                AttackPowerLevel = Mathf.RoundToInt(nextValue);
+                break;
             default:
                 return false;
         }
@@ -163,6 +167,7 @@ public sealed class Player : MonoBehaviour
             PlayerStatType.MaxHp => maxHpBonus,
             PlayerStatType.DamageReduction => DamageReduction,
             PlayerStatType.HealingReceived => HealingReceivedBonus,
+            PlayerStatType.AttackPowerLevel => AttackPowerLevel,
             _ => 0f
         };
     }

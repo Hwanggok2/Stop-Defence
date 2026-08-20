@@ -16,6 +16,8 @@ public sealed class CastSkill : MonoBehaviour
     private const string MegaExplosionId = "skill_008";
     private const string RoundingThirtyId = "skill_009";
     private const string CaffeineId = "skill_011";
+    private const float IceLanceTravelDistance = 40f;
+    private const float IceLanceProjectileSpeed = 25f;
 
     [Header("Runtime References")]
     [SerializeField] private SkillDatabase database;
@@ -36,18 +38,25 @@ public sealed class CastSkill : MonoBehaviour
     [SerializeField, Min(0f)] private float fireballRange = 5f;
     [SerializeField, Min(0f)] private float burnDamagePerSecond = 2f;
     [SerializeField, Min(0f)] private float burnDuration = 3f;
+    [SerializeField, Min(0f)] private float burnDurationPerAttackLevel = 0.2f;
     [SerializeField, Min(0f)] private float earthMagicDamage = 15f;
     [SerializeField, Min(0f)] private float earthKnockbackDistance = 3f;
+    [SerializeField, Min(0f)] private float earthKnockbackPerAttackLevel = 0.2f;
     [SerializeField, Min(0f)] private float chainLightningDamage = 3f;
     [SerializeField, Min(1)] private int maxChainTargets = 7;
     [SerializeField, Min(0f)] private float nailDrivingDamage = 20f;
     [SerializeField, Min(0f)] private float repairAmount = 20f;
+    [SerializeField, Min(0f)] private float repairPerAttackLevel = 2f;
     [SerializeField, Min(0f)] private float plagueDamagePerSecond = 5f;
     [SerializeField, Min(0f)] private float plagueDuration = 3f;
+    [SerializeField, Min(0f)] private float plagueDurationPerAttackLevel = 0.2f;
     [SerializeField, Min(0f)] private float plagueRadius = 3f;
     [SerializeField, Min(0f)] private float iceLanceDamage = 5f;
+    [SerializeField, Min(0f)] private float iceLanceHitRadius = 1.25f;
     [SerializeField, Range(0f, 0.95f)] private float iceSlowRate = 0.3f;
+    [SerializeField, Min(0f)] private float iceSlowPerAttackLevel = 0.01f;
     [SerializeField, Min(0f)] private float iceSlowDuration = 1f;
+    [SerializeField, Min(0f)] private float iceSlowDurationPerAttackLevel = 0.1f;
     [SerializeField, Min(0f)] private float megaExplosionDamage = 100f;
     [SerializeField, Min(0f)] private float roundingThirtyDamage = 30f;
     [SerializeField, Min(1f)] private float caffeineDamageMultiplier = 1.3f;
@@ -112,15 +121,25 @@ public sealed class CastSkill : MonoBehaviour
     private float GetDamage(string skillId, float fallback)
     {
         return database != null && database.TryGetSkill(skillId, out SkillData skill)
-            ? skill.CalculateDamage(player != null ? player.Level : 1)
+            ? skill.CalculateDamage(GetAttackPowerLevel())
             : fallback;
     }
 
     private float GetDotDamage(string skillId, float fallback)
     {
         return database != null && database.TryGetSkill(skillId, out SkillData skill)
-            ? skill.CalculateDotDamage(player != null ? player.Level : 1)
+            ? skill.CalculateDotDamage(GetAttackPowerLevel())
             : fallback;
+    }
+
+    private int GetAttackPowerLevel()
+    {
+        return player != null ? player.AttackPowerLevel : 0;
+    }
+
+    private float ScaleByAttackPowerLevel(float baseValue, float valuePerLevel)
+    {
+        return baseValue + valuePerLevel * GetAttackPowerLevel();
     }
 
     private bool CastFireball(float multiplier)
@@ -146,7 +165,7 @@ public sealed class CastSkill : MonoBehaviour
             enemy.TakeDamage(GetDamage(FireballId, fireballDamage) * multiplier);
             enemy.ApplyDamageOverTime(
                 GetDotDamage(FireballId, burnDamagePerSecond) * multiplier,
-                burnDuration);
+                ScaleByAttackPowerLevel(burnDuration, burnDurationPerAttackLevel));
         }
     }
 
@@ -177,7 +196,11 @@ public sealed class CastSkill : MonoBehaviour
             }
 
             enemy.TakeDamage(GetDamage(EarthMagicId, earthMagicDamage) * multiplier);
-            enemy.Knockback(direction, earthKnockbackDistance);
+            enemy.Knockback(
+                direction,
+                ScaleByAttackPowerLevel(
+                    earthKnockbackDistance,
+                    earthKnockbackPerAttackLevel));
         }
     }
 
@@ -234,7 +257,7 @@ public sealed class CastSkill : MonoBehaviour
             return false;
         }
 
-        player.HealHp(repairAmount);
+        player.HealHp(ScaleByAttackPowerLevel(repairAmount, repairPerAttackLevel));
         return true;
     }
 
@@ -260,34 +283,102 @@ public sealed class CastSkill : MonoBehaviour
         {
             enemy.ApplyDamageOverTime(
                 GetDotDamage(PlagueMagicId, plagueDamagePerSecond) * multiplier,
-                plagueDuration);
+                ScaleByAttackPowerLevel(
+                    plagueDuration,
+                    plagueDurationPerAttackLevel));
         }
     }
 
     private bool CastIceLance(float multiplier)
     {
-        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        Vector3 origin = GetOriginPosition();
+        List<Enemy.Enemy> targets = GetActiveEnemies();
+        Enemy.Enemy target = FindNearestEnemy(origin);
         if (target == null)
         {
             return false;
         }
 
-        SpawnEffect(iceLanceEffectPrefab, target.transform.position);
-        StartCoroutine(ApplyIceLanceImpact(target, multiplier));
+        Vector3 direction = target.transform.position - origin;
+        if (direction.sqrMagnitude <= Mathf.Epsilon)
+        {
+            direction = Vector3.right;
+        }
+        else
+        {
+            direction.Normalize();
+        }
+
+        if (iceLanceEffectPrefab != null)
+        {
+            Quaternion rotation = Quaternion.FromToRotation(Vector3.right, direction);
+            Vector3 effectPosition = origin + direction * IceLanceTravelDistance;
+            Instantiate(iceLanceEffectPrefab, effectPosition, rotation, effectsRoot);
+        }
+
+        StartCoroutine(ApplyIceLancePiercing(targets, origin, direction, multiplier));
         return true;
     }
 
-    private IEnumerator ApplyIceLanceImpact(Enemy.Enemy target, float multiplier)
+    private IEnumerator ApplyIceLancePiercing(
+        List<Enemy.Enemy> targets,
+        Vector3 origin,
+        Vector3 direction,
+        float multiplier)
     {
-        yield return new WaitForSeconds(0.48f);
+        var hitEnemies = new HashSet<Enemy.Enemy>();
+        float damage = GetDamage(IceLanceId, iceLanceDamage) * multiplier;
+        float sqrHitRadius = iceLanceHitRadius * iceLanceHitRadius;
+        float traveledDistance = 0f;
 
-        if (target == null || target.IsDead || !target.gameObject.activeInHierarchy)
+        while (traveledDistance < IceLanceTravelDistance)
         {
-            yield break;
+            float nextDistance = Mathf.Min(
+                traveledDistance + IceLanceProjectileSpeed * Time.deltaTime,
+                IceLanceTravelDistance);
+            Vector3 segmentStart = origin + direction * traveledDistance;
+            Vector3 segmentEnd = origin + direction * nextDistance;
+
+            foreach (Enemy.Enemy enemy in targets)
+            {
+                if (enemy == null || enemy.IsDead ||
+                    !enemy.gameObject.activeInHierarchy || hitEnemies.Contains(enemy) ||
+                    SqrDistanceToSegment(enemy.transform.position, segmentStart, segmentEnd) >
+                    sqrHitRadius)
+                {
+                    continue;
+                }
+
+                hitEnemies.Add(enemy);
+                enemy.TakeDamage(damage);
+                enemy.ApplySlow(
+                    ScaleByAttackPowerLevel(iceSlowRate, iceSlowPerAttackLevel),
+                    ScaleByAttackPowerLevel(
+                        iceSlowDuration,
+                        iceSlowDurationPerAttackLevel));
+            }
+
+            traveledDistance = nextDistance;
+            yield return null;
+        }
+    }
+
+    private static float SqrDistanceToSegment(
+        Vector3 point,
+        Vector3 segmentStart,
+        Vector3 segmentEnd)
+    {
+        Vector3 segment = segmentEnd - segmentStart;
+        float sqrLength = segment.sqrMagnitude;
+        if (sqrLength <= Mathf.Epsilon)
+        {
+            return (point - segmentStart).sqrMagnitude;
         }
 
-        target.TakeDamage(GetDamage(IceLanceId, iceLanceDamage) * multiplier);
-        target.ApplySlow(iceSlowRate, iceSlowDuration);
+        float position = Mathf.Clamp01(
+            Vector3.Dot(point - segmentStart, segment) / sqrLength);
+        Vector3 nearestPoint = segmentStart + segment * position;
+        return (point - nearestPoint).sqrMagnitude;
     }
 
     private bool CastMegaExplosion(float multiplier)

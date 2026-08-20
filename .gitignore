@@ -108,6 +108,9 @@ InitTestScene*.unity*
 # Editor-specific local state
 /.codex-work/
 /.codex-tmp/
+/.codex-tmp-recovery/
+/Captures/
+/outputs/data-recovery/
 /.idea/
 /.vscode/*
 !/.vscode/settings.json

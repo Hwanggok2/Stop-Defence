@@ -15,7 +15,8 @@ namespace StopDefence.GameData
         None,
         MaxHp,
         DamageReduction,
-        HealingReceived
+        HealingReceived,
+        AttackPowerLevel
     }
 
     [Serializable]
@@ -47,16 +48,16 @@ namespace StopDefence.GameData
         [Tooltip("원본 스킬 Grade 메타데이터입니다. 현재 초 단위 발동 판정에는 사용하지 않습니다.")]
         private int grade;
         [SerializeField, Min(0f)]
-        [Tooltip("직접 피해 기본값입니다. 실제 피해 = BaseDamage + DamagePerLevel × Player.Level 입니다.")]
+        [Tooltip("직접 피해 기본값입니다. 실제 피해 = BaseDamage + DamagePerLevel × Player.AttackPowerLevel 입니다.")]
         private float baseDamage;
         [SerializeField, Min(0f)]
-        [Tooltip("Player.Level 1당 증가하는 직접 피해입니다.")]
+        [Tooltip("공격력 강화 레벨 1당 증가하는 직접 피해입니다.")]
         private float damagePerLevel;
         [SerializeField, Min(0f)]
         [Tooltip("지속 피해의 틱당 기본값입니다.")]
         private float baseDotDamage;
         [SerializeField, Min(0f)]
-        [Tooltip("Player.Level 1당 증가하는 틱당 지속 피해입니다.")]
+        [Tooltip("공격력 강화 레벨 1당 증가하는 틱당 지속 피해입니다.")]
         private float dotDamagePerLevel;
         [SerializeField] private string imagePath;
         [SerializeField] private Sprite image;
@@ -116,14 +117,14 @@ namespace StopDefence.GameData
             this.statCap = statCap;
         }
 
-        public float CalculateDamage(int playerLevel)
+        public float CalculateDamage(int attackPowerLevel)
         {
-            return baseDamage + damagePerLevel * Mathf.Max(0, playerLevel);
+            return baseDamage + damagePerLevel * Mathf.Max(0, attackPowerLevel);
         }
 
-        public float CalculateDotDamage(int playerLevel)
+        public float CalculateDotDamage(int attackPowerLevel)
         {
-            return baseDotDamage + dotDamagePerLevel * Mathf.Max(0, playerLevel);
+            return baseDotDamage + dotDamagePerLevel * Mathf.Max(0, attackPowerLevel);
         }
     }
 

@@ -189,7 +189,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a9aae5074f05046b54a19a7ccbf575, type: 3}
-  m_Name:
+  m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StopDefence.Vfx.SkillParticleEffect
 --- !u!1001 &485689729
 PrefabInstance:

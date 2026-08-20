@@ -56,7 +56,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.48
+    scalar: 1.6
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -4968,7 +4968,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.68
+    scalar: 1.8
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -9963,7 +9963,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1862715807625187903}
   serializedVersion: 8
-  lengthInSec: 0.8
+  lengthInSec: 1.9
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -10038,8 +10038,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.46
-      minScalar: 0.18
+      scalar: 1.65
+      minScalar: 1.35
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10091,8 +10091,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 8.8
-      minScalar: 6.5
+      scalar: 26
+      minScalar: 24
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -10592,7 +10592,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -4.45, y: 0.72, z: 0}
+    m_Position: {x: -40, y: 0.72, z: 0}
     m_Rotation: {x: 0, y: 90, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
@@ -14857,7 +14857,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2807477563966780821}
   serializedVersion: 8
-  lengthInSec: 0.7
+  lengthInSec: 1.8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -14932,8 +14932,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.52
-      minScalar: 0.5
+      scalar: 1.62
+      minScalar: 1.58
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14985,8 +14985,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 9.15
-      minScalar: 8.95
+      scalar: 25.2
+      minScalar: 24.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -15486,7 +15486,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -4.6, y: 0.72, z: 0}
+    m_Position: {x: -40, y: 0.72, z: 0}
     m_Rotation: {x: 0, y: 90, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
@@ -19766,7 +19766,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.47
+    scalar: 1.59
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -24669,7 +24669,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.54
+    scalar: 1.66
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -29572,7 +29572,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.5
+    scalar: 1.62
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -34484,7 +34484,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.48
+    scalar: 1.6
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -39378,7 +39378,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 1.42
+    scalar: 2.54
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -44330,7 +44330,7 @@ ParticleSystem:
   startDelay:
     serializedVersion: 2
     minMaxState: 0
-    scalar: 0.48
+    scalar: 1.6
     minScalar: 0
     maxCurve:
       serializedVersion: 2
@@ -49227,7 +49227,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9197472438433836899}
   serializedVersion: 8
-  lengthInSec: 0.7
+  lengthInSec: 1.8
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -49302,8 +49302,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 0.52
-      minScalar: 0.5
+      scalar: 1.62
+      minScalar: 1.58
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -49355,8 +49355,8 @@ ParticleSystem:
     startSpeed:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 9.15
-      minScalar: 8.95
+      scalar: 25.2
+      minScalar: 24.8
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -49856,7 +49856,7 @@ ParticleSystem:
     boxThickness: {x: 0, y: 0, z: 0}
     radiusThickness: 1
     donutRadius: 0.2
-    m_Position: {x: -4.6, y: 0.72, z: 0}
+    m_Position: {x: -40, y: 0.72, z: 0}
     m_Rotation: {x: 0, y: 90, z: 0}
     m_Scale: {x: 1, y: 1, z: 1}
     placementMode: 0
