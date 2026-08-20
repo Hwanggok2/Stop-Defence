@@ -11,7 +11,8 @@ GameObject:
   - component: {fileID: 7490343146139919183}
   - component: {fileID: 5254818934681931226}
   - component: {fileID: 2873592985301466096}
-  - component: {fileID: 8313573141610440021}
+  - component: {fileID: 1371601129873416898}
+  - component: {fileID: 9182588221977104549}
   m_Layer: 0
   m_Name: Boss
   m_TagString: Enemy
@@ -69,8 +70,8 @@ CapsuleCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 0.5, y: 1}
+  m_Offset: {x: 0.020246923, y: 1.1476016}
+  m_Size: {x: 1.7687906, y: 1.7687907}
   m_Direction: 0
 --- !u!50 &2873592985301466096
 Rigidbody2D:
@@ -99,7 +100,29 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8313573141610440021
+--- !u!95 &1371601129873416898
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 820950947702502206}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: d4dc54080115dce4e993af54025f3a4b, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage:
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &9182588221977104549
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -108,18 +131,20 @@ MonoBehaviour:
   m_GameObject: {fileID: 820950947702502206}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 60b835c90695703458ce3b3b992635a2, type: 3}
+  m_Script: {fileID: 11500000, guid: f5bae02d0bcb5a44c95321e01b4e67b8, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Enemy.Boss
+  m_EditorClassIdentifier: Assembly-CSharp::DataDrivenEnemy
   stat:
-    level: 1
-    hp: 400
-    attackDamage: 30
-    attackSpeed: 0.24
-    attackRange: 1
-    moveSpeed: 4
-    dropCoin: 100
+    level: 0
+    hp: 0
+    attackDamage: 0
+    attackSpeed: 0
+    attackRange: 0
+    moveSpeed: 0
+    dropCoin: 0
+    experience: 0
   player: {fileID: 0}
+  animator: {fileID: 1371601129873416898}
 --- !u!1 &3479443018143790655
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,7 +226,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 7482667652216324306, guid: 48e93eef0688c4a259cb0eddcd8661f7, type: 3}
+  m_Sprite: {fileID: -7258073110147021452, guid: 8d1c55c337ec3df45bf4800c5e033c22, type: 3}
   m_Color: {r: 0.5320754, g: 0.20075737, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0

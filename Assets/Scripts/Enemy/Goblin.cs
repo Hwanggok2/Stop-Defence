@@ -1,10 +1,7 @@
-using UnityEngine;
-
 namespace Enemy
 {
     public class Goblin : Enemy
     {
-        [SerializeField] GameObject projectilePrefab;
         protected override void UpdateStat()
         {
             if (stat.level <= 0) return;
@@ -19,15 +16,7 @@ namespace Enemy
 
         protected override void Attack(Player player)
         {
-            GameObject obj = Instantiate(
-                projectilePrefab,
-                transform.position,
-                Quaternion.identity
-            );
-
-            if (!obj.TryGetComponent<Projectile>(out var projectile)) return;
-            
-            projectile.Init(stat.attackDamage, player.transform);
+            player.TakeDamage(stat.attackDamage);
         }
     }
 }

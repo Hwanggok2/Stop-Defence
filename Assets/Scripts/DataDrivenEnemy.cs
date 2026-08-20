@@ -1,31 +1,55 @@
+using System.Collections;
 using StopDefence.GameData;
 using UnityEngine;
 
 public sealed class DataDrivenEnemy : Enemy.Enemy
 {
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
+    private static readonly int DieTrigger = Animator.StringToHash("Die");
+    private static readonly WaitForSeconds DeathAnimationDelay = new(1.5f);
 
     [SerializeField] private Animator animator;
+    [SerializeField] private Enemy.Projectile projectilePrefab;
+    [SerializeField] private Transform projectileSpawnPoint;
 
     private EnemyDatabase database;
     private string enemyId;
+    private Player rewardTarget;
+    private BattleObjectPool objectPool;
+    private Collider2D[] enemyColliders;
+
+    public Enemy.Projectile ProjectilePrefab => projectilePrefab;
+
+    private void Awake()
+    {
+        enemyColliders = GetComponentsInChildren<Collider2D>(true);
+    }
 
     public void Initialize(
         EnemyDatabase enemyDatabase,
         string id,
         int level,
-        Player target)
+        Player target,
+        BattleObjectPool pool)
     {
         database = enemyDatabase;
         enemyId = id;
-        SetLevel(level);
+        rewardTarget = target;
+        objectPool = pool;
 
-        if (target != null)
+        if (animator != null)
         {
-            SetTarget(target);
+            animator.Rebind();
+            animator.Update(0f);
         }
 
-        enabled = target != null;
+        foreach (Collider2D enemyCollider in enemyColliders)
+        {
+            enemyCollider.enabled = true;
+        }
+
+        SetLevel(level);
+        PrepareForSpawn(target);
     }
 
     protected override void UpdateStat()
@@ -47,6 +71,7 @@ public sealed class DataDrivenEnemy : Enemy.Enemy
         stat.attackRange = levelData.AttackRange;
         stat.moveSpeed = levelData.MoveSpeed;
         stat.dropCoin = levelData.DropCoin;
+        stat.experience = levelData.Experience;
     }
 
     protected override void Attack(Player player)
@@ -56,6 +81,44 @@ public sealed class DataDrivenEnemy : Enemy.Enemy
             animator.SetTrigger(AttackTrigger);
         }
 
-        player.TakeDamage(stat.attackDamage);
+        if (projectilePrefab == null)
+        {
+            player.TakeDamage(stat.attackDamage);
+            return;
+        }
+
+        Enemy.Projectile projectile = objectPool.GetProjectile(
+            projectilePrefab,
+            projectileSpawnPoint != null ? projectileSpawnPoint.position : transform.position,
+            Quaternion.identity);
+        projectile.Init(stat.attackDamage, player, objectPool);
+    }
+
+    protected override void Die()
+    {
+        if (rewardTarget != null)
+        {
+            rewardTarget.GainExperience(stat.experience);
+        }
+
+        if (animator == null)
+        {
+            objectPool.ReleaseEnemy(this);
+            return;
+        }
+
+        animator.SetTrigger(DieTrigger);
+        foreach (Collider2D enemyCollider in enemyColliders)
+        {
+            enemyCollider.enabled = false;
+        }
+
+        StartCoroutine(ReleaseAfterDeathAnimation());
+    }
+
+    private IEnumerator ReleaseAfterDeathAnimation()
+    {
+        yield return DeathAnimationDelay;
+        objectPool.ReleaseEnemy(this);
     }
 }

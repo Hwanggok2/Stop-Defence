@@ -10,5 +10,6 @@ namespace Enemy
         public float attackRange;
         public float moveSpeed;
         public int dropCoin;
+        public int experience;
     }
 }
