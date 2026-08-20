@@ -23,6 +23,10 @@ public class StopWatch : MonoBehaviour
 
     bool canSkillCast = true;
 
+    Dictionary<int, string> playerSkill = new Dictionary<int, string> {
+        { 2, "1" }
+    };
+
     void Start()
     {
         curTimer = maxTimer;
@@ -32,21 +36,16 @@ public class StopWatch : MonoBehaviour
         castSkill = GetComponent<CastSkill>();
     }
 
-    void Update()
+    private void Update()
     {
-        // �����̽� �Է½� ��ų �ߵ�
         if (Keyboard.current.spaceKey.wasPressedThisFrame) {
             prevTimer = (int)(curTimer * 100);
 
-            // ��ų ���� ���� ���� Ȯ�� �� ��ų ����
             if (canSkillCast) {
                 CastSkill();
-            } else {
-                Debug.Log("��ų ���� ���ٿ�� ��");
             }
         }
 
-        // Ÿ�̸� UI ������Ʈ
         if (timerText != null) {
             timerText.text = string.Format("{0:D2}:{1:D2}", timerSec, timerMil);
         }
@@ -60,42 +59,32 @@ public class StopWatch : MonoBehaviour
             curTimer = maxTimer;
         }
 
-        // Ÿ�̸� UI�� ��� �ð� ���
         timerSec = (int)curTimer;
         timerMil = (int)((curTimer - timerSec) * 100);
     }
 
     void CastSkill()
     {
-        Debug.Log("��ų ���� �õ�");
         canSkillCast = false;
 
-        // �����̽� Ű�� ������ �ʾ����� �н�
         if (prevTimer == -1) return;
 
-        // ���� ���� ��ų Ȯ�� �� ����
         for (int i = 0; i < playerSkill.Count-1; i++) {
             playerSkill.TryGetValue(0, out string trigger);
 
             if (prevTimer.ToString().Contains(trigger))  {
-                Debug.Log("��ų ����");
                 canSkillCast = true;
-
                 int key = playerSkill.FirstOrDefault(x => x.Value == trigger).Key;
-                //��ų �ε����� ��ų ����
                 castSkill.Cast(key);
             }
         }
 
-        // ��ų�� ������� �ʾ����� 0.1�� ���� ��ų ���� �ȵǰ� �ϱ�
         if (!canSkillCast) {
-            Debug.Log("���ٿ�� ����");
             Invoke("DelaySkillCast", 1f);
         }
     }
     void DelaySkillCast()
     {
-        Debug.Log("���ٿ�� ����");
         canSkillCast = true;
     }
 }
