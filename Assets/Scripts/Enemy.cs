@@ -1,14 +1,39 @@
+using System;
 using UnityEngine;
 
-public class Enemy : Entity
+public class Enemy : MonoBehaviour
 {
-    [SerializeField] private float moveSpeed = 3f;
+    [SerializeField] protected float hp;
+    [SerializeField] protected float moveSpeed;
+    [SerializeField] protected float damage;
+    [SerializeField] protected float damageRate;
+    [SerializeField] protected float attackDistance;
     
-    [SerializeField] private Transform _player;
-    
+    private Transform _player;
+
+    public void SetStats(float hp, float moveSpeed,
+        float damage, float damageRate, float attackDistance)
+    {
+        this.hp = hp;
+        this.moveSpeed = moveSpeed;
+        this.damage = damage;
+        this.damageRate = damageRate;
+        this.attackDistance = attackDistance;
+    }
+
     public void SetTarget(Transform target)
     {
         _player = target;
+    }
+    
+    public void TakeDamage(float amount)
+    {
+        this.hp -= amount;
+    }
+
+    public void HealHp(float amount)
+    {
+        this.hp += amount;
     }
 
     private void Update()
