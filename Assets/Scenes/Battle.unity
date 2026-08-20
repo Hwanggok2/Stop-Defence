@@ -226,6 +226,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67a5ad1facb48945a82e0557e8ba128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Input.PlayerInput
+  keyboardMoveSpeed: 10
 --- !u!4 &356647792
 Transform:
   m_ObjectHideFlags: 0
