@@ -49,6 +49,18 @@ public class CameraController : MonoBehaviour
 
         ApplyShakeOffset();
     }
+    
+    public void MoveKeyboard(Vector2 direction, float speed)
+    {
+        Vector3 move = new Vector3(
+            direction.x * speed,
+            direction.y * speed,
+            0f
+        );
+
+        transform.position += move;
+        ClampPosition();
+    }
 
     public void Move(Vector2 mouseDelta)
     {
