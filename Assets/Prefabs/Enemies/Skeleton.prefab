@@ -84,7 +84,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: -17659626, guid: 33e3b3863da36214793f3f064004e36f, type: 3}
+  m_Sprite: {fileID: -3522280003859083061, guid: 7b99ff655e7767345b3ab685f50d1d67, type: 3}
   m_Color: {r: 0.75, g: 0.78, b: 0.82, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -132,8 +132,8 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0}
-    oldSize: {x: 1.3933333, y: 1.3933333}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.98, y: 4.25}
     newSize: {x: 0.16, y: 0.16}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -161,8 +161,11 @@ MonoBehaviour:
     attackRange: 0
     moveSpeed: 0
     dropCoin: 0
+    experience: 0
   player: {fileID: 0}
   animator: {fileID: 7459822808555245184}
+  projectilePrefab: {fileID: 0}
+  projectileSpawnPoint: {fileID: 0}
 --- !u!95 &7459822808555245184
 Animator:
   serializedVersion: 7

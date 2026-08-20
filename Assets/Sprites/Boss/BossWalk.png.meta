@@ -160,6 +160,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -168,10 +181,10 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 225
         width: 543
-        height: 724
-      alignment: 9
+        height: 499
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -189,11 +202,11 @@ TextureImporter:
       name: Boss_Walk_01
       rect:
         serializedVersion: 2
-        x: 543
-        y: 0
+        x: 544
+        y: 221
         width: 543
-        height: 724
-      alignment: 9
+        height: 503
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -211,11 +224,11 @@ TextureImporter:
       name: Boss_Walk_02
       rect:
         serializedVersion: 2
-        x: 1086
-        y: 0
+        x: 1087
+        y: 213
         width: 543
-        height: 724
-      alignment: 9
+        height: 511
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -234,10 +247,10 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1629
-        y: 0
+        y: 210
         width: 543
-        height: 724
-      alignment: 9
+        height: 514
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -255,7 +268,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 5100d52bd1dd6c64584423fe4f6544fc
     internalID: 0
     vertices: []
     indices: 

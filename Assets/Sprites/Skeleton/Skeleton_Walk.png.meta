@@ -127,6 +127,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -135,9 +148,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 836
+        y: 827
         width: 418
-        height: 418
+        height: 427
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,10 +169,10 @@ TextureImporter:
       name: Skeleton_Walk_01
       rect:
         serializedVersion: 2
-        x: 418
-        y: 836
+        x: 417
+        y: 826
         width: 418
-        height: 418
+        height: 428
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -179,9 +192,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 836
-        y: 836
+        y: 826
         width: 418
-        height: 418
+        height: 428
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -203,7 +216,7 @@ TextureImporter:
         x: 0
         y: 418
         width: 418
-        height: 418
+        height: 405
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,9 +236,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 418
-        y: 418
+        y: 417
         width: 418
-        height: 418
+        height: 408
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -245,9 +258,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 836
-        y: 418
+        y: 412
         width: 418
-        height: 418
+        height: 411
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -267,9 +280,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 0
+        y: 15
         width: 418
-        height: 418
+        height: 403
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -289,9 +302,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 418
-        y: 0
+        y: 17
         width: 418
-        height: 418
+        height: 401
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
