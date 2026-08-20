@@ -23,159 +23,159 @@ MonoBehaviour:
       attack: 20
       attackSpeed: 0.81
       attackRange: 1
-      moveSpeed: 5
+      moveSpeed: 2
       dropCoin: 10
       experience: 10
     - level: 2
-      hp: 26
+      hp: 29
       attack: 25
       attackSpeed: 0.82
       attackRange: 1
-      moveSpeed: 5.1
+      moveSpeed: 2.1
       dropCoin: 11
       experience: 11
     - level: 3
-      hp: 36
+      hp: 44
       attack: 27.9
       attackSpeed: 0.83
       attackRange: 1
-      moveSpeed: 5.2
+      moveSpeed: 2.2
       dropCoin: 12
       experience: 12
     - level: 4
-      hp: 50
+      hp: 65
       attack: 30
       attackSpeed: 0.84
       attackRange: 1
-      moveSpeed: 5.3
+      moveSpeed: 2.3
       dropCoin: 13
       experience: 13
     - level: 5
-      hp: 68
+      hp: 92
       attack: 31.6
       attackSpeed: 0.85
       attackRange: 1
-      moveSpeed: 5.4
+      moveSpeed: 2.4
       dropCoin: 14
       experience: 14
     - level: 6
-      hp: 90
+      hp: 125
       attack: 32.9
       attackSpeed: 0.86
       attackRange: 1
-      moveSpeed: 5.5
+      moveSpeed: 2.5
       dropCoin: 15
       experience: 15
     - level: 7
-      hp: 116
+      hp: 164
       attack: 34
       attackSpeed: 0.87
       attackRange: 1
-      moveSpeed: 5.6
+      moveSpeed: 2.6
       dropCoin: 16
       experience: 16
     - level: 8
-      hp: 146
+      hp: 209
       attack: 35
       attackSpeed: 0.88
       attackRange: 1
-      moveSpeed: 5.7
+      moveSpeed: 2.7
       dropCoin: 17
       experience: 17
     - level: 9
-      hp: 180
+      hp: 260
       attack: 35.8
       attackSpeed: 0.89
       attackRange: 1
-      moveSpeed: 5.8
+      moveSpeed: 2.8
       dropCoin: 18
       experience: 18
     - level: 10
-      hp: 218
+      hp: 317
       attack: 36.6
       attackSpeed: 0.9
       attackRange: 1
-      moveSpeed: 5.9
+      moveSpeed: 2.9
       dropCoin: 19
       experience: 19
     - level: 11
-      hp: 260
+      hp: 380
       attack: 37.3
       attackSpeed: 0.91
       attackRange: 1
-      moveSpeed: 6
+      moveSpeed: 3
       dropCoin: 20
       experience: 20
     - level: 12
-      hp: 306
+      hp: 449
       attack: 37.9
       attackSpeed: 0.92
       attackRange: 1
-      moveSpeed: 6.1
+      moveSpeed: 3.1
       dropCoin: 21
       experience: 21
     - level: 13
-      hp: 356
+      hp: 524
       attack: 38.5
       attackSpeed: 0.93
       attackRange: 1
-      moveSpeed: 6.2
+      moveSpeed: 3.2
       dropCoin: 22
       experience: 22
     - level: 14
-      hp: 410
+      hp: 605
       attack: 39
       attackSpeed: 0.94
       attackRange: 1
-      moveSpeed: 6.3
+      moveSpeed: 3.3
       dropCoin: 23
       experience: 23
     - level: 15
-      hp: 468
+      hp: 692
       attack: 39.5
       attackSpeed: 0.95
       attackRange: 1
-      moveSpeed: 6.4
+      moveSpeed: 3.4
       dropCoin: 24
       experience: 24
     - level: 16
-      hp: 530
+      hp: 785
       attack: 40
       attackSpeed: 0.96
       attackRange: 1
-      moveSpeed: 6.5
+      moveSpeed: 3.5
       dropCoin: 25
       experience: 25
     - level: 17
-      hp: 596
+      hp: 884
       attack: 40.4
       attackSpeed: 0.97
       attackRange: 1
-      moveSpeed: 6.6
+      moveSpeed: 3.6
       dropCoin: 26
       experience: 26
     - level: 18
-      hp: 666
+      hp: 989
       attack: 40.8
       attackSpeed: 0.98
       attackRange: 1
-      moveSpeed: 6.7
+      moveSpeed: 3.7
       dropCoin: 27
       experience: 27
     - level: 19
-      hp: 740
+      hp: 1100
       attack: 41.2
       attackSpeed: 0.99
       attackRange: 1
-      moveSpeed: 6.8
+      moveSpeed: 3.8
       dropCoin: 28
       experience: 28
     - level: 20
-      hp: 818
+      hp: 1217
       attack: 41.6
       attackSpeed: 1
       attackRange: 1
-      moveSpeed: 6.9
+      moveSpeed: 3.9
       dropCoin: 29
       experience: 29
   - id: goblin_mage
@@ -184,43 +184,43 @@ MonoBehaviour:
     prefab: {fileID: 6433901326577123321, guid: 2a1231c7b0edcd14980cbda8711d2649, type: 3}
     levels:
     - level: 1
-      hp: 72
+      hp: 12
       attack: 8
       attackSpeed: 0.5
       attackRange: 8
-      moveSpeed: 3
+      moveSpeed: 1
       dropCoin: 10
       experience: 10
     - level: 2
-      hp: 74
+      hp: 18
       attack: 11
       attackSpeed: 0.5
       attackRange: 8
-      moveSpeed: 3.2
+      moveSpeed: 1.2
       dropCoin: 13
       experience: 13
     - level: 3
-      hp: 76
+      hp: 28
       attack: 14
       attackSpeed: 0.51
       attackRange: 8
-      moveSpeed: 3.4
+      moveSpeed: 1.4
       dropCoin: 16
       experience: 16
     - level: 4
-      hp: 78
+      hp: 42
       attack: 17
       attackSpeed: 0.52
       attackRange: 8
-      moveSpeed: 3.6
+      moveSpeed: 1.6
       dropCoin: 19
       experience: 19
     - level: 5
-      hp: 80
+      hp: 60
       attack: 20
       attackSpeed: 0.53
       attackRange: 8
-      moveSpeed: 3.8
+      moveSpeed: 1.8
       dropCoin: 22
       experience: 22
     - level: 6
@@ -228,119 +228,119 @@ MonoBehaviour:
       attack: 23
       attackSpeed: 0.54
       attackRange: 8
-      moveSpeed: 4
+      moveSpeed: 2
       dropCoin: 25
       experience: 25
     - level: 7
-      hp: 84
+      hp: 108
       attack: 26
       attackSpeed: 0.55
       attackRange: 8
-      moveSpeed: 4.2
+      moveSpeed: 2.2
       dropCoin: 28
       experience: 28
     - level: 8
-      hp: 86
+      hp: 138
       attack: 29
       attackSpeed: 0.56
       attackRange: 8
-      moveSpeed: 4.4
+      moveSpeed: 2.4
       dropCoin: 31
       experience: 31
     - level: 9
-      hp: 88
+      hp: 172
       attack: 32
       attackSpeed: 0.58
       attackRange: 8
-      moveSpeed: 4.6
+      moveSpeed: 2.6
       dropCoin: 34
       experience: 34
     - level: 10
-      hp: 90
+      hp: 210
       attack: 35
       attackSpeed: 0.6
       attackRange: 8
-      moveSpeed: 4.8
+      moveSpeed: 2.8
       dropCoin: 37
       experience: 37
     - level: 11
-      hp: 92
+      hp: 252
       attack: 38
       attackSpeed: 0.62
       attackRange: 8
-      moveSpeed: 5
+      moveSpeed: 3
       dropCoin: 40
       experience: 40
     - level: 12
-      hp: 94
+      hp: 298
       attack: 41
       attackSpeed: 0.64
       attackRange: 8
-      moveSpeed: 5.2
+      moveSpeed: 3.2
       dropCoin: 43
       experience: 43
     - level: 13
-      hp: 96
+      hp: 348
       attack: 44
       attackSpeed: 0.67
       attackRange: 8
-      moveSpeed: 5.4
+      moveSpeed: 3.4
       dropCoin: 46
       experience: 46
     - level: 14
-      hp: 98
+      hp: 402
       attack: 47
       attackSpeed: 0.7
       attackRange: 8
-      moveSpeed: 5.6
+      moveSpeed: 3.6
       dropCoin: 49
       experience: 49
     - level: 15
-      hp: 100
+      hp: 460
       attack: 50
       attackSpeed: 0.73
       attackRange: 8
-      moveSpeed: 5.8
+      moveSpeed: 3.8
       dropCoin: 52
       experience: 52
     - level: 16
-      hp: 102
+      hp: 522
       attack: 53
       attackSpeed: 0.76
       attackRange: 8
-      moveSpeed: 6
+      moveSpeed: 4
       dropCoin: 55
       experience: 55
     - level: 17
-      hp: 104
+      hp: 588
       attack: 56
       attackSpeed: 0.79
       attackRange: 8
-      moveSpeed: 6.2
+      moveSpeed: 4.2
       dropCoin: 58
       experience: 58
     - level: 18
-      hp: 106
+      hp: 658
       attack: 59
       attackSpeed: 0.82
       attackRange: 8
-      moveSpeed: 6.4
+      moveSpeed: 4.4
       dropCoin: 61
       experience: 61
     - level: 19
-      hp: 108
+      hp: 732
       attack: 62
       attackSpeed: 0.86
       attackRange: 8
-      moveSpeed: 6.6
+      moveSpeed: 4.6
       dropCoin: 64
       experience: 64
     - level: 20
-      hp: 110
+      hp: 810
       attack: 65
       attackSpeed: 0.9
       attackRange: 8
-      moveSpeed: 6.8
+      moveSpeed: 4.8
       dropCoin: 67
       experience: 67
   - id: boss
@@ -353,7 +353,7 @@ MonoBehaviour:
       attack: 30
       attackSpeed: 0.24
       attackRange: 1
-      moveSpeed: 4
+      moveSpeed: 2
       dropCoin: 100
       experience: 100
     - level: 2
@@ -361,7 +361,7 @@ MonoBehaviour:
       attack: 60
       attackSpeed: 0.48
       attackRange: 1
-      moveSpeed: 5
+      moveSpeed: 3
       dropCoin: 200
       experience: 200
     - level: 3
@@ -369,7 +369,7 @@ MonoBehaviour:
       attack: 90
       attackSpeed: 0.72
       attackRange: 1
-      moveSpeed: 6
+      moveSpeed: 4
       dropCoin: 300
       experience: 300
     - level: 4
@@ -377,7 +377,7 @@ MonoBehaviour:
       attack: 120
       attackSpeed: 0.96
       attackRange: 1
-      moveSpeed: 7
+      moveSpeed: 5
       dropCoin: 400
       experience: 400
     - level: 5
@@ -385,7 +385,7 @@ MonoBehaviour:
       attack: 150
       attackSpeed: 1.2
       attackRange: 1
-      moveSpeed: 8
+      moveSpeed: 6
       dropCoin: 500
       experience: 500
   spawnSchedule:
