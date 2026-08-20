@@ -1086,6 +1086,10 @@ PrefabInstance:
       propertyPath: skillInventory
       value: 
       objectReference: {fileID: 1720725758}
+    - target: {fileID: 2355697924858008731, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: 'skillImages.Array.data[8]'
+      value: 
+      objectReference: {fileID: 5986030973748356752, guid: 774e3327b1813244495cd6ca65d6ea05, type: 3}
     - target: {fileID: 3099475069104396863, guid: e5119f32611e1714782231711f40bf68, type: 3}
       propertyPath: m_IsActive
       value: 0
