@@ -105,7 +105,7 @@ GameObject:
   - component: {fileID: 6372772510316648593}
   m_Layer: 0
   m_Name: Skeleton
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -183,3 +183,4 @@ MonoBehaviour:
     attackRange: 1
     moveSpeed: 5
     dropCoin: 10
+  player: {fileID: 0}

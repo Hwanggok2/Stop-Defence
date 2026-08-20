@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 6766483676403335542}
   m_Layer: 0
   m_Name: Goblin
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -91,6 +91,7 @@ MonoBehaviour:
     attackRange: 8
     moveSpeed: 3
     dropCoin: 10
+  player: {fileID: 0}
   projectilePrefab: {fileID: 4175698197552377764, guid: 10b77d655828d3142ad52638dee03d3b, type: 3}
 --- !u!1 &8621980614598833219
 GameObject:

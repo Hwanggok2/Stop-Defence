@@ -8,7 +8,7 @@ namespace Enemy
 
             stat.hp = stat.level * 400;
             stat.attackDamage = stat.level * 30;
-            stat.attackSpeed = stat.level * 0.25f;
+            stat.attackSpeed = stat.level * 0.24f;
             stat.attackRange = 1;
             stat.moveSpeed = stat.level + 3;
             stat.dropCoin = stat.level * 100;
