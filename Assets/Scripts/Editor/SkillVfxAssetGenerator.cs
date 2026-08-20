@@ -23,6 +23,7 @@ namespace StopDefence.Editor
         private const string NailDrivingPrefabPath = PrefabPath + "/Skill_004_NailDriving.prefab";
         private const string PlagueMagicPrefabPath = PrefabPath + "/Skill_006_PlagueMagic.prefab";
         private const string IceLancePrefabPath = PrefabPath + "/Skill_007_IceLance.prefab";
+        private const string MegaExplosionPrefabPath = PrefabPath + "/Skill_008_MegaExplosion.prefab";
         private const string FlashbangPrefabPath = PrefabPath + "/Skill_010_Flashbang.prefab";
 
         [MenuItem("Tools/Skill VFX/Generate Skill Effects")]
@@ -39,6 +40,7 @@ namespace StopDefence.Editor
             CreateFireballPixelTextures();
             CreatePlaguePixelTextures();
             CreateIceLanceTextures();
+            CreateMegaExplosionTextures();
             CreateFlashbangTextures();
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
@@ -81,6 +83,12 @@ namespace StopDefence.Editor
             GameObject plagueMagicPrefab =
                 CreatePlagueMagicPrefab(pixelGlow, pixelRing, pixelSmoke, skull, plaguePool);
             GameObject iceLancePrefab = CreateIceLanceAssets();
+            GameObject megaExplosionPrefab = CreateMegaExplosionAssets(
+                pixelGlow,
+                pixelRing,
+                pixelShard,
+                pixelSmoke,
+                pixelFlame);
             GameObject flashbangPrefab = CreateFlashbangAssets(pixelGlow, pixelRing, pixelShard);
             if (File.Exists(PreviewScenePath))
             {
@@ -88,6 +96,7 @@ namespace StopDefence.Editor
                     nailDrivingPrefab,
                     plagueMagicPrefab,
                     iceLancePrefab,
+                    megaExplosionPrefab,
                     flashbangPrefab);
             }
             else
@@ -98,6 +107,7 @@ namespace StopDefence.Editor
                     nailDrivingPrefab,
                     plagueMagicPrefab,
                     iceLancePrefab,
+                    megaExplosionPrefab,
                     flashbangPrefab);
             }
 
@@ -106,7 +116,7 @@ namespace StopDefence.Editor
             Debug.Log(
                 $"[Skill VFX] Generated {FireballPrefabPath}, {EarthPrefabPath}, " +
                 $"{NailDrivingPrefabPath}, {PlagueMagicPrefabPath}, {IceLancePrefabPath}, " +
-                $"{FlashbangPrefabPath}, and {PreviewScenePath}.");
+                $"{MegaExplosionPrefabPath}, {FlashbangPrefabPath}, and {PreviewScenePath}.");
         }
 
         [MenuItem("Tools/Skill VFX/Generate Ice Lance Effect")]
@@ -131,16 +141,85 @@ namespace StopDefence.Editor
                     AssetDatabase.LoadAssetAtPath<GameObject>(PlagueMagicPrefabPath);
                 GameObject flashbangPrefab =
                     AssetDatabase.LoadAssetAtPath<GameObject>(FlashbangPrefabPath);
+                GameObject megaExplosionPrefab =
+                    AssetDatabase.LoadAssetAtPath<GameObject>(MegaExplosionPrefabPath);
                 UpdatePreviewScene(
                     nailDrivingPrefab,
                     plagueMagicPrefab,
                     iceLancePrefab,
+                    megaExplosionPrefab,
                     flashbangPrefab);
             }
 
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Debug.Log($"[Skill VFX] Generated {IceLancePrefabPath} and updated the preview scene.");
+        }
+
+        [MenuItem("Tools/Skill VFX/Generate Mega Explosion Effect")]
+        public static void GenerateMegaExplosion()
+        {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                Debug.LogWarning("[Skill VFX] Exit Play Mode before generating skill effects.");
+                return;
+            }
+
+            EnsureDirectories();
+            if (LoadTexture("PixelGlow.png") == null ||
+                LoadTexture("PixelRing.png") == null ||
+                LoadTexture("PixelShard.png") == null ||
+                LoadTexture("PixelSmoke.png") == null ||
+                LoadTexture("PixelFlame.png") == null)
+            {
+                CreateNailDrivingTextures();
+                CreateFireballPixelTextures();
+            }
+
+            CreateMegaExplosionTextures();
+            AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
+
+            Material pixelGlow = CreateMaterial(
+                "PixelGlow_Additive.mat",
+                LoadTexture("PixelGlow.png"),
+                BlendMode.One);
+            Material pixelRing = CreateMaterial(
+                "PixelRing_Additive.mat",
+                LoadTexture("PixelRing.png"),
+                BlendMode.One);
+            Material pixelShard = CreateMaterial(
+                "PixelShard_Alpha.mat",
+                LoadTexture("PixelShard.png"),
+                BlendMode.OneMinusSrcAlpha);
+            Material pixelSmoke = CreateMaterial(
+                "PixelSmoke_Alpha.mat",
+                LoadTexture("PixelSmoke.png"),
+                BlendMode.OneMinusSrcAlpha);
+            Material pixelFlame = CreateMaterial(
+                "PixelFlame_Additive.mat",
+                LoadTexture("PixelFlame.png"),
+                BlendMode.One);
+
+            GameObject megaExplosionPrefab = CreateMegaExplosionAssets(
+                pixelGlow,
+                pixelRing,
+                pixelShard,
+                pixelSmoke,
+                pixelFlame);
+            if (File.Exists(PreviewScenePath))
+            {
+                UpdatePreviewScene(
+                    AssetDatabase.LoadAssetAtPath<GameObject>(NailDrivingPrefabPath),
+                    AssetDatabase.LoadAssetAtPath<GameObject>(PlagueMagicPrefabPath),
+                    AssetDatabase.LoadAssetAtPath<GameObject>(IceLancePrefabPath),
+                    megaExplosionPrefab,
+                    AssetDatabase.LoadAssetAtPath<GameObject>(FlashbangPrefabPath));
+            }
+
+            AssetDatabase.SaveAssets();
+            AssetDatabase.Refresh();
+            Debug.Log(
+                $"[Skill VFX] Generated {MegaExplosionPrefabPath} and updated the preview scene.");
         }
 
         [MenuItem("Tools/Skill VFX/Open Preview Scene")]
@@ -233,6 +312,47 @@ namespace StopDefence.Editor
                 pixelGlow,
                 pixelRing,
                 pixelShard);
+        }
+
+        private static GameObject CreateMegaExplosionAssets(
+            Material pixelGlow,
+            Material pixelRing,
+            Material pixelShard,
+            Material pixelSmoke,
+            Material pixelFlame)
+        {
+            Material rune = CreateMaterial(
+                "MegaRune_Alpha.mat",
+                LoadTexture("MegaRune.png"),
+                BlendMode.OneMinusSrcAlpha);
+            Material beam = CreateMaterial(
+                "MegaBeam_Alpha.mat",
+                LoadTexture("MegaBeam.png"),
+                BlendMode.OneMinusSrcAlpha);
+            Material blast = CreateMaterial(
+                "MegaBlast_Alpha.mat",
+                LoadTexture("MegaBlastCloud.png"),
+                BlendMode.OneMinusSrcAlpha);
+            Material scorch = CreateMaterial(
+                "MegaScorch_Alpha.mat",
+                LoadTexture("MegaScorch.png"),
+                BlendMode.OneMinusSrcAlpha);
+            Material impactGlow = CreateMaterial(
+                "MegaImpactGlow_Alpha.mat",
+                LoadTexture("PixelGlow.png"),
+                BlendMode.OneMinusSrcAlpha);
+
+            return CreateMegaExplosionPrefab(
+                rune,
+                beam,
+                blast,
+                scorch,
+                impactGlow,
+                pixelGlow,
+                pixelRing,
+                pixelShard,
+                pixelSmoke,
+                pixelFlame);
         }
 
         private static GameObject CreateFireballPrefab(
@@ -1358,6 +1478,341 @@ namespace StopDefence.Editor
             return SavePrefab(root, FlashbangPrefabPath);
         }
 
+        private static GameObject CreateMegaExplosionPrefab(
+            Material runeMaterial,
+            Material beamMaterial,
+            Material blastMaterial,
+            Material scorchMaterial,
+            Material impactGlow,
+            Material pixelGlow,
+            Material pixelRing,
+            Material pixelShard,
+            Material pixelSmoke,
+            Material pixelFlame)
+        {
+            GameObject root = CreateEffectRoot("Skill_008_MegaExplosion", "skill_008");
+
+            ParticleSystem outerRune = CreateSystem(root.transform, "ChargeRuneOuter", runeMaterial, 2);
+            outerRune.transform.localScale = new Vector3(1f, 0.72f, 1f);
+            ConfigureBase(outerRune, 1f, 0.82f, 0f, 8.4f, 2, Color.white);
+            ParticleSystem.MainModule outerRuneMain = outerRune.main;
+            outerRuneMain.startColor = new Color(1f, 0.28f, 0.015f);
+            SetBursts(outerRune, new ParticleSystem.Burst(0f, 1));
+            SetSizeOverLifetime(
+                outerRune,
+                Curve((0f, 0.08f), (0.28f, 0.72f), (0.62f, 1f), (1f, 0.82f)));
+            SetColorOverLifetime(
+                outerRune,
+                new Color(1f, 0.16f, 0.01f),
+                new Color(1f, 0.72f, 0.12f),
+                0.35f,
+                0f);
+            ConfigureRotation(outerRune, -0.55f, -0.55f);
+            SetDeterministic(outerRune, 8001);
+
+            ParticleSystem innerRune = CreateSystem(root.transform, "ChargeRuneInner", runeMaterial, 3);
+            innerRune.transform.localPosition = new Vector3(0f, 0.08f, 0f);
+            innerRune.transform.localScale = new Vector3(0.72f, 0.58f, 1f);
+            ConfigureBase(innerRune, 1f, 0.7f, 0f, 6.8f, 2, Color.white);
+            ParticleSystem.MainModule innerRuneMain = innerRune.main;
+            innerRuneMain.startDelay = 0.12f;
+            innerRuneMain.startColor = new Color(1f, 0.55f, 0.06f);
+            SetBursts(innerRune, new ParticleSystem.Burst(0f, 1));
+            SetSizeOverLifetime(
+                innerRune,
+                Curve((0f, 0.12f), (0.32f, 0.86f), (0.74f, 1f), (1f, 0.7f)));
+            SetFade(innerRune, 0.9f, 0f);
+            ConfigureRotation(innerRune, 0.85f, 0.85f);
+            SetDeterministic(innerRune, 8002);
+
+            ParticleSystem chargeSparks = CreateSystem(
+                root.transform,
+                "RisingChargeSparks",
+                pixelShard,
+                6);
+            ConfigureBase(chargeSparks, 1.1f, 0.6f, 4f, 0.14f, 70, Color.white);
+            ParticleSystem.MainModule chargeSparkMain = chargeSparks.main;
+            chargeSparkMain.startDelay = 0.08f;
+            chargeSparkMain.startLifetime = new ParticleSystem.MinMaxCurve(0.28f, 0.72f);
+            chargeSparkMain.startSpeed = new ParticleSystem.MinMaxCurve(2.4f, 6.2f);
+            chargeSparkMain.startSize = new ParticleSystem.MinMaxCurve(0.06f, 0.22f);
+            chargeSparkMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(1f, 0.35f, 0.02f),
+                new Color(1f, 0.9f, 0.38f));
+            ConfigureCone(
+                chargeSparks,
+                new Vector3(-90f, 0f, 0f),
+                38f,
+                2.1f,
+                new Vector3(0f, 0.08f, 0f));
+            SetBursts(
+                chargeSparks,
+                new ParticleSystem.Burst(0f, 18),
+                new ParticleSystem.Burst(0.22f, 24),
+                new ParticleSystem.Burst(0.44f, 28));
+            SetFade(chargeSparks, 1f, 0f);
+            chargeSparks.GetComponent<ParticleSystemRenderer>().alignment =
+                ParticleSystemRenderSpace.Velocity;
+            SetDeterministic(chargeSparks, 8003);
+
+            ParticleSystem beamBack = CreateSystem(root.transform, "EnergyBeamBack", beamMaterial, 5);
+            beamBack.transform.localPosition = new Vector3(0f, 3.4f, 0f);
+            ConfigureBase(beamBack, 1.4f, 0.88f, 0f, 1f, 2, Color.white);
+            ParticleSystem.MainModule beamBackMain = beamBack.main;
+            beamBackMain.startDelay = 0.24f;
+            SetStartSize3D(beamBack, 3.2f, 7.8f);
+            beamBackMain.startColor = new Color(1f, 0.22f, 0.015f, 0.72f);
+            SetBursts(beamBack, new ParticleSystem.Burst(0f, 1));
+            SetSizeOverLifetime(
+                beamBack,
+                Curve((0f, 0.06f), (0.18f, 0.78f), (0.62f, 1f), (1f, 0.24f)));
+            SetFade(beamBack, 0.78f, 0f);
+            SetDeterministic(beamBack, 8004);
+
+            ParticleSystem beamCore = CreateSystem(root.transform, "EnergyBeamCore", beamMaterial, 8);
+            beamCore.transform.localPosition = new Vector3(0f, 3.55f, 0f);
+            ConfigureBase(beamCore, 1.2f, 0.58f, 0f, 1f, 2, Color.white);
+            ParticleSystem.MainModule beamCoreMain = beamCore.main;
+            beamCoreMain.startDelay = 0.38f;
+            SetStartSize3D(beamCore, 1.15f, 8.25f);
+            beamCoreMain.startColor = new Color(1f, 0.94f, 0.6f);
+            SetBursts(beamCore, new ParticleSystem.Burst(0f, 1));
+            SetSizeOverLifetime(
+                beamCore,
+                Curve((0f, 0.08f), (0.15f, 1f), (0.7f, 0.82f), (1f, 0.05f)));
+            SetFade(beamCore, 1f, 0f);
+            SetDeterministic(beamCore, 8005);
+
+            ParticleSystem beamHalos = CreateSystem(root.transform, "BeamOrbitHalos", pixelRing, 7);
+            beamHalos.transform.localPosition = new Vector3(0f, 2.75f, 0f);
+            beamHalos.transform.localScale = new Vector3(1f, 0.28f, 1f);
+            ConfigureBase(beamHalos, 1.2f, 0.52f, 0f, 3.4f, 4, Color.white);
+            ParticleSystem.MainModule haloMain = beamHalos.main;
+            haloMain.startDelay = 0.28f;
+            haloMain.startColor = new Color(1f, 0.52f, 0.08f);
+            SetBursts(
+                beamHalos,
+                new ParticleSystem.Burst(0f, 1),
+                new ParticleSystem.Burst(0.24f, 1));
+            SetSizeOverLifetime(
+                beamHalos,
+                Curve((0f, 0.32f), (0.34f, 1f), (1f, 1.38f)));
+            SetFade(beamHalos, 0.92f, 0f);
+            ConfigureRotation(beamHalos, -1.3f, 1.3f);
+            SetDeterministic(beamHalos, 8006);
+
+            ParticleSystem impactFlash = CreateSystem(root.transform, "CataclysmFlash", impactGlow, 15);
+            impactFlash.transform.localPosition = new Vector3(0f, 0.36f, 0f);
+            ConfigureBase(impactFlash, 1.2f, 0.2f, 0f, 4.2f, 4, Color.white);
+            ParticleSystem.MainModule impactFlashMain = impactFlash.main;
+            impactFlashMain.startDelay = 0.68f;
+            impactFlashMain.startSize = new ParticleSystem.MinMaxCurve(3.5f, 4.6f);
+            impactFlashMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(1f, 0.42f, 0.02f),
+                new Color(1f, 1f, 0.76f));
+            SetBursts(impactFlash, new ParticleSystem.Burst(0f, 3));
+            SetSizeOverLifetime(
+                impactFlash,
+                Curve((0f, 0.08f), (0.14f, 1f), (0.5f, 0.82f), (1f, 0.08f)));
+            SetFade(impactFlash, 1f, 0f);
+            SetDeterministic(impactFlash, 8007);
+
+            ParticleSystem shockwave = CreateSystem(root.transform, "GroundCataclysmRing", runeMaterial, 9);
+            shockwave.transform.localScale = new Vector3(1f, 0.46f, 1f);
+            ConfigureBase(shockwave, 1.3f, 0.58f, 0f, 8.8f, 3, Color.white);
+            ParticleSystem.MainModule shockwaveMain = shockwave.main;
+            shockwaveMain.startDelay = 0.68f;
+            shockwaveMain.startColor = new Color(1f, 0.52f, 0.045f);
+            SetBursts(
+                shockwave,
+                new ParticleSystem.Burst(0f, 1),
+                new ParticleSystem.Burst(0.14f, 1));
+            SetSizeOverLifetime(
+                shockwave,
+                Curve((0f, 0.12f), (0.42f, 0.86f), (1f, 1.22f)));
+            SetFade(shockwave, 0.95f, 0f);
+            SetDeterministic(shockwave, 8008);
+
+            ParticleSystem blastCloud = CreateSystem(root.transform, "DesignedBlastCloud", blastMaterial, 10);
+            blastCloud.transform.localPosition = new Vector3(0f, 1.92f, 0f);
+            ConfigureBase(blastCloud, 2.2f, 1.35f, 0f, 1f, 2, Color.white);
+            ParticleSystem.MainModule blastMain = blastCloud.main;
+            blastMain.startDelay = 0.72f;
+            SetStartSize3D(blastCloud, 6.8f, 5.2f);
+            SetBursts(blastCloud, new ParticleSystem.Burst(0f, 1));
+            SetSizeOverLifetime(
+                blastCloud,
+                Curve((0f, 0.08f), (0.16f, 0.88f), (0.36f, 1f), (0.82f, 0.94f), (1f, 0.78f)));
+            SetFade(blastCloud, 1f, 0f);
+            SetDeterministic(blastCloud, 8009);
+
+            ParticleSystem fireColumn = CreateSystem(root.transform, "ToweringFireColumn", pixelFlame, 13);
+            ConfigureBase(fireColumn, 2.2f, 0.9f, 6f, 0.8f, 110, Color.white);
+            ParticleSystem.MainModule fireMain = fireColumn.main;
+            fireMain.startDelay = 0.7f;
+            fireMain.startLifetime = new ParticleSystem.MinMaxCurve(0.45f, 1.3f);
+            fireMain.startSpeed = new ParticleSystem.MinMaxCurve(3.2f, 9.2f);
+            fireMain.startSize = new ParticleSystem.MinMaxCurve(0.28f, 1.15f);
+            fireMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(1f, 0.2f, 0.005f),
+                new Color(1f, 0.9f, 0.28f));
+            ConfigureCone(
+                fireColumn,
+                new Vector3(-90f, 0f, 0f),
+                54f,
+                1.45f,
+                new Vector3(0f, 0.14f, 0f));
+            SetBursts(
+                fireColumn,
+                new ParticleSystem.Burst(0f, 58),
+                new ParticleSystem.Burst(0.16f, 36));
+            ConfigureNoise(fireColumn, 0.36f, 0.75f);
+            SetColorOverLifetime(
+                fireColumn,
+                new Color(1f, 0.86f, 0.2f),
+                new Color(0.9f, 0.04f, 0f),
+                1f,
+                0f);
+            SetSizeOverLifetime(
+                fireColumn,
+                Curve((0f, 0.18f), (0.18f, 1f), (0.72f, 0.82f), (1f, 0.08f)));
+            fireColumn.GetComponent<ParticleSystemRenderer>().alignment =
+                ParticleSystemRenderSpace.Velocity;
+            SetDeterministic(fireColumn, 8010);
+
+            ParticleSystem debris = CreateSystem(root.transform, "CataclysmDebris", pixelShard, 14);
+            ConfigureBase(debris, 2.8f, 1.25f, 6f, 0.36f, 90, Color.white);
+            ParticleSystem.MainModule debrisMain = debris.main;
+            debrisMain.startDelay = 0.7f;
+            debrisMain.startLifetime = new ParticleSystem.MinMaxCurve(0.65f, 1.8f);
+            debrisMain.startSpeed = new ParticleSystem.MinMaxCurve(3.2f, 9.8f);
+            debrisMain.startSize = new ParticleSystem.MinMaxCurve(0.14f, 0.72f);
+            debrisMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
+            debrisMain.gravityModifier = new ParticleSystem.MinMaxCurve(1.8f, 3.2f);
+            debrisMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(0.14f, 0.07f, 0.035f),
+                new Color(0.7f, 0.18f, 0.02f));
+            ConfigureCone(
+                debris,
+                new Vector3(-90f, 0f, 0f),
+                76f,
+                1.25f,
+                new Vector3(0f, 0.18f, 0f));
+            SetBursts(debris, new ParticleSystem.Burst(0f, 48));
+            ConfigureRotation(debris, -7f, 7f);
+            SetFade(debris, 1f, 0f);
+            debris.GetComponent<ParticleSystemRenderer>().alignment =
+                ParticleSystemRenderSpace.Velocity;
+            SetDeterministic(debris, 8011);
+
+            ParticleSystem smoke = CreateSystem(root.transform, "MushroomSmoke", pixelSmoke, 7);
+            smoke.transform.localPosition = new Vector3(0f, 0.4f, 0f);
+            ConfigureBase(smoke, 3.6f, 2f, 1.8f, 1.4f, 90, Color.white);
+            ParticleSystem.MainModule smokeMain = smoke.main;
+            smokeMain.startDelay = 0.84f;
+            smokeMain.startLifetime = new ParticleSystem.MinMaxCurve(1.2f, 2.65f);
+            smokeMain.startSpeed = new ParticleSystem.MinMaxCurve(0.8f, 3.1f);
+            smokeMain.startSize = new ParticleSystem.MinMaxCurve(0.72f, 2.15f);
+            smokeMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
+            smokeMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(0.12f, 0.08f, 0.065f, 0.86f),
+                new Color(0.36f, 0.17f, 0.08f, 0.72f));
+            ConfigureCone(
+                smoke,
+                new Vector3(-90f, 0f, 0f),
+                64f,
+                1.6f,
+                new Vector3(0f, 0.2f, 0f));
+            SetBursts(
+                smoke,
+                new ParticleSystem.Burst(0f, 24),
+                new ParticleSystem.Burst(0.36f, 20),
+                new ParticleSystem.Burst(0.8f, 16));
+            ConfigureNoise(smoke, 0.5f, 0.42f);
+            SetColorOverLifetime(
+                smoke,
+                new Color(0.32f, 0.13f, 0.055f),
+                new Color(0.055f, 0.045f, 0.04f),
+                0.82f,
+                0f);
+            SetSizeOverLifetime(
+                smoke,
+                Curve((0f, 0.35f), (0.44f, 1f), (1f, 1.42f)));
+            SetDeterministic(smoke, 8012);
+
+            ParticleSystem embers = CreateSystem(root.transform, "LongLivedEmbers", pixelGlow, 16);
+            ConfigureBase(embers, 3.8f, 2f, 6f, 0.1f, 170, Color.white);
+            ParticleSystem.MainModule emberMain = embers.main;
+            emberMain.startDelay = 0.72f;
+            emberMain.startLifetime = new ParticleSystem.MinMaxCurve(0.75f, 2.8f);
+            emberMain.startSpeed = new ParticleSystem.MinMaxCurve(2.4f, 9.5f);
+            emberMain.startSize = new ParticleSystem.MinMaxCurve(0.035f, 0.18f);
+            emberMain.gravityModifier = new ParticleSystem.MinMaxCurve(0.35f, 1.4f);
+            emberMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(1f, 0.18f, 0.01f),
+                new Color(1f, 0.74f, 0.16f));
+            ConfigureCone(
+                embers,
+                new Vector3(-90f, 0f, 0f),
+                82f,
+                1.7f,
+                new Vector3(0f, 0.12f, 0f));
+            SetBursts(
+                embers,
+                new ParticleSystem.Burst(0f, 92),
+                new ParticleSystem.Burst(0.42f, 42));
+            ConfigureNoise(embers, 0.42f, 1.1f);
+            SetFade(embers, 1f, 0f);
+            SetDeterministic(embers, 8013);
+
+            ParticleSystem scorch = CreateSystem(root.transform, "BurningScorch", scorchMaterial, 1);
+            scorch.transform.localPosition = new Vector3(0f, -0.03f, 0f);
+            ConfigureBase(scorch, 3.8f, 2.9f, 0f, 1f, 2, Color.white);
+            ParticleSystem.MainModule scorchMain = scorch.main;
+            scorchMain.startDelay = 0.7f;
+            SetStartSize3D(scorch, 8.4f, 0.82f);
+            SetBursts(scorch, new ParticleSystem.Burst(0f, 1));
+            SetSizeOverLifetime(
+                scorch,
+                Curve((0f, 0.08f), (0.1f, 1f), (0.82f, 1f), (1f, 0.94f)));
+            SetFade(scorch, 1f, 0f);
+            SetDeterministic(scorch, 8014);
+
+            ParticleSystem groundFire = CreateSystem(root.transform, "GroundAfterburn", pixelFlame, 8);
+            ConfigureBase(groundFire, 3.4f, 1.1f, 1.1f, 0.5f, 70, Color.white);
+            ParticleSystem.MainModule groundFireMain = groundFire.main;
+            groundFireMain.startDelay = 0.92f;
+            groundFireMain.startLifetime = new ParticleSystem.MinMaxCurve(0.55f, 1.45f);
+            groundFireMain.startSpeed = new ParticleSystem.MinMaxCurve(0.35f, 1.8f);
+            groundFireMain.startSize = new ParticleSystem.MinMaxCurve(0.18f, 0.78f);
+            groundFireMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(1f, 0.1f, 0.005f),
+                new Color(1f, 0.58f, 0.08f));
+            ParticleSystem.ShapeModule groundFireShape = groundFire.shape;
+            groundFireShape.enabled = true;
+            groundFireShape.shapeType = ParticleSystemShapeType.Box;
+            groundFireShape.position = new Vector3(0f, 0.1f, 0f);
+            groundFireShape.scale = new Vector3(7.8f, 0.16f, 0.1f);
+            SetBursts(
+                groundFire,
+                new ParticleSystem.Burst(0f, 28),
+                new ParticleSystem.Burst(0.58f, 20));
+            SetColorOverLifetime(
+                groundFire,
+                new Color(1f, 0.52f, 0.08f),
+                new Color(0.65f, 0.025f, 0f),
+                0.9f,
+                0f);
+            SetSizeOverLifetime(
+                groundFire,
+                Curve((0f, 0.18f), (0.2f, 1f), (1f, 0.05f)));
+            groundFire.GetComponent<ParticleSystemRenderer>().alignment =
+                ParticleSystemRenderSpace.Velocity;
+            SetDeterministic(groundFire, 8015);
+
+            return SavePrefab(root, MegaExplosionPrefabPath);
+        }
+
         private static GameObject CreateEffectRoot(string objectName, string skillId)
         {
             GameObject root = new GameObject(objectName);
@@ -1554,53 +2009,61 @@ namespace StopDefence.Editor
             GameObject nailDrivingPrefab,
             GameObject plagueMagicPrefab,
             GameObject iceLancePrefab,
+            GameObject megaExplosionPrefab,
             GameObject flashbangPrefab)
         {
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 
             GameObject cameraObject = new GameObject("Main Camera", typeof(Camera), typeof(AudioListener));
             cameraObject.tag = "MainCamera";
-            cameraObject.transform.position = new Vector3(0f, 1.1f, -10f);
+            cameraObject.transform.position = new Vector3(0f, 0.8f, -10f);
             Camera camera = cameraObject.GetComponent<Camera>();
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.008f, 0.012f, 0.025f);
             camera.orthographic = true;
-            camera.orthographicSize = 7.2f;
+            camera.orthographicSize = 8.8f;
             camera.allowHDR = true;
 
             GameObject fireballObject = (GameObject)PrefabUtility.InstantiatePrefab(fireballPrefab, scene);
-            fireballObject.transform.position = new Vector3(-10f, -0.7f, 0f);
+            fireballObject.transform.position = new Vector3(-10f, 3.2f, 0f);
             SkillParticleEffect fireball = fireballObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(fireball);
 
             GameObject earthObject = (GameObject)PrefabUtility.InstantiatePrefab(earthPrefab, scene);
-            earthObject.transform.position = new Vector3(-6f, -0.7f, 0f);
+            earthObject.transform.position = new Vector3(-6f, 3.2f, 0f);
             SkillParticleEffect earth = earthObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(earth);
 
             GameObject nailDrivingObject =
                 (GameObject)PrefabUtility.InstantiatePrefab(nailDrivingPrefab, scene);
-            nailDrivingObject.transform.position = new Vector3(-2f, -0.7f, 0f);
+            nailDrivingObject.transform.position = new Vector3(-2f, 3.2f, 0f);
             SkillParticleEffect nailDriving = nailDrivingObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(nailDriving);
 
             GameObject plagueMagicObject =
                 (GameObject)PrefabUtility.InstantiatePrefab(plagueMagicPrefab, scene);
-            plagueMagicObject.transform.position = new Vector3(2f, -0.7f, 0f);
+            plagueMagicObject.transform.position = new Vector3(2f, 3.2f, 0f);
             SkillParticleEffect plagueMagic = plagueMagicObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(plagueMagic);
 
             GameObject iceLanceObject =
                 (GameObject)PrefabUtility.InstantiatePrefab(iceLancePrefab, scene);
-            iceLanceObject.transform.position = new Vector3(6f, -0.7f, 0f);
+            iceLanceObject.transform.position = new Vector3(6f, 3.2f, 0f);
             SkillParticleEffect iceLance = iceLanceObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(iceLance);
 
             GameObject flashbangObject =
                 (GameObject)PrefabUtility.InstantiatePrefab(flashbangPrefab, scene);
-            flashbangObject.transform.position = new Vector3(10f, -0.7f, 0f);
+            flashbangObject.transform.position = new Vector3(10f, 3.2f, 0f);
             SkillParticleEffect flashbang = flashbangObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(flashbang);
+
+            GameObject megaExplosionObject =
+                (GameObject)PrefabUtility.InstantiatePrefab(megaExplosionPrefab, scene);
+            megaExplosionObject.transform.position = new Vector3(0f, -4.2f, 0f);
+            SkillParticleEffect megaExplosion =
+                megaExplosionObject.GetComponent<SkillParticleEffect>();
+            DisableAutoDestroy(megaExplosion);
 
             GameObject controllerObject = new GameObject("Preview Controller");
             SkillVfxPreviewController controller = controllerObject.AddComponent<SkillVfxPreviewController>();
@@ -1610,6 +2073,7 @@ namespace StopDefence.Editor
             serializedController.FindProperty("nailDriving").objectReferenceValue = nailDriving;
             serializedController.FindProperty("plagueMagic").objectReferenceValue = plagueMagic;
             serializedController.FindProperty("iceLance").objectReferenceValue = iceLance;
+            serializedController.FindProperty("megaExplosion").objectReferenceValue = megaExplosion;
             serializedController.FindProperty("flashbang").objectReferenceValue = flashbang;
             serializedController.ApplyModifiedPropertiesWithoutUndo();
 
@@ -1622,6 +2086,7 @@ namespace StopDefence.Editor
             GameObject nailDrivingPrefab,
             GameObject plagueMagicPrefab,
             GameObject iceLancePrefab,
+            GameObject megaExplosionPrefab,
             GameObject flashbangPrefab)
         {
             Scene scene = SceneManager.GetSceneByPath(PreviewScenePath);
@@ -1636,6 +2101,7 @@ namespace StopDefence.Editor
             SkillParticleEffect nailDriving = null;
             SkillParticleEffect plagueMagic = null;
             SkillParticleEffect iceLance = null;
+            SkillParticleEffect megaExplosion = null;
             SkillParticleEffect flashbang = null;
             SkillVfxPreviewController controller = null;
 
@@ -1660,6 +2126,9 @@ namespace StopDefence.Editor
                             break;
                         case "skill_007":
                             iceLance = effect;
+                            break;
+                        case "skill_008":
+                            megaExplosion = effect;
                             break;
                         case "skill_010":
                             flashbang = effect;
@@ -1702,22 +2171,35 @@ namespace StopDefence.Editor
                 DisableAutoDestroy(flashbang);
             }
 
+            if (megaExplosion == null && megaExplosionPrefab != null)
+            {
+                GameObject megaExplosionObject =
+                    (GameObject)PrefabUtility.InstantiatePrefab(megaExplosionPrefab, scene);
+                megaExplosion = megaExplosionObject.GetComponent<SkillParticleEffect>();
+                DisableAutoDestroy(megaExplosion);
+            }
+
             if (fireball != null)
             {
-                fireball.transform.position = new Vector3(-10f, -0.7f, 0f);
+                fireball.transform.position = new Vector3(-10f, 3.2f, 0f);
             }
 
             if (earth != null)
             {
-                earth.transform.position = new Vector3(-6f, -0.7f, 0f);
+                earth.transform.position = new Vector3(-6f, 3.2f, 0f);
             }
 
-            nailDriving.transform.position = new Vector3(-2f, -0.7f, 0f);
-            plagueMagic.transform.position = new Vector3(2f, -0.7f, 0f);
-            iceLance.transform.position = new Vector3(6f, -0.7f, 0f);
+            nailDriving.transform.position = new Vector3(-2f, 3.2f, 0f);
+            plagueMagic.transform.position = new Vector3(2f, 3.2f, 0f);
+            iceLance.transform.position = new Vector3(6f, 3.2f, 0f);
             if (flashbang != null)
             {
-                flashbang.transform.position = new Vector3(10f, -0.7f, 0f);
+                flashbang.transform.position = new Vector3(10f, 3.2f, 0f);
+            }
+
+            if (megaExplosion != null)
+            {
+                megaExplosion.transform.position = new Vector3(0f, -4.2f, 0f);
             }
 
             Camera previewCamera = null;
@@ -1728,7 +2210,8 @@ namespace StopDefence.Editor
 
             if (previewCamera != null)
             {
-                previewCamera.orthographicSize = 7.2f;
+                previewCamera.transform.position = new Vector3(0f, 0.8f, -10f);
+                previewCamera.orthographicSize = 8.8f;
             }
 
             if (controller == null)
@@ -1744,6 +2227,7 @@ namespace StopDefence.Editor
             serializedController.FindProperty("nailDriving").objectReferenceValue = nailDriving;
             serializedController.FindProperty("plagueMagic").objectReferenceValue = plagueMagic;
             serializedController.FindProperty("iceLance").objectReferenceValue = iceLance;
+            serializedController.FindProperty("megaExplosion").objectReferenceValue = megaExplosion;
             serializedController.FindProperty("flashbang").objectReferenceValue = flashbang;
             serializedController.ApplyModifiedPropertiesWithoutUndo();
 
@@ -2126,6 +2610,14 @@ namespace StopDefence.Editor
             WritePixelTexture("Snowflake.png", SampleSnowflakePixel);
         }
 
+        private static void CreateMegaExplosionTextures()
+        {
+            WritePixelTexture("MegaRune.png", 64, 32, SampleMegaRunePixel);
+            WritePixelTexture("MegaBeam.png", 32, 64, SampleMegaBeamPixel);
+            WritePixelTexture("MegaBlastCloud.png", 128, 128, SampleMegaBlastPixel);
+            WritePixelTexture("MegaScorch.png", 64, 16, SampleMegaScorchPixel);
+        }
+
         private static void CreateFlashbangTextures()
         {
             WriteTexture("RadiantStar.png", (x, y) =>
@@ -2170,6 +2662,231 @@ namespace StopDefence.Editor
                 float value = Mathf.Lerp(0.65f, 1f, body + rim * 0.3f);
                 return new Color(value, value, value, alpha);
             });
+        }
+
+        private static Color SampleMegaRunePixel(int x, int y)
+        {
+            float normalizedX = (x - 31.5f) / 30.5f;
+            float normalizedY = (y - 15.5f) / 13.5f;
+            float radius = Mathf.Sqrt(
+                normalizedX * normalizedX + normalizedY * normalizedY);
+            float angle = Mathf.Atan2(normalizedY, normalizedX);
+            int sector = Mathf.FloorToInt((angle + Mathf.PI) / (Mathf.PI * 2f) * 32f);
+
+            bool outerRing = Mathf.Abs(radius - 0.91f) <= 0.055f && sector % 5 != 0;
+            bool middleRing = Mathf.Abs(radius - 0.68f) <= 0.045f;
+            bool innerRing = Mathf.Abs(radius - 0.38f) <= 0.05f && sector % 4 != 1;
+            bool cardinal = radius >= 0.42f && radius <= 0.96f &&
+                            Mathf.Abs(Mathf.Sin(angle * 4f)) <= 0.075f;
+            bool runes = radius >= 0.76f && radius <= 0.84f &&
+                         ((x * 3 + y * 5) % 11 <= 2 || sector % 4 == 0);
+            bool core = radius <= 0.13f ||
+                        radius <= 0.28f && Mathf.Abs(normalizedX) <= 0.045f ||
+                        radius <= 0.28f && Mathf.Abs(normalizedY) <= 0.075f;
+            if (!outerRing && !middleRing && !innerRing && !cardinal && !runes && !core)
+            {
+                return Color.clear;
+            }
+
+            float value = core
+                ? 1f
+                : outerRing || middleRing
+                    ? 0.88f
+                    : runes
+                        ? 0.72f
+                        : 0.56f;
+            return new Color(value, value, value, 1f);
+        }
+
+        private static Color SampleMegaBeamPixel(int x, int y)
+        {
+            const int center = 15;
+            int distanceX = Math.Abs(x - center);
+            int jaggedWidth = 8 + ((y * 7) % 5 == 0 ? 2 : 0);
+            if (y > 52)
+            {
+                jaggedWidth = Math.Max(2, jaggedWidth - (y - 52) / 2);
+            }
+
+            bool body = y >= 1 && y <= 62 && distanceX <= jaggedWidth;
+            bool detachedRay = y >= 6 && y <= 57 &&
+                               (Math.Abs(x - 3 - y / 13) <= 1 ||
+                                Math.Abs(x - 28 + y / 15) <= 1) &&
+                               (x + y) % 4 != 0;
+            if (!body && !detachedRay)
+            {
+                return Color.clear;
+            }
+
+            float value = detachedRay && !body
+                ? 0.38f
+                : distanceX <= 2
+                    ? 1f
+                    : distanceX <= 5
+                        ? 0.78f
+                        : 0.42f;
+            if (body && (x * 5 + y * 3) % 23 == 0)
+            {
+                value *= 0.58f;
+            }
+
+            return new Color(value, value, value, 1f);
+        }
+
+        private static Color SampleMegaBlastPixel(int x, int y)
+        {
+            const float sourceScale = 63f / 127f;
+            float sourceX = x * sourceScale;
+            float sourceY = y * sourceScale;
+            float noise = PixelHash01(x / 2, y / 2);
+            bool smoke =
+                InsidePixelCircle(sourceX, sourceY, 11f, 23f, 9f) ||
+                InsidePixelCircle(sourceX, sourceY, 20f, 31f, 13f) ||
+                InsidePixelCircle(sourceX, sourceY, 33f, 34f, 16f) ||
+                InsidePixelCircle(sourceX, sourceY, 47f, 31f, 13f) ||
+                InsidePixelCircle(sourceX, sourceY, 55f, 23f, 9f) ||
+                InsidePixelCircle(sourceX, sourceY, 19f, 46f, 11f) ||
+                InsidePixelCircle(sourceX, sourceY, 33f, 49f, 15f) ||
+                InsidePixelCircle(sourceX, sourceY, 47f, 46f, 11f) ||
+                InsidePixelCircle(sourceX, sourceY, 32f, 60f, 8f);
+
+            bool flame =
+                InsidePixelCircle(sourceX, sourceY, 32f, 9f, 18f) ||
+                InsidePixelCircle(sourceX, sourceY, 16f, 15f, 11f) ||
+                InsidePixelCircle(sourceX, sourceY, 49f, 16f, 12f) ||
+                InsidePixelCircle(sourceX, sourceY, 23f, 24f, 13f) ||
+                InsidePixelCircle(sourceX, sourceY, 42f, 26f, 14f) ||
+                InsidePixelCircle(sourceX, sourceY, 31f, 37f, 13f) ||
+                InsidePixelCircle(sourceX, sourceY, 24f, 48f, 7f) ||
+                InsidePixelCircle(sourceX, sourceY, 39f, 48f, 9f) ||
+                InsidePixelCircle(sourceX, sourceY, 33f, 57f, 6f);
+
+            bool groundBurst = sourceY >= 2f && sourceY <= 10f &&
+                               Mathf.Abs(sourceX - 31f) <= 29f - (sourceY - 2f) * 2f;
+            if (smoke && sourceY > 16f && noise < 0.08f)
+            {
+                smoke = false;
+            }
+
+            if (flame && sourceY > 12f && noise < 0.035f)
+            {
+                flame = false;
+            }
+
+            if (!smoke && !flame && !groundBurst)
+            {
+                return Color.clear;
+            }
+
+            bool smokeOccludesFlame = smoke && sourceY > 24f && noise < 0.46f;
+            if (smokeOccludesFlame || (smoke && !flame && !groundBurst))
+            {
+                if (sourceY < 36f && noise > 0.78f)
+                {
+                    return new Color32(126, 51, 23, 245);
+                }
+
+                if (noise < 0.28f)
+                {
+                    return new Color32(37, 31, 31, 240);
+                }
+
+                return noise < 0.68f
+                    ? new Color32(67, 51, 48, 242)
+                    : new Color32(91, 65, 57, 238);
+            }
+
+            if (flame || groundBurst)
+            {
+                float flameCenter = 32f + Mathf.Sin(sourceY * 0.33f) * 1.7f;
+                float axisDistance = Mathf.Abs(sourceX - flameCenter);
+                bool whiteCore = sourceY <= 13f && axisDistance <= 2.6f + noise * 1.4f;
+                bool yellowCore = sourceY <= 36f &&
+                                  axisDistance <= Mathf.Max(2.5f, 9f - sourceY * 0.15f + noise * 2.4f);
+                if (whiteCore)
+                {
+                    return new Color32(255, 250, 190, 255);
+                }
+
+                if (yellowCore || noise > 0.82f)
+                {
+                    return new Color32(255, 173, 24, 255);
+                }
+
+                return noise < 0.23f
+                    ? new Color32(188, 38, 5, 255)
+                    : noise < 0.58f
+                        ? new Color32(240, 61, 5, 255)
+                        : new Color32(255, 101, 6, 255);
+            }
+
+            return Color.clear;
+        }
+
+        private static Color SampleMegaScorchPixel(int x, int y)
+        {
+            float normalizedX = (x - 31.5f) / 31f;
+            float normalizedY = (y - 6.5f) / 5.5f;
+            float distance = normalizedX * normalizedX + normalizedY * normalizedY;
+            bool ground = y >= 1 && y <= 13 && distance <= 1f;
+            if (ground && distance > 0.76f && (x * 5 + y * 7) % 9 <= 1)
+            {
+                ground = false;
+            }
+
+            if (!ground)
+            {
+                return Color.clear;
+            }
+
+            bool centerCrack = y >= 2 && y <= 10 &&
+                               Math.Abs(x - 31 + y % 3 - 1) <= 1;
+            bool radialCrack = Math.Abs(y - 6 - Math.Abs(x - 31) / 7) <= 1 ||
+                               Math.Abs(y - 9 + Math.Abs(x - 31) / 9) <= 1;
+            bool smallCrack = (x * 3 + y * 5) % 29 == 0;
+            float ashNoise = PixelHash01(x, y);
+            if (centerCrack)
+            {
+                return new Color32(255, 151, 12, 255);
+            }
+
+            if ((radialCrack || smallCrack) && ashNoise > 0.58f)
+            {
+                return ashNoise > 0.82f
+                    ? new Color32(229, 54, 6, 220)
+                    : new Color32(118, 38, 20, 165);
+            }
+
+            if (ashNoise < 0.17f && distance < 0.82f)
+            {
+                return ashNoise < 0.07f
+                    ? new Color32(27, 22, 22, 150)
+                    : new Color32(55, 33, 26, 115);
+            }
+
+            return Color.clear;
+        }
+
+        private static bool InsidePixelCircle(
+            float x,
+            float y,
+            float centerX,
+            float centerY,
+            float radius)
+        {
+            float deltaX = x - centerX;
+            float deltaY = y - centerY;
+            return deltaX * deltaX + deltaY * deltaY <= radius * radius;
+        }
+
+        private static float PixelHash01(int x, int y)
+        {
+            unchecked
+            {
+                uint value = (uint)(x * 374761393 + y * 668265263);
+                value = (value ^ (value >> 13)) * 1274126177u;
+                return (value & 1023u) / 1023f;
+            }
         }
 
         private static Color SampleIceLancePixel(int x, int y)

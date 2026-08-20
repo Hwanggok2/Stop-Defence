@@ -19,8 +19,9 @@ MonoBehaviour:
       \uC77C\uC815 \uC2DC\uAC04 \uD654\uC0C1 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     category: 0
     grade: 2
-    imagePath: 
-    image: {fileID: 0}
+    baseDamage: 10
+    imagePath: Assets/Image/skill_001.asset
+    image: {fileID: 21300000, guid: 529d9480c95cdd5419dd836b3b3d55df, type: 2}
     enabled: 1
     statType: 0
     statValue: 0
@@ -31,8 +32,9 @@ MonoBehaviour:
       \uC8FC\uACE0 \uB4A4\uB85C \uBC00\uCCD0\uB0C5\uB2C8\uB2E4."
     category: 0
     grade: 3
-    imagePath: 
-    image: {fileID: 0}
+    baseDamage: 15
+    imagePath: Assets/Image/skill_002.asset
+    image: {fileID: 21300000, guid: 0efbed2c9efc29f48a02eba7ecf90415, type: 2}
     enabled: 1
     statType: 0
     statValue: 0
@@ -43,6 +45,7 @@ MonoBehaviour:
       \uC5EC\uB7EC \uB300\uC0C1\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
     category: 0
     grade: 1
+    baseDamage: 3
     imagePath: 
     image: {fileID: 0}
     enabled: 1
@@ -55,8 +58,9 @@ MonoBehaviour:
       \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     category: 0
     grade: 2
-    imagePath: 
-    image: {fileID: 0}
+    baseDamage: 20
+    imagePath: Assets/Image/skill_004.asset
+    image: {fileID: 21300000, guid: 6850aafc3e535b648ab0ef6780897d60, type: 2}
     enabled: 1
     statType: 0
     statValue: 0
@@ -67,6 +71,7 @@ MonoBehaviour:
       \uCCB4\uB825\uC744 \uD68C\uBCF5\uD569\uB2C8\uB2E4."
     category: 0
     grade: 2
+    baseDamage: 0
     imagePath: 
     image: {fileID: 0}
     enabled: 1
@@ -79,8 +84,9 @@ MonoBehaviour:
       \uC2DC\uAC04 \uC9C0\uC18D \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
     category: 0
     grade: 3
-    imagePath: 
-    image: {fileID: 0}
+    baseDamage: 5
+    imagePath: Assets/Image/skill_006.asset
+    image: {fileID: 21300000, guid: c2b03ed185ae588418c98f10ac662d6a, type: 2}
     enabled: 1
     statType: 0
     statValue: 0
@@ -91,8 +97,9 @@ MonoBehaviour:
       \uC2DC\uAC04 \uC774\uB3D9 \uC18D\uB3C4\uB97C \uB0AE\uCDA5\uB2C8\uB2E4."
     category: 0
     grade: 1
-    imagePath: 
-    image: {fileID: 0}
+    baseDamage: 5
+    imagePath: Assets/Image/skill_007.asset
+    image: {fileID: 21300000, guid: 5b7b8a279c795c746bdaeb919eb74573, type: 2}
     enabled: 1
     statType: 0
     statValue: 0
@@ -103,8 +110,9 @@ MonoBehaviour:
       \uB9E4\uC6B0 \uD070 \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
     category: 0
     grade: 4
-    imagePath: 
-    image: {fileID: 0}
+    baseDamage: 100
+    imagePath: Assets/Image/skill_008.png
+    image: {fileID: 5986030973748356752, guid: 774e3327b1813244495cd6ca65d6ea05, type: 3}
     enabled: 1
     statType: 0
     statValue: 0
@@ -115,6 +123,7 @@ MonoBehaviour:
       \uACB0\uACFC\uC5D0 \uB530\uB77C \uC801\uC5D0\uAC8C \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
     category: 0
     grade: 4
+    baseDamage: 30
     imagePath: 
     image: {fileID: 0}
     enabled: 1
@@ -127,8 +136,9 @@ MonoBehaviour:
       \uC77C\uC815 \uC2DC\uAC04 \uBC29\uD574\uD569\uB2C8\uB2E4."
     category: 0
     grade: 3
-    imagePath: 
-    image: {fileID: 0}
+    baseDamage: 0
+    imagePath: Assets/Image/skill_010.asset
+    image: {fileID: 21300000, guid: d30cac86ab68253428fd212f4ae2ca1e, type: 2}
     enabled: 1
     statType: 0
     statValue: 0
@@ -139,6 +149,7 @@ MonoBehaviour:
       \uC804\uD22C \uB2A5\uB825\uC744 \uAC15\uD654\uD569\uB2C8\uB2E4."
     category: 0
     grade: 3
+    baseDamage: 0
     imagePath: 
     image: {fileID: 0}
     enabled: 1
@@ -151,6 +162,7 @@ MonoBehaviour:
       \uCCB4\uB825\uB3C4 \uD568\uAED8 \uD68C\uBCF5\uB429\uB2C8\uB2E4."
     category: 1
     grade: 0
+    baseDamage: 0
     imagePath: 
     image: {fileID: 0}
     enabled: 1
@@ -163,6 +175,7 @@ MonoBehaviour:
       (\uCD5C\uB300 75%)"
     category: 1
     grade: 0
+    baseDamage: 0
     imagePath: 
     image: {fileID: 0}
     enabled: 1
@@ -175,6 +188,7 @@ MonoBehaviour:
       (\uCD5C\uB300 100%)"
     category: 1
     grade: 0
+    baseDamage: 0
     imagePath: 
     image: {fileID: 0}
     enabled: 1

@@ -9,6 +9,7 @@ namespace StopDefence.Vfx
         [SerializeField] private SkillParticleEffect nailDriving;
         [SerializeField] private SkillParticleEffect plagueMagic;
         [SerializeField] private SkillParticleEffect iceLance;
+        [SerializeField] private SkillParticleEffect megaExplosion;
         [SerializeField] private SkillParticleEffect flashbang;
 
         private GUIStyle titleStyle;
@@ -49,6 +50,11 @@ namespace StopDefence.Vfx
             if (Input.GetKeyDown(KeyCode.Alpha6) && flashbang != null)
             {
                 flashbang.Play();
+            }
+
+            if (Input.GetKeyDown(KeyCode.Alpha7) && megaExplosion != null)
+            {
+                megaExplosion.Play();
             }
 
             if (Input.GetKeyDown(KeyCode.Space))
@@ -105,9 +111,19 @@ namespace StopDefence.Vfx
                     titleStyle);
             }
 
+            if (megaExplosion != null)
+            {
+                GUI.Label(
+                    new Rect(Screen.width * 0.38f, Screen.height - 104f, Screen.width * 0.24f, 40f),
+                    "[7] 대폭발",
+                    titleStyle);
+            }
+
             GUI.Label(
                 new Rect(0f, Screen.height - 54f, Screen.width, 32f),
-                flashbang != null
+                megaExplosion != null
+                    ? "1 / 2 / 3 / 4 / 5 / 6 / 7 : 개별 재생     Space : 전체 재생"
+                    : flashbang != null
                     ? "1 / 2 / 3 / 4 / 5 / 6 : 개별 재생     Space : 전체 재생"
                     : iceLance != null
                         ? "1 / 2 / 3 / 4 / 5 : 개별 재생     Space : 전체 재생"
@@ -141,6 +157,11 @@ namespace StopDefence.Vfx
             if (flashbang != null)
             {
                 flashbang.Play();
+            }
+
+            if (megaExplosion != null)
+            {
+                megaExplosion.Play();
             }
         }
 

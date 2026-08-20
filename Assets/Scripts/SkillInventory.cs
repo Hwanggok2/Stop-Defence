@@ -24,6 +24,8 @@ public sealed class SkillInventory : MonoBehaviour
     private readonly HashSet<string> ownedActiveSkillIds =
         new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+    public event Action<OwnedActiveSkill> ActiveSkillAcquired;
+
     public IReadOnlyList<OwnedActiveSkill> OwnedActiveSkills => ownedActiveSkills;
 
     public bool OwnsActiveSkill(string skillId)
@@ -52,7 +54,9 @@ public sealed class SkillInventory : MonoBehaviour
             return false;
         }
 
-        ownedActiveSkills.Add(new OwnedActiveSkill(skill.Id, targetSecond));
+        var ownedSkill = new OwnedActiveSkill(skill.Id, targetSecond);
+        ownedActiveSkills.Add(ownedSkill);
+        ActiveSkillAcquired?.Invoke(ownedSkill);
         return true;
     }
 }

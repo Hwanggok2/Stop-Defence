@@ -25,6 +25,7 @@ namespace StopDefence.Editor
             "Description",
             "Category",
             "Grade",
+            "BaseDamage",
             "ImagePath",
             "Enabled",
             "StatType",
@@ -39,6 +40,7 @@ namespace StopDefence.Editor
             "Description",
             "Category",
             "Grade",
+            "BaseDamage",
             "Enabled",
             "StatType",
             "StatValue",
@@ -95,6 +97,7 @@ namespace StopDefence.Editor
                 string description = GetValue(row, columns, "Description").Trim();
                 string categoryText = GetValue(row, columns, "Category").Trim();
                 string gradeText = GetValue(row, columns, "Grade").Trim();
+                string baseDamageText = GetValue(row, columns, "BaseDamage").Trim();
                 string imagePath = GetValue(row, columns, "ImagePath").Trim();
                 string enabledText = GetValue(row, columns, "Enabled").Trim();
                 string statTypeText = GetValue(row, columns, "StatType").Trim();
@@ -115,6 +118,14 @@ namespace StopDefence.Editor
                         out int grade))
                 {
                     WarnAndExclude(rowNumber, $"Grade must be an integer, but was '{gradeText}'");
+                    continue;
+                }
+
+                if (!TryParseNonNegativeFloat(baseDamageText, out float baseDamage))
+                {
+                    WarnAndExclude(
+                        rowNumber,
+                        $"BaseDamage must be a non-negative number, but was '{baseDamageText}'");
                     continue;
                 }
 
@@ -151,6 +162,7 @@ namespace StopDefence.Editor
                         rowNumber,
                         category,
                         grade,
+                        baseDamage,
                         statType,
                         statValue,
                         statCap))
@@ -159,7 +171,16 @@ namespace StopDefence.Editor
                 }
 
                 Sprite image = null;
-                if (!string.IsNullOrEmpty(imagePath))
+                if (string.IsNullOrEmpty(imagePath))
+                {
+                    string matchingImagePath = $"Assets/Image/{skillId}.png";
+                    image = AssetDatabase.LoadAssetAtPath<Sprite>(matchingImagePath);
+                    if (image != null)
+                    {
+                        imagePath = matchingImagePath;
+                    }
+                }
+                else
                 {
                     image = AssetDatabase.LoadAssetAtPath<Sprite>(imagePath);
                     if (image == null)
@@ -176,6 +197,7 @@ namespace StopDefence.Editor
                     description,
                     category,
                     grade,
+                    baseDamage,
                     imagePath,
                     image,
                     enabled,
@@ -406,6 +428,7 @@ namespace StopDefence.Editor
             int rowNumber,
             SkillCategory category,
             int grade,
+            float baseDamage,
             PlayerStatType statType,
             float statValue,
             float statCap)
@@ -432,6 +455,12 @@ namespace StopDefence.Editor
             if (grade != 0)
             {
                 WarnAndExclude(rowNumber, $"StatUpgrade Grade must be 0, but was '{grade}'");
+                return false;
+            }
+
+            if (baseDamage != 0f)
+            {
+                WarnAndExclude(rowNumber, "StatUpgrade BaseDamage must be 0");
                 return false;
             }
 

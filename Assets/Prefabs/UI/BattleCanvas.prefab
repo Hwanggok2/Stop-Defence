@@ -1734,6 +1734,7 @@ MonoBehaviour:
   nailDrivingEffectPrefab: {fileID: 8723293806152144880, guid: 8b8d113a4a87b9747ae98ab6bfc87c24, type: 3}
   plagueMagicEffectPrefab: {fileID: 1628960726783563903, guid: ee879f18eb1dc9b44a9a7773dbbbffa2, type: 3}
   iceLanceEffectPrefab: {fileID: 6581918240373318137, guid: 0c58af57442552b4fa694f143e97b11b, type: 3}
+  megaExplosionEffectPrefab: {fileID: 3221088126802610326, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
   chainLightningEffectPrefab: {fileID: 7420530849736701305, guid: b2e5da77fce9e6b4bb1c778112d69269, type: 3}
   fireballDamage: 10
   fireballRange: 5
