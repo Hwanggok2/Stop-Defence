@@ -1078,6 +1078,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2355697924858008731, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: skillInventory
+      value: 
+      objectReference: {fileID: 1720725758}
     - target: {fileID: 3099475069104396863, guid: e5119f32611e1714782231711f40bf68, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1091,6 +1095,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e5119f32611e1714782231711f40bf68, type: 3}
+--- !u!114 &1720725758 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2918418693926775016, guid: c8e0a6286de84eff9d51050e3c65b80f, type: 3}
+  m_PrefabInstance: {fileID: 927595615}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f97e3dc06f121447a29907dd07f885b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SkillInventory
 --- !u!1 &1911773039
 GameObject:
   m_ObjectHideFlags: 0
