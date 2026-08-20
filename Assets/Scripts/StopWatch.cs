@@ -1,90 +1,164 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
-using Unity.Collections;
-using System.Collections.Generic;
-using System.Linq;
 
-public class StopWatch : MonoBehaviour
+public sealed class StopWatch : MonoBehaviour
 {
-    [SerializeField]
-    private CastSkill castSkill;
+    [Header("Runtime References")]
+    [SerializeField] private Button touchButton;
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private SkillInventory skillInventory;
+    [SerializeField] private CastSkill castSkill;
 
-    [SerializeField]
-    private TextMeshProUGUI timerText;
+    [Header("Timer")]
+    [SerializeField, Min(1f)] private float maxTimer = 10f;
+    [SerializeField, Min(0f)] private float inputCooldown = 0.1f;
 
-    float maxTimer = 60f;
-    float curTimer;
-    int timerSec;
-    int timerMil;
+    [Header("Judgement Windows")]
+    [SerializeField, Min(0f)] private float perfectWindow = 0.05f;
+    [SerializeField, Min(0f)] private float greatWindow = 0.15f;
+    [SerializeField, Min(0f)] private float goodWindow = 0.3f;
+    [SerializeField, Min(0f)] private float badWindow = 0.5f;
 
-    int prevTimer;
+    private readonly HashSet<string> castThisCycle = new();
 
-    bool canSkillCast = true;
+    private float currentTimer;
+    private float nextInputTime;
 
-    Dictionary<int, string> playerSkill = new Dictionary<int, string> {
-        { 2, "1" }
-    };
+    public float CurrentTimer => currentTimer;
 
-    void Start()
+    private void Awake()
     {
-        curTimer = maxTimer;
-        prevTimer = -1;
-        Time.fixedDeltaTime = 0.01f;
+        ResolveRuntimeReferences();
+        currentTimer = maxTimer;
+        UpdateTimerText();
+    }
 
-        castSkill = GetComponent<CastSkill>();
+    private void OnEnable()
+    {
+        if (touchButton != null)
+        {
+            touchButton.onClick.AddListener(TryCastOwnedSkills);
+        }
+    }
+
+    private void OnDisable()
+    {
+        if (touchButton != null)
+        {
+            touchButton.onClick.RemoveListener(TryCastOwnedSkills);
+        }
     }
 
     private void Update()
     {
-        if (Keyboard.current.spaceKey.wasPressedThisFrame) {
-            prevTimer = (int)(curTimer * 100);
+        UpdateTimer();
 
-            if (canSkillCast) {
-                CastSkill();
+        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        {
+            TryCastOwnedSkills();
+        }
+
+        UpdateTimerText();
+    }
+
+    public void TryCastOwnedSkills()
+    {
+        if (Time.unscaledTime < nextInputTime)
+        {
+            return;
+        }
+
+        nextInputTime = Time.unscaledTime + inputCooldown;
+        ResolveRuntimeReferences();
+        if (skillInventory == null || castSkill == null)
+        {
+            Debug.LogWarning("[StopWatch] SkillInventory or CastSkill is not available.", this);
+            return;
+        }
+
+        IReadOnlyList<OwnedActiveSkill> ownedSkills = skillInventory.OwnedActiveSkills;
+        foreach (OwnedActiveSkill skill in ownedSkills)
+        {
+            if (castThisCycle.Contains(skill.SkillId))
+            {
+                continue;
+            }
+
+            float error = Mathf.Abs(currentTimer - skill.TargetSecond);
+            if (!TryEvaluateJudgement(error, out TimingJudgement judgement))
+            {
+                continue;
+            }
+
+            if (castSkill.Cast(skill.SkillId, judgement))
+            {
+                castThisCycle.Add(skill.SkillId);
             }
         }
+    }
 
-        if (timerText != null) {
-            timerText.text = string.Format("{0:D2}:{1:D2}", timerSec, timerMil);
+    public bool TryEvaluateJudgement(
+        float absoluteError,
+        out TimingJudgement judgement)
+    {
+        if (absoluteError <= perfectWindow)
+        {
+            judgement = TimingJudgement.Perfect;
+            return true;
+        }
+
+        if (absoluteError <= greatWindow)
+        {
+            judgement = TimingJudgement.Great;
+            return true;
+        }
+
+        if (absoluteError <= goodWindow)
+        {
+            judgement = TimingJudgement.Good;
+            return true;
+        }
+
+        judgement = TimingJudgement.Bad;
+        return absoluteError <= badWindow;
+    }
+
+    private void UpdateTimer()
+    {
+        currentTimer -= Time.deltaTime;
+        while (currentTimer <= 0f)
+        {
+            currentTimer += maxTimer;
+            castThisCycle.Clear();
         }
     }
 
-    void FixedUpdate()
+    private void UpdateTimerText()
     {
-        if (curTimer > 0) {
-            curTimer -= Time.fixedDeltaTime;
-        } else {
-            curTimer = maxTimer;
+        if (timerText == null)
+        {
+            return;
         }
 
-        timerSec = (int)curTimer;
-        timerMil = (int)((curTimer - timerSec) * 100);
+        float displayedTime = Mathf.Max(0f, currentTimer);
+        int seconds = Mathf.FloorToInt(displayedTime);
+        int hundredths = Mathf.FloorToInt((displayedTime - seconds) * 100f);
+        timerText.SetText("{0:00}:{1:00}", seconds, hundredths);
     }
 
-    void CastSkill()
+    private void ResolveRuntimeReferences()
     {
-        canSkillCast = false;
-
-        if (prevTimer == -1) return;
-
-        for (int i = 0; i < playerSkill.Count-1; i++) {
-            playerSkill.TryGetValue(0, out string trigger);
-
-            if (prevTimer.ToString().Contains(trigger))  {
-                canSkillCast = true;
-                int key = playerSkill.FirstOrDefault(x => x.Value == trigger).Key;
-                castSkill.Cast(key);
-            }
+        if (castSkill == null)
+        {
+            castSkill = GetComponent<CastSkill>();
         }
 
-        if (!canSkillCast) {
-            Invoke("DelaySkillCast", 0.1f);
+        if (skillInventory == null)
+        {
+            skillInventory = Object.FindFirstObjectByType<SkillInventory>();
         }
-    }
-    void DelaySkillCast()
-    {
-        canSkillCast = true;
     }
 }

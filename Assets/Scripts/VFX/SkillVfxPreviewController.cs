@@ -9,6 +9,7 @@ namespace StopDefence.Vfx
         [SerializeField] private SkillParticleEffect nailDriving;
         [SerializeField] private SkillParticleEffect plagueMagic;
         [SerializeField] private SkillParticleEffect iceLance;
+        [SerializeField] private SkillParticleEffect flashbang;
 
         private GUIStyle titleStyle;
         private GUIStyle helpStyle;
@@ -45,6 +46,11 @@ namespace StopDefence.Vfx
                 iceLance.Play();
             }
 
+            if (Input.GetKeyDown(KeyCode.Alpha6) && flashbang != null)
+            {
+                flashbang.Play();
+            }
+
             if (Input.GetKeyDown(KeyCode.Space))
             {
                 PlayAll();
@@ -55,9 +61,11 @@ namespace StopDefence.Vfx
         {
             EnsureStyles();
 
-            int columnCount = iceLance != null
-                ? 5
-                : plagueMagic != null
+            int columnCount = flashbang != null
+                ? 6
+                : iceLance != null
+                    ? 5
+                    : plagueMagic != null
                     ? 4
                     : nailDriving != null
                         ? 3
@@ -89,11 +97,21 @@ namespace StopDefence.Vfx
                     titleStyle);
             }
 
+            if (flashbang != null)
+            {
+                GUI.Label(
+                    new Rect(columnWidth * 5f, 24f, columnWidth, 40f),
+                    "[6] 섬광탄",
+                    titleStyle);
+            }
+
             GUI.Label(
                 new Rect(0f, Screen.height - 54f, Screen.width, 32f),
-                iceLance != null
-                    ? "1 / 2 / 3 / 4 / 5 : 개별 재생     Space : 전체 재생"
-                    : plagueMagic != null
+                flashbang != null
+                    ? "1 / 2 / 3 / 4 / 5 / 6 : 개별 재생     Space : 전체 재생"
+                    : iceLance != null
+                        ? "1 / 2 / 3 / 4 / 5 : 개별 재생     Space : 전체 재생"
+                        : plagueMagic != null
                         ? "1 / 2 / 3 / 4 : 개별 재생     Space : 전체 재생"
                     : nailDriving != null
                         ? "1 / 2 / 3 : 개별 재생     Space : 전체 재생"
@@ -118,6 +136,11 @@ namespace StopDefence.Vfx
             if (iceLance != null)
             {
                 iceLance.Play();
+            }
+
+            if (flashbang != null)
+            {
+                flashbang.Play();
             }
         }
 

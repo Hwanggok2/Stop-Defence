@@ -23,15 +23,23 @@ namespace StopDefence.Editor
         private const string NailDrivingPrefabPath = PrefabPath + "/Skill_004_NailDriving.prefab";
         private const string PlagueMagicPrefabPath = PrefabPath + "/Skill_006_PlagueMagic.prefab";
         private const string IceLancePrefabPath = PrefabPath + "/Skill_007_IceLance.prefab";
+        private const string FlashbangPrefabPath = PrefabPath + "/Skill_010_Flashbang.prefab";
 
         [MenuItem("Tools/Skill VFX/Generate Skill Effects")]
         public static void GenerateAll()
         {
+            if (EditorApplication.isPlayingOrWillChangePlaymode)
+            {
+                Debug.LogWarning("[Skill VFX] Exit Play Mode before generating skill effects.");
+                return;
+            }
+
             EnsureDirectories();
             CreateNailDrivingTextures();
             CreateFireballPixelTextures();
             CreatePlaguePixelTextures();
             CreateIceLanceTextures();
+            CreateFlashbangTextures();
             AssetDatabase.Refresh(ImportAssetOptions.ForceSynchronousImport);
 
             Texture2D nailTexture = LoadTexture("Nail.png");
@@ -73,9 +81,14 @@ namespace StopDefence.Editor
             GameObject plagueMagicPrefab =
                 CreatePlagueMagicPrefab(pixelGlow, pixelRing, pixelSmoke, skull, plaguePool);
             GameObject iceLancePrefab = CreateIceLanceAssets();
+            GameObject flashbangPrefab = CreateFlashbangAssets(pixelGlow, pixelRing, pixelShard);
             if (File.Exists(PreviewScenePath))
             {
-                UpdatePreviewScene(nailDrivingPrefab, plagueMagicPrefab, iceLancePrefab);
+                UpdatePreviewScene(
+                    nailDrivingPrefab,
+                    plagueMagicPrefab,
+                    iceLancePrefab,
+                    flashbangPrefab);
             }
             else
             {
@@ -84,7 +97,8 @@ namespace StopDefence.Editor
                     earthPrefab,
                     nailDrivingPrefab,
                     plagueMagicPrefab,
-                    iceLancePrefab);
+                    iceLancePrefab,
+                    flashbangPrefab);
             }
 
             AssetDatabase.SaveAssets();
@@ -92,7 +106,7 @@ namespace StopDefence.Editor
             Debug.Log(
                 $"[Skill VFX] Generated {FireballPrefabPath}, {EarthPrefabPath}, " +
                 $"{NailDrivingPrefabPath}, {PlagueMagicPrefabPath}, {IceLancePrefabPath}, " +
-                $"and {PreviewScenePath}.");
+                $"{FlashbangPrefabPath}, and {PreviewScenePath}.");
         }
 
         [MenuItem("Tools/Skill VFX/Generate Ice Lance Effect")]
@@ -115,7 +129,13 @@ namespace StopDefence.Editor
                     AssetDatabase.LoadAssetAtPath<GameObject>(NailDrivingPrefabPath);
                 GameObject plagueMagicPrefab =
                     AssetDatabase.LoadAssetAtPath<GameObject>(PlagueMagicPrefabPath);
-                UpdatePreviewScene(nailDrivingPrefab, plagueMagicPrefab, iceLancePrefab);
+                GameObject flashbangPrefab =
+                    AssetDatabase.LoadAssetAtPath<GameObject>(FlashbangPrefabPath);
+                UpdatePreviewScene(
+                    nailDrivingPrefab,
+                    plagueMagicPrefab,
+                    iceLancePrefab,
+                    flashbangPrefab);
             }
 
             AssetDatabase.SaveAssets();
@@ -186,6 +206,33 @@ namespace StopDefence.Editor
                 pixelGlow,
                 pixelShard,
                 pixelSmoke);
+        }
+
+        private static GameObject CreateFlashbangAssets(
+            Material pixelGlow,
+            Material pixelRing,
+            Material pixelShard)
+        {
+            Material radiantStar = CreateMaterial(
+                "RadiantStar_Additive.mat",
+                LoadTexture("RadiantStar.png"),
+                BlendMode.One);
+            Material lightBeam = CreateMaterial(
+                "LightBeam_Additive.mat",
+                LoadTexture("LightBeam.png"),
+                BlendMode.One);
+            Material bokeh = CreateMaterial(
+                "GoldenBokeh_Alpha.mat",
+                LoadTexture("GoldenBokeh.png"),
+                BlendMode.OneMinusSrcAlpha);
+
+            return CreateFlashbangPrefab(
+                radiantStar,
+                lightBeam,
+                bokeh,
+                pixelGlow,
+                pixelRing,
+                pixelShard);
         }
 
         private static GameObject CreateFireballPrefab(
@@ -1083,6 +1130,234 @@ namespace StopDefence.Editor
             return SavePrefab(root, IceLancePrefabPath);
         }
 
+        private static GameObject CreateFlashbangPrefab(
+            Material radiantStar,
+            Material lightBeam,
+            Material bokeh,
+            Material pixelGlow,
+            Material pixelRing,
+            Material pixelShard)
+        {
+            GameObject root = CreateEffectRoot("Skill_010_Flashbang", "skill_010");
+
+            ParticleSystem focusStar = CreateSystem(root.transform, "FocusStar", radiantStar, 20);
+            focusStar.transform.localPosition = new Vector3(0f, 0.22f, 0f);
+            ConfigureBase(focusStar, 0.7f, 0.44f, 0f, 1.3f, 3, Color.white);
+            ParticleSystem.MainModule focusMain = focusStar.main;
+            focusMain.startLifetime = new ParticleSystem.MinMaxCurve(0.4f, 0.46f);
+            focusMain.startSize = new ParticleSystem.MinMaxCurve(1.1f, 1.45f);
+            SetBursts(focusStar, new ParticleSystem.Burst(0f, 1));
+            SetColorOverLifetime(
+                focusStar,
+                new Color(1f, 0.98f, 0.84f),
+                new Color(1f, 0.58f, 0.08f),
+                1f,
+                0f);
+            SetSizeOverLifetime(
+                focusStar,
+                Curve((0f, 0.15f), (0.24f, 1f), (0.58f, 1.35f), (1f, 0.2f)));
+            SetDeterministic(focusStar, 10001);
+
+            ParticleSystem coreBurst = CreateSystem(root.transform, "SolarBurst", radiantStar, 19);
+            coreBurst.transform.localPosition = new Vector3(0f, 0.2f, 0f);
+            ConfigureBase(coreBurst, 0.9f, 0.38f, 0f, 5f, 6, Color.white);
+            ParticleSystem.MainModule coreMain = coreBurst.main;
+            coreMain.startDelay = 0.16f;
+            coreMain.startLifetime = new ParticleSystem.MinMaxCurve(0.3f, 0.42f);
+            coreMain.startSize = new ParticleSystem.MinMaxCurve(4.2f, 5.4f);
+            coreMain.startRotation = new ParticleSystem.MinMaxCurve(-0.18f, 0.18f);
+            SetBursts(coreBurst, new ParticleSystem.Burst(0f, 3));
+            SetColorOverLifetime(
+                coreBurst,
+                new Color(1f, 1f, 0.94f),
+                new Color(1f, 0.48f, 0.04f),
+                1f,
+                0f);
+            SetSizeOverLifetime(coreBurst, Curve((0f, 0.04f), (0.12f, 1f), (1f, 0.14f)));
+            SetDeterministic(coreBurst, 10002);
+
+            ParticleSystem horizontalFlare =
+                CreateSystem(root.transform, "HorizontalLensFlare", lightBeam, 18);
+            horizontalFlare.transform.localPosition = new Vector3(0f, 0.26f, 0f);
+            ConfigureBase(horizontalFlare, 0.9f, 0.42f, 0f, 1f, 2, Color.white);
+            ParticleSystem.MainModule horizontalMain = horizontalFlare.main;
+            horizontalMain.startDelay = 0.17f;
+            horizontalMain.startLifetime = 0.42f;
+            SetStartSize3D(horizontalFlare, 8.4f, 0.32f);
+            SetBursts(horizontalFlare, new ParticleSystem.Burst(0f, 1));
+            SetColorOverLifetime(
+                horizontalFlare,
+                new Color(1f, 0.94f, 0.68f),
+                new Color(1f, 0.52f, 0.08f),
+                0.9f,
+                0f);
+            SetSizeOverLifetime(
+                horizontalFlare,
+                Curve((0f, 0.08f), (0.16f, 1f), (0.66f, 0.75f), (1f, 0.1f)));
+            SetDeterministic(horizontalFlare, 10003);
+
+            ParticleSystem heavenColumn =
+                CreateSystem(root.transform, "HeavenColumn", lightBeam, 12);
+            heavenColumn.transform.localPosition = new Vector3(0f, 3f, 0f);
+            ConfigureBase(heavenColumn, 1.8f, 1.15f, 0f, 1f, 4, Color.white);
+            ParticleSystem.MainModule columnMain = heavenColumn.main;
+            columnMain.startDelay = 0.21f;
+            columnMain.startLifetime = new ParticleSystem.MinMaxCurve(0.95f, 1.18f);
+            SetStartSize3D(heavenColumn, 2.15f, 8.2f);
+            SetBursts(heavenColumn, new ParticleSystem.Burst(0f, 2));
+            SetColorOverLifetime(
+                heavenColumn,
+                new Color(1f, 0.94f, 0.68f),
+                new Color(1f, 0.57f, 0.08f),
+                0.72f,
+                0f);
+            SetSizeOverLifetime(
+                heavenColumn,
+                Curve((0f, 0.08f), (0.12f, 1f), (0.72f, 0.72f), (1f, 0.18f)));
+            SetDeterministic(heavenColumn, 10004);
+
+            ParticleSystem halo = CreateSystem(root.transform, "RadiantHalo", pixelRing, 16);
+            halo.transform.localScale = new Vector3(1f, 0.24f, 1f);
+            ConfigureBase(halo, 1.4f, 0.72f, 0f, 6.4f, 8, Color.white);
+            ParticleSystem.MainModule haloMain = halo.main;
+            haloMain.startDelay = 0.19f;
+            haloMain.startLifetime = new ParticleSystem.MinMaxCurve(0.56f, 0.78f);
+            haloMain.startSize = new ParticleSystem.MinMaxCurve(5.5f, 6.7f);
+            SetBursts(
+                halo,
+                new ParticleSystem.Burst(0f, 2),
+                new ParticleSystem.Burst(0.2f, 1));
+            SetColorOverLifetime(
+                halo,
+                new Color(1f, 0.88f, 0.45f),
+                new Color(0.92f, 0.4f, 0.035f),
+                0.88f,
+                0f);
+            SetSizeOverLifetime(halo, Curve((0f, 0.06f), (0.6f, 0.94f), (1f, 1.18f)));
+            SetDeterministic(halo, 10005);
+
+            ParticleSystem sunSpears = CreateSystem(root.transform, "SunSpears", pixelGlow, 17);
+            sunSpears.transform.localPosition = new Vector3(0f, 0.2f, 0f);
+            ConfigureBase(sunSpears, 1.2f, 0.62f, 8f, 0.12f, 120, Color.white);
+            ParticleSystem.MainModule spearMain = sunSpears.main;
+            spearMain.startDelay = 0.17f;
+            spearMain.startLifetime = new ParticleSystem.MinMaxCurve(0.22f, 0.72f);
+            spearMain.startSpeed = new ParticleSystem.MinMaxCurve(4.5f, 12f);
+            spearMain.startSize = new ParticleSystem.MinMaxCurve(0.035f, 0.16f);
+            ConfigureCircle(sunSpears, 0.16f);
+            SetBursts(sunSpears, new ParticleSystem.Burst(0f, 84));
+            SetColorOverLifetime(
+                sunSpears,
+                new Color(1f, 0.95f, 0.7f),
+                new Color(1f, 0.43f, 0.025f),
+                1f,
+                0f);
+            ParticleSystemRenderer spearRenderer = sunSpears.GetComponent<ParticleSystemRenderer>();
+            spearRenderer.renderMode = ParticleSystemRenderMode.Stretch;
+            spearRenderer.lengthScale = 3.2f;
+            spearRenderer.velocityScale = 0.06f;
+            SetDeterministic(sunSpears, 10006);
+
+            ParticleSystem goldenShards =
+                CreateSystem(root.transform, "GoldenGroundShards", pixelShard, 14);
+            ConfigureBase(goldenShards, 1.7f, 0.95f, 5f, 0.32f, 100, Color.white);
+            ParticleSystem.MainModule shardMain = goldenShards.main;
+            shardMain.startDelay = 0.2f;
+            shardMain.startLifetime = new ParticleSystem.MinMaxCurve(0.42f, 1.18f);
+            shardMain.startSpeed = new ParticleSystem.MinMaxCurve(2.8f, 8f);
+            shardMain.startSize = new ParticleSystem.MinMaxCurve(0.1f, 0.42f);
+            shardMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
+            shardMain.gravityModifier = new ParticleSystem.MinMaxCurve(1.8f, 3.2f);
+            ConfigureCone(goldenShards, new Vector3(-90f, 0f, 0f), 67f, 0.65f, Vector3.zero);
+            SetBursts(goldenShards, new ParticleSystem.Burst(0f, 52));
+            SetColorOverLifetime(
+                goldenShards,
+                new Color(1f, 0.8f, 0.34f),
+                new Color(0.42f, 0.16f, 0.025f),
+                1f,
+                0f);
+            ConfigureRotation(goldenShards, -5f, 5f);
+            SetDeterministic(goldenShards, 10007);
+
+            ParticleSystem lightRain = CreateSystem(root.transform, "FallingLight", pixelGlow, 13);
+            ConfigureBase(lightRain, 2.1f, 0.9f, 0f, 0.1f, 100, Color.white);
+            ParticleSystem.MainModule rainMain = lightRain.main;
+            rainMain.startDelay = 0.32f;
+            rainMain.startLifetime = new ParticleSystem.MinMaxCurve(0.48f, 1.02f);
+            rainMain.startSize = new ParticleSystem.MinMaxCurve(0.04f, 0.13f);
+            ParticleSystem.ShapeModule rainShape = lightRain.shape;
+            rainShape.enabled = true;
+            rainShape.shapeType = ParticleSystemShapeType.Box;
+            rainShape.position = new Vector3(0f, 4f, 0f);
+            rainShape.scale = new Vector3(5.2f, 0.2f, 0.1f);
+            SetBursts(
+                lightRain,
+                new ParticleSystem.Burst(0f, 28),
+                new ParticleSystem.Burst(0.45f, 22),
+                new ParticleSystem.Burst(0.9f, 16));
+            ParticleSystem.VelocityOverLifetimeModule rainVelocity = lightRain.velocityOverLifetime;
+            rainVelocity.enabled = true;
+            rainVelocity.space = ParticleSystemSimulationSpace.Local;
+            rainVelocity.x = new ParticleSystem.MinMaxCurve(-0.28f, 0.28f);
+            rainVelocity.y = new ParticleSystem.MinMaxCurve(-5.8f, -4.2f);
+            rainVelocity.z = new ParticleSystem.MinMaxCurve(0f, 0f);
+            SetColorOverLifetime(
+                lightRain,
+                new Color(1f, 0.9f, 0.55f),
+                new Color(1f, 0.45f, 0.04f),
+                0.82f,
+                0f);
+            ParticleSystemRenderer rainRenderer = lightRain.GetComponent<ParticleSystemRenderer>();
+            rainRenderer.renderMode = ParticleSystemRenderMode.Stretch;
+            rainRenderer.lengthScale = 3.2f;
+            rainRenderer.velocityScale = 0.035f;
+            SetDeterministic(lightRain, 10008);
+
+            ParticleSystem bokehDust = CreateSystem(root.transform, "GoldenBokeh", bokeh, 9);
+            ConfigureBase(bokehDust, 2.8f, 1.55f, 1.25f, 0.75f, 70, Color.white);
+            ParticleSystem.MainModule bokehMain = bokehDust.main;
+            bokehMain.startDelay = 0.42f;
+            bokehMain.startLifetime = new ParticleSystem.MinMaxCurve(0.85f, 2.15f);
+            bokehMain.startSpeed = new ParticleSystem.MinMaxCurve(0.4f, 1.65f);
+            bokehMain.startSize = new ParticleSystem.MinMaxCurve(0.2f, 1.05f);
+            bokehMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
+            ConfigureCone(bokehDust, new Vector3(-90f, 0f, 0f), 52f, 2.2f, Vector3.zero);
+            SetBursts(
+                bokehDust,
+                new ParticleSystem.Burst(0f, 28),
+                new ParticleSystem.Burst(0.65f, 18));
+            ConfigureNoise(bokehDust, 0.32f, 0.42f);
+            SetColorOverLifetime(
+                bokehDust,
+                new Color(1f, 0.78f, 0.34f),
+                new Color(0.52f, 0.18f, 0.025f),
+                0.48f,
+                0f);
+            SetSizeOverLifetime(bokehDust, Curve((0f, 0.2f), (0.35f, 1f), (1f, 1.18f)));
+            SetDeterministic(bokehDust, 10009);
+
+            ParticleSystem afterglow = CreateSystem(root.transform, "GroundAfterglow", bokeh, 8);
+            afterglow.transform.localScale = new Vector3(1f, 0.26f, 1f);
+            ConfigureBase(afterglow, 2f, 1.4f, 0f, 5.5f, 4, Color.white);
+            ParticleSystem.MainModule afterglowMain = afterglow.main;
+            afterglowMain.startDelay = 0.2f;
+            afterglowMain.startLifetime = new ParticleSystem.MinMaxCurve(1.15f, 1.5f);
+            afterglowMain.startSize = new ParticleSystem.MinMaxCurve(4.8f, 5.8f);
+            SetBursts(afterglow, new ParticleSystem.Burst(0f, 2));
+            SetColorOverLifetime(
+                afterglow,
+                new Color(1f, 0.68f, 0.22f),
+                new Color(0.45f, 0.12f, 0.015f),
+                0.4f,
+                0f);
+            SetSizeOverLifetime(
+                afterglow,
+                Curve((0f, 0.1f), (0.18f, 1f), (0.76f, 0.9f), (1f, 0.7f)));
+            SetDeterministic(afterglow, 10010);
+
+            return SavePrefab(root, FlashbangPrefabPath);
+        }
+
         private static GameObject CreateEffectRoot(string objectName, string skillId)
         {
             GameObject root = new GameObject(objectName);
@@ -1105,6 +1380,7 @@ namespace StopDefence.Editor
             child.transform.SetParent(parent, false);
 
             ParticleSystem particleSystem = child.GetComponent<ParticleSystem>();
+            particleSystem.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
             ParticleSystemRenderer renderer = child.GetComponent<ParticleSystemRenderer>();
             renderer.sharedMaterial = material;
             renderer.sortingOrder = sortingOrder;
@@ -1277,7 +1553,8 @@ namespace StopDefence.Editor
             GameObject earthPrefab,
             GameObject nailDrivingPrefab,
             GameObject plagueMagicPrefab,
-            GameObject iceLancePrefab)
+            GameObject iceLancePrefab,
+            GameObject flashbangPrefab)
         {
             Scene scene = EditorSceneManager.NewScene(NewSceneSetup.EmptyScene, NewSceneMode.Additive);
 
@@ -1288,36 +1565,42 @@ namespace StopDefence.Editor
             camera.clearFlags = CameraClearFlags.SolidColor;
             camera.backgroundColor = new Color(0.008f, 0.012f, 0.025f);
             camera.orthographic = true;
-            camera.orthographicSize = 6.2f;
+            camera.orthographicSize = 7.2f;
             camera.allowHDR = true;
 
             GameObject fireballObject = (GameObject)PrefabUtility.InstantiatePrefab(fireballPrefab, scene);
-            fireballObject.transform.position = new Vector3(-8f, -0.7f, 0f);
+            fireballObject.transform.position = new Vector3(-10f, -0.7f, 0f);
             SkillParticleEffect fireball = fireballObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(fireball);
 
             GameObject earthObject = (GameObject)PrefabUtility.InstantiatePrefab(earthPrefab, scene);
-            earthObject.transform.position = new Vector3(-4f, -0.7f, 0f);
+            earthObject.transform.position = new Vector3(-6f, -0.7f, 0f);
             SkillParticleEffect earth = earthObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(earth);
 
             GameObject nailDrivingObject =
                 (GameObject)PrefabUtility.InstantiatePrefab(nailDrivingPrefab, scene);
-            nailDrivingObject.transform.position = new Vector3(0f, -0.7f, 0f);
+            nailDrivingObject.transform.position = new Vector3(-2f, -0.7f, 0f);
             SkillParticleEffect nailDriving = nailDrivingObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(nailDriving);
 
             GameObject plagueMagicObject =
                 (GameObject)PrefabUtility.InstantiatePrefab(plagueMagicPrefab, scene);
-            plagueMagicObject.transform.position = new Vector3(4f, -0.7f, 0f);
+            plagueMagicObject.transform.position = new Vector3(2f, -0.7f, 0f);
             SkillParticleEffect plagueMagic = plagueMagicObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(plagueMagic);
 
             GameObject iceLanceObject =
                 (GameObject)PrefabUtility.InstantiatePrefab(iceLancePrefab, scene);
-            iceLanceObject.transform.position = new Vector3(8f, -0.7f, 0f);
+            iceLanceObject.transform.position = new Vector3(6f, -0.7f, 0f);
             SkillParticleEffect iceLance = iceLanceObject.GetComponent<SkillParticleEffect>();
             DisableAutoDestroy(iceLance);
+
+            GameObject flashbangObject =
+                (GameObject)PrefabUtility.InstantiatePrefab(flashbangPrefab, scene);
+            flashbangObject.transform.position = new Vector3(10f, -0.7f, 0f);
+            SkillParticleEffect flashbang = flashbangObject.GetComponent<SkillParticleEffect>();
+            DisableAutoDestroy(flashbang);
 
             GameObject controllerObject = new GameObject("Preview Controller");
             SkillVfxPreviewController controller = controllerObject.AddComponent<SkillVfxPreviewController>();
@@ -1327,6 +1610,7 @@ namespace StopDefence.Editor
             serializedController.FindProperty("nailDriving").objectReferenceValue = nailDriving;
             serializedController.FindProperty("plagueMagic").objectReferenceValue = plagueMagic;
             serializedController.FindProperty("iceLance").objectReferenceValue = iceLance;
+            serializedController.FindProperty("flashbang").objectReferenceValue = flashbang;
             serializedController.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -1337,7 +1621,8 @@ namespace StopDefence.Editor
         private static void UpdatePreviewScene(
             GameObject nailDrivingPrefab,
             GameObject plagueMagicPrefab,
-            GameObject iceLancePrefab)
+            GameObject iceLancePrefab,
+            GameObject flashbangPrefab)
         {
             Scene scene = SceneManager.GetSceneByPath(PreviewScenePath);
             bool closeWhenFinished = !scene.IsValid() || !scene.isLoaded;
@@ -1351,6 +1636,7 @@ namespace StopDefence.Editor
             SkillParticleEffect nailDriving = null;
             SkillParticleEffect plagueMagic = null;
             SkillParticleEffect iceLance = null;
+            SkillParticleEffect flashbang = null;
             SkillVfxPreviewController controller = null;
 
             foreach (GameObject rootObject in scene.GetRootGameObjects())
@@ -1374,6 +1660,9 @@ namespace StopDefence.Editor
                             break;
                         case "skill_007":
                             iceLance = effect;
+                            break;
+                        case "skill_010":
+                            flashbang = effect;
                             break;
                     }
                 }
@@ -1405,19 +1694,31 @@ namespace StopDefence.Editor
                 DisableAutoDestroy(iceLance);
             }
 
+            if (flashbang == null && flashbangPrefab != null)
+            {
+                GameObject flashbangObject =
+                    (GameObject)PrefabUtility.InstantiatePrefab(flashbangPrefab, scene);
+                flashbang = flashbangObject.GetComponent<SkillParticleEffect>();
+                DisableAutoDestroy(flashbang);
+            }
+
             if (fireball != null)
             {
-                fireball.transform.position = new Vector3(-8f, -0.7f, 0f);
+                fireball.transform.position = new Vector3(-10f, -0.7f, 0f);
             }
 
             if (earth != null)
             {
-                earth.transform.position = new Vector3(-4f, -0.7f, 0f);
+                earth.transform.position = new Vector3(-6f, -0.7f, 0f);
             }
 
-            nailDriving.transform.position = new Vector3(0f, -0.7f, 0f);
-            plagueMagic.transform.position = new Vector3(4f, -0.7f, 0f);
-            iceLance.transform.position = new Vector3(8f, -0.7f, 0f);
+            nailDriving.transform.position = new Vector3(-2f, -0.7f, 0f);
+            plagueMagic.transform.position = new Vector3(2f, -0.7f, 0f);
+            iceLance.transform.position = new Vector3(6f, -0.7f, 0f);
+            if (flashbang != null)
+            {
+                flashbang.transform.position = new Vector3(10f, -0.7f, 0f);
+            }
 
             Camera previewCamera = null;
             foreach (GameObject rootObject in scene.GetRootGameObjects())
@@ -1427,7 +1728,7 @@ namespace StopDefence.Editor
 
             if (previewCamera != null)
             {
-                previewCamera.orthographicSize = 6.2f;
+                previewCamera.orthographicSize = 7.2f;
             }
 
             if (controller == null)
@@ -1443,6 +1744,7 @@ namespace StopDefence.Editor
             serializedController.FindProperty("nailDriving").objectReferenceValue = nailDriving;
             serializedController.FindProperty("plagueMagic").objectReferenceValue = plagueMagic;
             serializedController.FindProperty("iceLance").objectReferenceValue = iceLance;
+            serializedController.FindProperty("flashbang").objectReferenceValue = flashbang;
             serializedController.ApplyModifiedPropertiesWithoutUndo();
 
             EditorSceneManager.MarkSceneDirty(scene);
@@ -1822,6 +2124,52 @@ namespace StopDefence.Editor
             WritePixelTexture("IceCrownFront.png", 64, 48, SampleIceCrownFrontPixel);
             WritePixelTexture("FrostPatch.png", 64, 32, SampleFrostPatchPixel);
             WritePixelTexture("Snowflake.png", SampleSnowflakePixel);
+        }
+
+        private static void CreateFlashbangTextures()
+        {
+            WriteTexture("RadiantStar.png", (x, y) =>
+            {
+                float radius = Mathf.Sqrt(x * x + y * y);
+                float core = Mathf.Pow(Mathf.Clamp01(1f - radius), 4f);
+                float horizontal = Mathf.Clamp01(1f - Mathf.Abs(y) * 72f) *
+                                   Mathf.Pow(Mathf.Clamp01(1f - Mathf.Abs(x)), 1.7f);
+                float vertical = Mathf.Clamp01(1f - Mathf.Abs(x) * 72f) *
+                                 Mathf.Pow(Mathf.Clamp01(1f - Mathf.Abs(y)), 1.7f);
+                float diagonalA = Mathf.Clamp01(1f - Mathf.Abs(y - x) * 46f) *
+                                  Mathf.Pow(Mathf.Clamp01(1f - radius), 2.2f);
+                float diagonalB = Mathf.Clamp01(1f - Mathf.Abs(y + x) * 46f) *
+                                  Mathf.Pow(Mathf.Clamp01(1f - radius), 2.2f);
+                float alpha = Mathf.Clamp01(
+                    core * 1.25f +
+                    horizontal * 0.9f +
+                    vertical * 0.9f +
+                    diagonalA * 0.55f +
+                    diagonalB * 0.55f);
+                float value = Mathf.Lerp(0.68f, 1f, Mathf.Clamp01(core * 3f + alpha * 0.5f));
+                return new Color(value, value, value, alpha);
+            });
+
+            WriteTexture("LightBeam.png", (x, y) =>
+            {
+                float center = Mathf.Pow(Mathf.Clamp01(1f - Mathf.Abs(x)), 6f);
+                float shoulder = Mathf.Pow(Mathf.Clamp01(1f - Mathf.Abs(x) * 1.7f), 2f);
+                float taper = Mathf.Clamp01((y + 1f) * 5f) * Mathf.Clamp01((1f - y) * 3f);
+                float strands = 0.72f + 0.28f * Mathf.Sin((x + 1f) * 46f + y * 7f);
+                float alpha = Mathf.Clamp01((center + shoulder * 0.42f) * taper * strands);
+                float value = Mathf.Lerp(0.72f, 1f, center);
+                return new Color(value, value, value, alpha);
+            });
+
+            WriteTexture("GoldenBokeh.png", (x, y) =>
+            {
+                float radius = Mathf.Sqrt(x * x + y * y);
+                float body = Mathf.Pow(Mathf.Clamp01(1f - radius), 1.7f);
+                float rim = Mathf.Clamp01(1f - Mathf.Abs(radius - 0.68f) / 0.16f);
+                float alpha = Mathf.Clamp01(body * 0.42f + rim * rim * 0.72f);
+                float value = Mathf.Lerp(0.65f, 1f, body + rim * 0.3f);
+                return new Color(value, value, value, alpha);
+            });
         }
 
         private static Color SampleIceLancePixel(int x, int y)
