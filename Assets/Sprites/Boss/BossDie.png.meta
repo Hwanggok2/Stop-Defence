@@ -163,7 +163,7 @@ TextureImporter:
         y: 175
         width: 568
         height: 336
-      alignment: 9
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -181,11 +181,11 @@ TextureImporter:
       name: Boss_Die_01
       rect:
         serializedVersion: 2
-        x: 581
-        y: 149
+        x: 582
+        y: 156
         width: 540
-        height: 380
-      alignment: 9
+        height: 373
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -204,10 +204,10 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1133
-        y: 140
+        y: 156
         width: 540
-        height: 380
-      alignment: 9
+        height: 364
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
@@ -226,10 +226,10 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 1674
-        y: 139
+        y: 149
         width: 498
-        height: 331
-      alignment: 9
+        height: 321
+      alignment: 7
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 

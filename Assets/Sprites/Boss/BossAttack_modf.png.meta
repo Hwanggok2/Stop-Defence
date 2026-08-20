@@ -69,7 +69,7 @@ TextureImporter:
   spriteMeshType: 0
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -135,11 +135,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 1130
+        y: 1132
         width: 615
-        height: 370
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 504
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline:
@@ -204,9 +204,9 @@ TextureImporter:
         x: 960
         y: 1056
         width: 615
-        height: 370
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 580
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline:
@@ -296,11 +296,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 224
+        y: 242
         width: 615
-        height: 370
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 482
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline:
@@ -394,12 +394,12 @@ TextureImporter:
       name: BossAttack_modf_6
       rect:
         serializedVersion: 2
-        x: 942
-        y: 210
+        x: 960
+        y: 211
         width: 615
-        height: 370
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        height: 513
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline:

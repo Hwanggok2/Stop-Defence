@@ -107,6 +107,7 @@ InitTestScene*.unity*
 
 # Editor-specific local state
 /.codex-work/
+/.codex-tmp/
 /.idea/
 /.vscode/*
 !/.vscode/settings.json
@@ -115,6 +116,9 @@ InitTestScene*.unity*
 !/.vscode/extensions.json
 !/.vscode/*.code-snippets
 *.vsix
+
+# Office temporary lock files
+~$*.xlsx
 
 # OS-generated metadata
 .DS_Store

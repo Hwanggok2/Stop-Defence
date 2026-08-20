@@ -16,7 +16,7 @@ MonoBehaviour:
   - id: skeleton
     displayName: "\uC2A4\uCF08\uB808\uD1A4"
     enemyType: 0
-    prefab: {fileID: 5265795541389732512, guid: f7611e3a6e2b1a94e8832745f880dd05, type: 3}
+    prefab: {fileID: 9162529065014740827, guid: c32ca56f2af252f48901bf078e6f4a47, type: 3}
     levels:
     - level: 1
       hp: 20
@@ -181,7 +181,7 @@ MonoBehaviour:
   - id: goblin_mage
     displayName: "\uACE0\uBE14\uB9B0 \uB9C8\uBC95\uC0AC"
     enemyType: 1
-    prefab: {fileID: 6433901326577123321, guid: 2a1231c7b0edcd14980cbda8711d2649, type: 3}
+    prefab: {fileID: 5690549670867099322, guid: 4a753fcf70d2d064dab1bb5606441efb, type: 3}
     levels:
     - level: 1
       hp: 72
@@ -346,7 +346,7 @@ MonoBehaviour:
   - id: boss
     displayName: "\uBCF4\uC2A4"
     enemyType: 2
-    prefab: {fileID: 820950947702502206, guid: 9a1d6050cb1787c4991ac40c8c415ec7, type: 3}
+    prefab: {fileID: 7334758380467227625, guid: ef862d873ebc8a145ac6f87e039fb160, type: 3}
     levels:
     - level: 1
       hp: 400
@@ -390,7 +390,7 @@ MonoBehaviour:
       experience: 500
   spawnSchedule:
   - time: 3
-    enemyId: goblin_mage
+    enemyId: skeleton
     level: 1
     spawnPoint: 5
     count: 3
