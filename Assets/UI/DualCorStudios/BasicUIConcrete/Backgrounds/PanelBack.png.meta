@@ -5,7 +5,7 @@ AssetOrigin:
   productId: 48833
   packageName: 'Basic UI Elements: Concrete'
   packageVersion: 1.0
-  assetPath: Assets/DualCorStudios/BasicUIConcrete/Backgrounds/PanelBack.png
+  assetPath: Assets/UI/DualCorStudios/BasicUIConcrete/Backgrounds/PanelBack.png
   uploadId: 88533
 TextureImporter:
   internalIDToNameTable: []

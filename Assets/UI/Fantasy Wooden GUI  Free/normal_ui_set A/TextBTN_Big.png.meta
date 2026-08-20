@@ -5,7 +5,7 @@ AssetOrigin:
   productId: 103811
   packageName: 'Fantasy Wooden GUI : Free'
   packageVersion: 2.0
-  assetPath: Assets/Fantasy Wooden GUI  Free/normal_ui_set A/TextBTN_Big.png
+  assetPath: Assets/UI/Fantasy Wooden GUI  Free/normal_ui_set A/TextBTN_Big.png
   uploadId: 294936
 TextureImporter:
   internalIDToNameTable: []
