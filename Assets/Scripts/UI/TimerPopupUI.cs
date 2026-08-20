@@ -22,7 +22,13 @@ namespace UI
 
         [Header("Display")]
         [SerializeField, Min(0f)] private float displayWindow = 0.5f;
+        [SerializeField, Min(0f)] private float skillTextDisplayDuration = 0.5f;   // 추가
+        [SerializeField, Min(0f)] private float pressedTimeDisplayDuration = 1f;
 
+        
+        private float skillTextTimer = 0f;    // 추가
+        private float pressedTimeTimer = 0f;
+        
         [Header("Judgement Visual")]
         [SerializeField] private Color perfectColor = Color.yellow;
         [SerializeField] private Color greatColor = Color.green;
@@ -49,9 +55,6 @@ namespace UI
             ClearUI();
         }
 
-        private float pressedTimeTimer = 0f;
-        [SerializeField, Min(0f)] private float pressedTimeDisplayDuration = 1f; // 표시 유지 시간
-
         private void Update()
         {
             ResolveReferences();
@@ -62,9 +65,9 @@ namespace UI
                 return;
             }
 
-            // 타이머 차감
-            if (pressedTimeTimer > 0f)
-                pressedTimeTimer -= Time.deltaTime;
+            // 두 타이머 각각 차감
+            if (skillTextTimer > 0f)    skillTextTimer    -= Time.deltaTime;
+            if (pressedTimeTimer > 0f)  pressedTimeTimer  -= Time.deltaTime;
 
             UpdatePopup();
 
@@ -116,33 +119,24 @@ namespace UI
             }
         }
 
-        private void ShowSkill(
-            OwnedActiveSkill skill,
-            float currentTimer)
+        private void ShowSkill(OwnedActiveSkill skill, float currentTimer)
         {
-            float error = Mathf.Abs(
-                currentTimer - skill.TargetSecond);
+            float error = Mathf.Abs(currentTimer - skill.TargetSecond);
 
             if (skillText != null)
             {
-                if (error <= 0.05f)
-                {
-                    skillText.text =
-                        $"{skill.SkillId}\n지금 사용!";
-                }
-                else
-                {
-                    skillText.text =
-                        $"{skill.SkillId}\n{skill.TargetSecond}초";
-                }
+                skillText.gameObject.SetActive(true);
+                skillTextTimer = skillTextDisplayDuration; // 타이머 리셋
+
+                skillText.text = error <= 0.05f
+                    ? $"{skill.SkillId}\n지금 사용!"
+                    : $"{skill.SkillId}\n{skill.TargetSecond}초";
             }
 
             SetSkillImage(skill.SkillId);
-
-            // pressedTimeText는 실제 입력 시에만 표시
             HidePressedTime();
         }
-
+        
         private void SetSkillImage(string skillId)
         {
             if (skillImage == null)
@@ -285,17 +279,21 @@ namespace UI
             pressedTimeText.transform.localScale = originalPressedTimeScale;
         }
 
+        private void HideSkillText()
+        {
+            if (skillText == null) return;
+            if (skillTextTimer > 0f) return; // 타이머 남아있으면 스킵
+
+            skillText.gameObject.SetActive(false);
+            skillText.SetText(string.Empty);
+        }
+
         private void ClearSkill()
         {
-            if (skillText != null)
-            {
-                skillText.SetText(string.Empty);
-            }
+            HideSkillText(); // SetText 직접 호출 대신 타이머 체크
 
             if (skillImage != null)
-            {
                 skillImage.enabled = false;
-            }
 
             HidePressedTime();
         }
