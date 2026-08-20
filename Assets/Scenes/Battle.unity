@@ -251,7 +251,7 @@ GameObject:
   m_Component:
   - component: {fileID: 431004674}
   m_Layer: 0
-  m_Name: Right_7
+  m_Name: Right_3
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -545,7 +545,7 @@ GameObject:
   m_Component:
   - component: {fileID: 951310542}
   m_Layer: 0
-  m_Name: Right_8
+  m_Name: Right_4
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -576,7 +576,7 @@ GameObject:
   m_Component:
   - component: {fileID: 984068926}
   m_Layer: 0
-  m_Name: Right_9
+  m_Name: Right_5
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -895,6 +895,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2125760067001424079, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 908
+      objectReference: {fileID: 0}
+    - target: {fileID: 2125760067001424079, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 926
+      objectReference: {fileID: 0}
+    - target: {fileID: 2148391300219011062, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 127
+      objectReference: {fileID: 0}
+    - target: {fileID: 2148391300219011062, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 308
+      objectReference: {fileID: 0}
     - target: {fileID: 2355697924858008731, guid: e5119f32611e1714782231711f40bf68, type: 3}
       propertyPath: skillInventory
       value: 
@@ -903,6 +919,14 @@ PrefabInstance:
       propertyPath: 'skillImages.Array.data[8]'
       value: 
       objectReference: {fileID: 5986030973748356752, guid: 774e3327b1813244495cd6ca65d6ea05, type: 3}
+    - target: {fileID: 2556245511646797925, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_fontSize
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 2556245511646797925, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 50
+      objectReference: {fileID: 0}
     - target: {fileID: 3099475069104396863, guid: e5119f32611e1714782231711f40bf68, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -910,6 +934,14 @@ PrefabInstance:
     - target: {fileID: 3742841449643479843, guid: e5119f32611e1714782231711f40bf68, type: 3}
       propertyPath: m_Name
       value: BattleCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398860792181173804, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -763
+      objectReference: {fileID: 0}
+    - target: {fileID: 4398860792181173804, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -968
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -937,7 +969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1911773040}
   m_Layer: 0
-  m_Name: Right_6
+  m_Name: Right_2
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1060,7 +1092,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1992965176}
   m_Layer: 0
-  m_Name: Right_5
+  m_Name: Right_1
   m_TagString: Untagged
   m_Icon: {fileID: 3443629218296621865, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
