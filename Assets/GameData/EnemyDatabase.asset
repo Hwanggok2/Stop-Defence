@@ -514,4 +514,124 @@ MonoBehaviour:
     level: 1
     spawnPoint: 5
     count: 2
+    interval: 2
+  - time: 130
+    enemyId: skeleton
+    level: 6
+    spawnPoint: 5
+    count: 3
+    interval: 1
+  - time: 132
+    enemyId: goblin_mage
+    level: 6
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 138
+    enemyId: skeleton
+    level: 6
+    spawnPoint: 5
+    count: 3
+    interval: 1
+  - time: 139
+    enemyId: skeleton
+    level: 6
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 140
+    enemyId: skeleton
+    level: 6
+    spawnPoint: 5
+    count: 3
+    interval: 2
+  - time: 142
+    enemyId: goblin_mage
+    level: 7
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 146
+    enemyId: goblin_mage
+    level: 7
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 148
+    enemyId: goblin_mage
+    level: 7
+    spawnPoint: 5
+    count: 3
+    interval: 1
+  - time: 149
+    enemyId: goblin_mage
+    level: 7
+    spawnPoint: 5
+    count: 5
+    interval: 1
+  - time: 150
+    enemyId: boss
+    level: 2
+    spawnPoint: 5
+    count: 1
+    interval: 0
+  - time: 157
+    enemyId: skeleton
+    level: 6
+    spawnPoint: 5
+    count: 6
+    interval: 1
+  - time: 160
+    enemyId: goblin_mage
+    level: 6
+    spawnPoint: 5
+    count: 6
+    interval: 1
+  - time: 161
+    enemyId: skeleton
+    level: 7
+    spawnPoint: 5
+    count: 3
+    interval: 1
+  - time: 163
+    enemyId: skeleton
+    level: 7
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 164
+    enemyId: skeleton
+    level: 7
+    spawnPoint: 5
+    count: 4
+    interval: 2
+  - time: 165
+    enemyId: goblin_mage
+    level: 8
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 166
+    enemyId: goblin_mage
+    level: 8
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 170
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 5
+    count: 2
+    interval: 1
+  - time: 179
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 5
+    count: 2
+    interval: 1
+  - time: 180
+    enemyId: boss
+    level: 3
+    spawnPoint: 5
+    count: 1
     interval: 0
