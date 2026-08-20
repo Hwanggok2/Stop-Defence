@@ -1,0 +1,262 @@
+fileFormatVersion: 2
+guid: 8d1c55c337ec3df45bf4800c5e033c22
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -7113006917478203270
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_0"
+  - first:
+      213: -2663624327908877
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_1"
+  - first:
+      213: -5937344146146649460
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_2"
+  - first:
+      213: -2899860520847768497
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_3"
+  - first:
+      213: 4727026847267563704
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_4"
+  - first:
+      213: -867229929659885268
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_5"
+  - first:
+      213: 1949447646893607847
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_6"
+  - first:
+      213: -7258073110147021452
+    second: Boss_Die_00
+  - first:
+      213: -5355178425034297926
+    second: Boss_Die_01
+  - first:
+      213: -3714000158153997326
+    second: Boss_Die_02
+  - first:
+      213: 2118999089518666449
+    second: Boss_Die_03
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Boss_Die_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 543
+        height: 724
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4754fd316f4264b90800000000000000
+      internalID: -7258073110147021452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Die_01
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 0
+        width: 543
+        height: 724
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abdaefa68959ea5b0800000000000000
+      internalID: -5355178425034297926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Die_02
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 0
+        width: 543
+        height: 724
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2f38c75a888357cc0800000000000000
+      internalID: -3714000158153997326
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Boss_Die_03
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 0
+        width: 543
+        height: 724
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1d2e22ae172386d10800000000000000
+      internalID: 2118999089518666449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Boss_Die_00: -7258073110147021452
+      Boss_Die_01: -5355178425034297926
+      Boss_Die_02: -3714000158153997326
+      Boss_Die_03: 2118999089518666449
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_0": -7113006917478203270
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_1": -2663624327908877
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_2": -5937344146146649460
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_3": -2899860520847768497
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_4": 4727026847267563704
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_5": -867229929659885268
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_40_6": 1949447646893607847
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

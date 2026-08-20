@@ -14,12 +14,7 @@ public class StopWatch : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI timerText;
 
-    Dictionary<int, string> playerSkill = new Dictionary<int, string>
-    { /* skill index, skill macro*/
-        { 2, "1" }
-    };
-
-    float maxTimer = 20f;
+    float maxTimer = 60f;
     float curTimer;
     int timerSec;
     int timerMil;
@@ -30,7 +25,6 @@ public class StopWatch : MonoBehaviour
 
     void Start()
     {
-        // Å¸ÀÌ¸Ó °ü·Ã µ¥ÀÌÅÍ ÃÊ±âÈ­
         curTimer = maxTimer;
         prevTimer = -1;
         Time.fixedDeltaTime = 0.01f;
@@ -40,19 +34,19 @@ public class StopWatch : MonoBehaviour
 
     void Update()
     {
-        // ½ºÆäÀÌ½º ÀÔ·Â½Ã ½ºÅ³ ¹ßµ¿
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ ï¿½Ô·Â½ï¿½ ï¿½ï¿½Å³ ï¿½ßµï¿½
         if (Keyboard.current.spaceKey.wasPressedThisFrame) {
             prevTimer = (int)(curTimer * 100);
 
-            // ½ºÅ³ ½ÃÀü °¡´É ¿©ºÎ È®ÀÎ ÈÄ ½ºÅ³ ½ÃÀü
+            // ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
             if (canSkillCast) {
                 CastSkill();
             } else {
-                Debug.Log("½ºÅ³ ½ÃÀü ¸®¹Ù¿îµå Áß");
+                Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ ï¿½ï¿½");
             }
         }
 
-        // Å¸ÀÌ¸Ó UI ¾÷µ¥ÀÌÆ®
+        // Å¸ï¿½Ì¸ï¿½ UI ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
         if (timerText != null) {
             timerText.text = string.Format("{0:D2}:{1:D2}", timerSec, timerMil);
         }
@@ -60,49 +54,48 @@ public class StopWatch : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Å¸ÀÌ¸Ó ½Ã°£ °¨¼Ò
         if (curTimer > 0) {
             curTimer -= Time.fixedDeltaTime;
         } else {
             curTimer = maxTimer;
         }
 
-        // Å¸ÀÌ¸Ó UI¿¡ ¶ç¿ï ½Ã°£ °è»ê
+        // Å¸ï¿½Ì¸ï¿½ UIï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½
         timerSec = (int)curTimer;
         timerMil = (int)((curTimer - timerSec) * 100);
     }
 
     void CastSkill()
     {
-        Debug.Log("½ºÅ³ ½ÃÀü ½Ãµµ");
+        Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½Ãµï¿½");
         canSkillCast = false;
 
-        // ½ºÆäÀÌ½º Å°¸¦ ´©¸£Áö ¾Ê¾ÒÀ¸¸é ÆÐ½º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ì½ï¿½ Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð½ï¿½
         if (prevTimer == -1) return;
 
-        // ½ÃÀü °¡´É ½ºÅ³ È®ÀÎ ÈÄ ½ÃÀü
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ È®ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < playerSkill.Count-1; i++) {
             playerSkill.TryGetValue(0, out string trigger);
 
             if (prevTimer.ToString().Contains(trigger))  {
-                Debug.Log("½ºÅ³ ½ÃÀü");
+                Debug.Log("ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½");
                 canSkillCast = true;
 
                 int key = playerSkill.FirstOrDefault(x => x.Value == trigger).Key;
-                //½ºÅ³ ÀÎµ¦½º·Î ½ºÅ³ ½ÇÇà
+                //ï¿½ï¿½Å³ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½
                 castSkill.Cast(key);
             }
         }
 
-        // ½ºÅ³ÀÌ ½ÇÇàµÇÁö ¾Ê¾ÒÀ¸¸é 0.1ÃÊ µ¿¾È ½ºÅ³ ½ÃÀü ¾ÈµÇ°Ô ÇÏ±â
+        // ï¿½ï¿½Å³ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾ï¿½ï¿½ï¿½ï¿½ï¿½ 0.1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Å³ ï¿½ï¿½ï¿½ï¿½ ï¿½ÈµÇ°ï¿½ ï¿½Ï±ï¿½
         if (!canSkillCast) {
-            Debug.Log("¸®¹Ù¿îµå ½ÃÀÛ");
+            Debug.Log("ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             Invoke("DelaySkillCast", 1f);
         }
     }
     void DelaySkillCast()
     {
-        Debug.Log("¸®¹Ù¿îµå ÇØÁ¦");
+        Debug.Log("ï¿½ï¿½ï¿½Ù¿ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
         canSkillCast = true;
     }
 }
