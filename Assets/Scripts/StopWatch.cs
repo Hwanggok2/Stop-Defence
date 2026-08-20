@@ -80,7 +80,7 @@ public class StopWatch : MonoBehaviour
         }
 
         if (!canSkillCast) {
-            Invoke("DelaySkillCast", 1f);
+            Invoke("DelaySkillCast", 0.1f);
         }
     }
     void DelaySkillCast()
