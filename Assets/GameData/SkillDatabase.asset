@@ -141,22 +141,6 @@ MonoBehaviour:
     statType: 0
     statValue: 0
     statCap: 0
-  - skillId: skill_009
-    displayName: "30(\uBC18\uC62C\uB9BC)"
-    description: "\uC2A4\uD1B1\uC6CC\uCE58 \uC22B\uC790\uB97C \uBC18\uC62C\uB9BC\uD55C
-      \uACB0\uACFC\uC5D0 \uB530\uB77C \uC801\uC5D0\uAC8C \uD53C\uD574\uB97C \uC90D\uB2C8\uB2E4."
-    category: 0
-    grade: 4
-    baseDamage: 12
-    damagePerLevel: 0.5
-    baseDotDamage: 0
-    dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
-    enabled: 1
-    statType: 0
-    statValue: 0
-    statCap: 0
   - skillId: skill_010
     displayName: "\uC12C\uAD11\uD0C4"
     description: "\uAC15\uD55C \uBE5B\uC73C\uB85C \uC801\uC758 \uD589\uB3D9\uC744
