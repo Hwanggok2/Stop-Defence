@@ -1,0 +1,579 @@
+fileFormatVersion: 2
+guid: b8a30cf1187430c4e8a87ec9a66ad4d0
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3816463322046845316
+    second: goblin_die_0
+  - first:
+      213: 867512454711379972
+    second: goblin_die_1
+  - first:
+      213: 4257495980877711388
+    second: goblin_die_2
+  - first:
+      213: -2230617119174298515
+    second: goblin_die_3
+  - first:
+      213: 6483921810217779350
+    second: goblin_die_4
+  - first:
+      213: 4066118787168333664
+    second: goblin_die_5
+  - first:
+      213: 4997316117044390860
+    second: goblin_die_6
+  - first:
+      213: 7570786771926931823
+    second: goblin_die_7
+  - first:
+      213: 7692364797636085457
+    second: goblin_die_8
+  - first:
+      213: -2489568768259996752
+    second: goblin_die_9
+  - first:
+      213: 5024579833377966394
+    second: goblin_die_10
+  - first:
+      213: 8093301796996302261
+    second: goblin_die_11
+  - first:
+      213: -1818343294427130397
+    second: goblin_die_12
+  - first:
+      213: -1637515680667781093
+    second: goblin_die_13
+  - first:
+      213: 5061498538631433733
+    second: goblin_die_14
+  - first:
+      213: 5515387276960305312
+    second: goblin_die_15
+  - first:
+      213: -4619869174944603033
+    second: goblin_die_16
+  - first:
+      213: -3797696416297645764
+    second: goblin_die_17
+  - first:
+      213: -1916826108595223194
+    second: goblin_die_18
+  - first:
+      213: 8460380170479103490
+    second: goblin_die_19
+  - first:
+      213: -4205493430356788088
+    second: goblin_die_20
+  - first:
+      213: -5779768854321583260
+    second: goblin_die_21
+  - first:
+      213: 7251559863891686185
+    second: goblin_die_22
+  - first:
+      213: -4294305195247569685
+    second: goblin_die_23
+  - first:
+      213: 8316938597175974379
+    second: goblin_die_24
+  - first:
+      213: -7381383154575513830
+    second: goblin_die_25
+  - first:
+      213: 8438191016011028534
+    second: goblin_die_26
+  - first:
+      213: -4337347216148907633
+    second: goblin_die_27
+  - first:
+      213: -7511702100027028073
+    second: goblin_die_28
+  - first:
+      213: -8261667662348353064
+    second: goblin_die_29
+  - first:
+      213: 4506252791552603435
+    second: goblin_die_30
+  - first:
+      213: -1102750991824876495
+    second: goblin_die_31
+  - first:
+      213: 7837269107368325123
+    second: goblin_die_32
+  - first:
+      213: -2202747878808444789
+    second: goblin_die_33
+  - first:
+      213: -6285607363769008089
+    second: goblin_die_34
+  - first:
+      213: -1613874449996852478
+    second: goblin_die_35
+  - first:
+      213: -684462139802494764
+    second: goblin_die_36
+  - first:
+      213: 1392441334895348398
+    second: goblin_die_37
+  - first:
+      213: -6467389325764632912
+    second: goblin_die_38
+  - first:
+      213: 7960269931606218731
+    second: goblin_die_39
+  - first:
+      213: -586816342706008844
+    second: goblin_die_40
+  - first:
+      213: 2035207154950474478
+    second: goblin_die_41
+  - first:
+      213: -8332315191176186728
+    second: goblin_die_42
+  - first:
+      213: -1651815417562244778
+    second: goblin_die_43
+  - first:
+      213: 8050865595225051665
+    second: goblin_die_44
+  - first:
+      213: 1251137847895450907
+    second: goblin_die_45
+  - first:
+      213: 9178143863609784338
+    second: goblin_die_46
+  - first:
+      213: -7165307583509218079
+    second: goblin_die_47
+  - first:
+      213: -3712039522133445022
+    second: goblin_die_48
+  - first:
+      213: -6099715594938276984
+    second: goblin_die_49
+  - first:
+      213: -1401212841626517064
+    second: goblin_die_50
+  - first:
+      213: -1009790071440193143
+    second: goblin_die_51
+  - first:
+      213: -5057818200413838050
+    second: goblin_die_52
+  - first:
+      213: 8923352189207990822
+    second: goblin_die_53
+  - first:
+      213: -4963300137708657450
+    second: goblin_die_54
+  - first:
+      213: -7839955293734608630
+    second: goblin_die_55
+  - first:
+      213: -5597103401235180082
+    second: goblin_die_56
+  - first:
+      213: 8069857595105960909
+    second: goblin_die_57
+  - first:
+      213: 2599449126744884985
+    second: goblin_die_58
+  - first:
+      213: 1322006485703288881
+    second: goblin_die_59
+  - first:
+      213: -598677797409118529
+    second: goblin_die_60
+  - first:
+      213: -188295764474230384
+    second: goblin_die_61
+  - first:
+      213: -4873568605084636143
+    second: goblin_die_62
+  - first:
+      213: -1882463622620255234
+    second: goblin_die_63
+  - first:
+      213: -7148365609855886710
+    second: goblin_die_64
+  - first:
+      213: -8190687180992251123
+    second: goblin_die_65
+  - first:
+      213: -2477806385783561578
+    second: goblin_die_66
+  - first:
+      213: -1022102878503371006
+    second: goblin_die_67
+  - first:
+      213: -6711173188603823388
+    second: goblin_die_68
+  - first:
+      213: -7911327285631108576
+    second: goblin_die_69
+  - first:
+      213: -5529270962395560207
+    second: goblin_die_70
+  - first:
+      213: 2854174379545538923
+    second: goblin_die_71
+  - first:
+      213: -6366889198687003643
+    second: goblin_die_72
+  - first:
+      213: -7332850759849596305
+    second: goblin_die_73
+  - first:
+      213: 953329757920898780
+    second: goblin_die_74
+  - first:
+      213: -8241299967486424322
+    second: goblin_die_75
+  - first:
+      213: -714674664947971860
+    second: goblin_die_76
+  - first:
+      213: -155085866278515562
+    second: goblin_die_77
+  - first:
+      213: -8151136905410770927
+    second: goblin_die_78
+  - first:
+      213: 246816535537080707
+    second: goblin_die_79
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: goblin_die_0
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 783
+        width: 400
+        height: 440
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 481d8e0cb2dc6f430800000000000000
+      internalID: 3816463322046845316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_1
+      rect:
+        serializedVersion: 2
+        x: 433
+        y: 775
+        width: 400
+        height: 440
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4088c453bf50a0c00800000000000000
+      internalID: 867512454711379972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_2
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 767
+        width: 400
+        height: 440
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c188ed4990aa51b30800000000000000
+      internalID: 4257495980877711388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_3
+      rect:
+        serializedVersion: 2
+        x: 12
+        y: 414
+        width: 400
+        height: 310
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d64f5b56c814b01e0800000000000000
+      internalID: -2230617119174298515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_4
+      rect:
+        serializedVersion: 2
+        x: 436
+        y: 418
+        width: 400
+        height: 234
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb2d842c1e003064e8d6ac4dbc420c6d
+      internalID: 6483921810217779350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_5
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 414
+        width: 400
+        height: 218
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64376253021efdd478a5be2731101f73
+      internalID: 4066118787168333664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_6
+      rect:
+        serializedVersion: 2
+        x: 13
+        y: 73
+        width: 415
+        height: 194
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 700004782dea3d342a55540d3cfbccd6
+      internalID: 4997316117044390860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_7
+      rect:
+        serializedVersion: 2
+        x: 435
+        y: 64
+        width: 400
+        height: 262
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1419594ddbcc54f4c95ef4f28c1e296b
+      internalID: 7570786771926931823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: goblin_die_8
+      rect:
+        serializedVersion: 2
+        x: 854
+        y: 57
+        width: 400
+        height: 239
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34ba8833f1b05fc4bb22df94bedaeead
+      internalID: 7692364797636085457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 2e6c360b1ba44fe4bb782ebb7cea9f25
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":400.0,"y":400.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":1,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      goblin_die_0: 3816463322046845316
+      goblin_die_1: 867512454711379972
+      goblin_die_2: 4257495980877711388
+      goblin_die_3: -2230617119174298515
+      goblin_die_4: 6483921810217779350
+      goblin_die_5: 4066118787168333664
+      goblin_die_6: 4997316117044390860
+      goblin_die_7: 7570786771926931823
+      goblin_die_8: 7692364797636085457
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
