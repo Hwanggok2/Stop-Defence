@@ -19,7 +19,7 @@ MonoBehaviour:
       \uC77C\uC815 \uC2DC\uAC04 \uD654\uC0C1 \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     category: 0
     grade: 2
-    baseDamage: 20
+    baseDamage: 25
     damagePerLevel: 2
     baseDotDamage: 2
     dotDamagePerLevel: 0.1
@@ -35,7 +35,7 @@ MonoBehaviour:
       \uC8FC\uACE0 \uB4A4\uB85C \uBC00\uCCD0\uB0C5\uB2C8\uB2E4."
     category: 0
     grade: 3
-    baseDamage: 18
+    baseDamage: 23
     damagePerLevel: 1.3
     baseDotDamage: 0
     dotDamagePerLevel: 0
@@ -51,7 +51,7 @@ MonoBehaviour:
       \uC5EC\uB7EC \uB300\uC0C1\uC744 \uACF5\uACA9\uD569\uB2C8\uB2E4."
     category: 0
     grade: 1
-    baseDamage: 15
+    baseDamage: 20
     damagePerLevel: 1.4
     baseDotDamage: 0
     dotDamagePerLevel: 0
@@ -67,7 +67,7 @@ MonoBehaviour:
       \uD53C\uD574\uB97C \uC785\uD799\uB2C8\uB2E4."
     category: 0
     grade: 2
-    baseDamage: 30
+    baseDamage: 100
     damagePerLevel: 2
     baseDotDamage: 0
     dotDamagePerLevel: 0
@@ -101,7 +101,7 @@ MonoBehaviour:
     grade: 3
     baseDamage: 0
     damagePerLevel: 0
-    baseDotDamage: 12
+    baseDotDamage: 15
     dotDamagePerLevel: 1
     imagePath: Assets/Image/skill_006.asset
     image: {fileID: 21300000, guid: c2b03ed185ae588418c98f10ac662d6a, type: 2}
