@@ -15,6 +15,7 @@ public sealed class CastSkill : MonoBehaviour
     private const string IceLanceId = "skill_007";
     private const string MegaExplosionId = "skill_008";
     private const string RoundingThirtyId = "skill_009";
+    private const string FlashbangId = "skill_010";
     private const string CaffeineId = "skill_011";
     private const float IceLanceTravelDistance = 40f;
     private const float IceLanceProjectileSpeed = 25f;
@@ -31,6 +32,7 @@ public sealed class CastSkill : MonoBehaviour
     [SerializeField] private SkillParticleEffect plagueMagicEffectPrefab;
     [SerializeField] private SkillParticleEffect iceLanceEffectPrefab;
     [SerializeField] private SkillParticleEffect megaExplosionEffectPrefab;
+    [SerializeField] private SkillParticleEffect flashbangEffectPrefab;
     [SerializeField] private ChainLightningBolt chainLightningEffectPrefab;
 
     [Header("Skill Balance (Database Fallbacks)")]
@@ -59,6 +61,8 @@ public sealed class CastSkill : MonoBehaviour
     [SerializeField, Min(0f)] private float iceSlowDurationPerAttackLevel = 0.1f;
     [SerializeField, Min(0f)] private float megaExplosionDamage = 100f;
     [SerializeField, Min(0f)] private float roundingThirtyDamage = 30f;
+    [SerializeField, Min(0f)] private float flashbangDuration = 2f;
+    [SerializeField, Min(0f)] private float flashbangDurationPerAttackLevel = 0.1f;
     [SerializeField, Min(1f)] private float caffeineDamageMultiplier = 1.3f;
     [SerializeField, Min(0f)] private float caffeineDuration = 5f;
 
@@ -91,6 +95,7 @@ public sealed class CastSkill : MonoBehaviour
             IceLanceId => CastIceLance(damageMultiplier),
             MegaExplosionId => CastMegaExplosion(damageMultiplier),
             RoundingThirtyId => CastRoundingThirty(damageMultiplier),
+            FlashbangId => CastFlashbang(),
             CaffeineId => CastCaffeine(),
             _ => false
         };
@@ -431,6 +436,28 @@ public sealed class CastSkill : MonoBehaviour
         target.TakeDamage(
             GetDamage(RoundingThirtyId, roundingThirtyDamage) * multiplier,
             RoundingThirtyId);
+        return true;
+    }
+
+    private bool CastFlashbang()
+    {
+        List<Enemy.Enemy> enemies = GetActiveEnemies();
+        if (enemies.Count == 0)
+        {
+            return false;
+        }
+
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        SpawnEffect(flashbangEffectPrefab, target.transform.position);
+        float duration = ScaleByAttackPowerLevel(
+            flashbangDuration,
+            flashbangDurationPerAttackLevel);
+
+        foreach (Enemy.Enemy enemy in enemies)
+        {
+            enemy.ApplyDisruption(duration);
+        }
+
         return true;
     }
 

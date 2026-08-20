@@ -16,7 +16,9 @@ namespace Enemy
         private float moveSpeedMultiplier = 1f;
         private Transform targetTransform;
         private bool isDead;
+        private bool isDisrupted;
         private Coroutine slowRoutine;
+        private Coroutine disruptionRoutine;
 
         public bool IsDead => isDead;
         public float CurrentHp => stat.hp;
@@ -55,7 +57,9 @@ namespace Enemy
             StopAllCoroutines();
             attackTimer = 0f;
             moveSpeedMultiplier = 1f;
+            isDisrupted = false;
             slowRoutine = null;
+            disruptionRoutine = null;
             isDead = false;
             isInAttackRange = false;
             SetTarget(target);
@@ -122,6 +126,21 @@ namespace Enemy
             slowRoutine = StartCoroutine(SlowRoutine(slowRate, duration));
         }
 
+        public void ApplyDisruption(float duration)
+        {
+            if (duration <= 0f || isDead)
+            {
+                return;
+            }
+
+            if (disruptionRoutine != null)
+            {
+                StopCoroutine(disruptionRoutine);
+            }
+
+            disruptionRoutine = StartCoroutine(DisruptionRoutine(duration));
+        }
+
         public void Knockback(Vector3 direction, float distance)
         {
             if (distance <= 0f || isDead || direction.sqrMagnitude <= Mathf.Epsilon)
@@ -135,6 +154,11 @@ namespace Enemy
         protected virtual void Update()
         {
             if (targetTransform == null)
+            {
+                return;
+            }
+
+            if (isDisrupted)
             {
                 return;
             }
@@ -210,6 +234,14 @@ namespace Enemy
             yield return new WaitForSeconds(duration);
             moveSpeedMultiplier = 1f;
             slowRoutine = null;
+        }
+
+        private IEnumerator DisruptionRoutine(float duration)
+        {
+            isDisrupted = true;
+            yield return new WaitForSeconds(duration);
+            isDisrupted = false;
+            disruptionRoutine = null;
         }
 
     }

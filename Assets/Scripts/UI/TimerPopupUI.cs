@@ -38,6 +38,9 @@ namespace UI
         [SerializeField, Min(0f)] private float goodScale = 1.15f;
         [SerializeField, Min(0f)] private float badScale = 1f;
 
+        [SerializeField, Min(0f)] private float perfectShakeDuration = 0.65f;
+        [SerializeField, Min(0f)] private float perfectShakeStrength = 0.3f;
+
         private Vector3 originalPressedTimeScale;
 
         private void Awake()
@@ -186,6 +189,13 @@ namespace UI
             pressedTimeText.gameObject.SetActive(true);
             pressedTimeTimer = pressedTimeDisplayDuration;
             ApplyJudgementVisual(judgement);
+
+            if (judgement == TimingJudgement.Perfect)
+            {
+                CameraController.Instance?.Shake(
+                    perfectShakeDuration,
+                    perfectShakeStrength);
+            }
         }
 
         private void ApplyJudgementVisual(TimingJudgement judgement)
