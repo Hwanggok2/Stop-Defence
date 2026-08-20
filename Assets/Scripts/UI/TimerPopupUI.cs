@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using StopDefence.GameData;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,24 +12,21 @@ namespace UI
         [Header("References")]
         [SerializeField] private StopWatch stopWatch;
         [SerializeField] private SkillInventory skillInventory;
+        [SerializeField] private SkillDatabase skillDatabase; // List<Sprite> 대체
 
         [Header("UI")]
         [SerializeField] private Image skillImage;
         [SerializeField] private TMP_Text skillText;
         [SerializeField] private TMP_Text pressedTimeText;
 
-        [Header("Skill Images")]
-        [SerializeField] private List<Sprite> skillImages = new();
-
         [Header("Display")]
         [SerializeField, Min(0f)] private float displayWindow = 0.5f;
-        [SerializeField, Min(0f)] private float skillTextDisplayDuration = 0.5f;   // 추가
+        [SerializeField, Min(0f)] private float skillTextDisplayDuration = 0.5f;
         [SerializeField, Min(0f)] private float pressedTimeDisplayDuration = 1f;
 
-        
-        private float skillTextTimer = 0f;    // 추가
+        private float skillTextTimer = 0f;
         private float pressedTimeTimer = 0f;
-        
+
         [Header("Judgement Visual")]
         [SerializeField] private Color perfectColor = Color.yellow;
         [SerializeField] private Color greatColor = Color.green;
@@ -47,10 +45,7 @@ namespace UI
             ResolveReferences();
 
             if (pressedTimeText != null)
-            {
-                originalPressedTimeScale =
-                    pressedTimeText.transform.localScale;
-            }
+                originalPressedTimeScale = pressedTimeText.transform.localScale;
 
             ClearUI();
         }
@@ -65,9 +60,8 @@ namespace UI
                 return;
             }
 
-            // 두 타이머 각각 차감
-            if (skillTextTimer > 0f)    skillTextTimer    -= Time.deltaTime;
-            if (pressedTimeTimer > 0f)  pressedTimeTimer  -= Time.deltaTime;
+            if (skillTextTimer > 0f)   skillTextTimer   -= Time.deltaTime;
+            if (pressedTimeTimer > 0f) pressedTimeTimer -= Time.deltaTime;
 
             UpdatePopup();
 
@@ -80,8 +74,7 @@ namespace UI
 
         private void UpdatePopup()
         {
-            IReadOnlyList<OwnedActiveSkill> skills =
-                skillInventory.OwnedActiveSkills;
+            IReadOnlyList<OwnedActiveSkill> skills = skillInventory.OwnedActiveSkills;
 
             if (skills == null || skills.Count == 0)
             {
@@ -89,34 +82,35 @@ namespace UI
                 return;
             }
 
-            float currentTimer = stopWatch.CurrentTimer;
+            OwnedActiveSkill? closest = FindClosestSkill(skills, out _);
 
-            OwnedActiveSkill? closestSkill = null;
-            float closestError = float.MaxValue;
+            if (closest.HasValue)
+                ShowSkill(closest.Value, stopWatch.CurrentTimer);
+            else
+                ClearSkill();
+        }
+
+        // UpdatePopup / ShowPressedResult 중복 제거
+        private OwnedActiveSkill? FindClosestSkill(
+            IReadOnlyList<OwnedActiveSkill> skills,
+            out float closestError)
+        {
+            float currentTimer = stopWatch.CurrentTimer;
+            OwnedActiveSkill? result = null;
+            closestError = float.MaxValue;
 
             foreach (OwnedActiveSkill skill in skills)
             {
-                float error = Mathf.Abs(
-                    currentTimer - skill.TargetSecond);
+                float error = Mathf.Abs(currentTimer - skill.TargetSecond);
 
-                if (error <= displayWindow &&
-                    error < closestError)
+                if (error <= displayWindow && error < closestError)
                 {
                     closestError = error;
-                    closestSkill = skill;
+                    result = skill;
                 }
             }
 
-            if (closestSkill.HasValue)
-            {
-                ShowSkill(
-                    closestSkill.Value,
-                    currentTimer);
-            }
-            else
-            {
-                ClearSkill();
-            }
+            return result;
         }
 
         private void ShowSkill(OwnedActiveSkill skill, float currentTimer)
@@ -125,38 +119,38 @@ namespace UI
 
             if (skillText != null)
             {
+                // DisplayName 조회, 없으면 SkillId 폴백
+                string displayName = skill.SkillId;
+                if (skillDatabase != null &&
+                    skillDatabase.TryGetSkill(skill.SkillId, out SkillData skillData))
+                {
+                    displayName = skillData.DisplayName;
+                }
+
                 skillText.gameObject.SetActive(true);
-                skillTextTimer = skillTextDisplayDuration; // 타이머 리셋
+                skillTextTimer = skillTextDisplayDuration;
 
                 skillText.text = error <= 0.05f
-                    ? $"{skill.SkillId}\n지금 사용!"
-                    : $"{skill.SkillId}\n{skill.TargetSecond}초";
+                    ? $"{displayName}\n지금 사용!"
+                    : $"{displayName}\n{skill.TargetSecond}초";
             }
 
             SetSkillImage(skill.SkillId);
             HidePressedTime();
         }
-        
+
+        // SkillDatabase에서 직접 Sprite 조회
         private void SetSkillImage(string skillId)
         {
-            if (skillImage == null)
+            if (skillImage == null) return;
+
+            if (skillDatabase != null &&
+                skillDatabase.TryGetSkill(skillId, out SkillData skillData) &&
+                skillData.Image != null)
             {
+                skillImage.sprite = skillData.Image;
+                skillImage.enabled = true;
                 return;
-            }
-
-            foreach (Sprite sprite in skillImages)
-            {
-                if (sprite == null)
-                {
-                    continue;
-                }
-
-                if (sprite.name == skillId)
-                {
-                    skillImage.sprite = sprite;
-                    skillImage.enabled = true;
-                    return;
-                }
             }
 
             Debug.LogWarning(
@@ -168,50 +162,17 @@ namespace UI
 
         private void ShowPressedResult()
         {
-            IReadOnlyList<OwnedActiveSkill> skills =
-                skillInventory.OwnedActiveSkills;
+            IReadOnlyList<OwnedActiveSkill> skills = skillInventory.OwnedActiveSkills;
 
-            if (skills == null || skills.Count == 0)
-            {
-                return;
-            }
+            if (skills == null || skills.Count == 0) return;
 
-            float currentTimer = stopWatch.CurrentTimer;
+            OwnedActiveSkill? closest = FindClosestSkill(skills, out float closestError);
 
-            OwnedActiveSkill? closestSkill = null;
-            float closestError = float.MaxValue;
+            if (!closest.HasValue) return;
 
-            foreach (OwnedActiveSkill skill in skills)
-            {
-                float error = Mathf.Abs(
-                    currentTimer - skill.TargetSecond);
+            if (!stopWatch.TryEvaluateJudgement(closestError, out TimingJudgement judgement)) return;
 
-                if (error <= displayWindow &&
-                    error < closestError)
-                {
-                    closestError = error;
-                    closestSkill = skill;
-                }
-            }
-
-            if (!closestSkill.HasValue)
-            {
-                return;
-            }
-
-            OwnedActiveSkill skillToShow = closestSkill.Value;
-
-            if (!stopWatch.TryEvaluateJudgement(
-                    closestError,
-                    out TimingJudgement judgement))
-            {
-                return;
-            }
-
-            ShowJudgement(
-                skillToShow,
-                closestError,
-                judgement);
+            ShowJudgement(closest.Value, closestError, judgement);
         }
 
         private void ShowJudgement(
@@ -223,56 +184,30 @@ namespace UI
 
             pressedTimeText.text = $"{error:F2}초";
             pressedTimeText.gameObject.SetActive(true);
-            pressedTimeTimer = pressedTimeDisplayDuration; // 타이머 시작
+            pressedTimeTimer = pressedTimeDisplayDuration;
             ApplyJudgementVisual(judgement);
         }
-        private void ApplyJudgementVisual(
-            TimingJudgement judgement)
+
+        private void ApplyJudgementVisual(TimingJudgement judgement)
         {
             switch (judgement)
             {
-                case TimingJudgement.Perfect:
-                    SetPressedTimeVisual(
-                        perfectColor,
-                        perfectScale);
-                    break;
-
-                case TimingJudgement.Great:
-                    SetPressedTimeVisual(
-                        greatColor,
-                        greatScale);
-                    break;
-
-                case TimingJudgement.Good:
-                    SetPressedTimeVisual(
-                        goodColor,
-                        goodScale);
-                    break;
-
-                case TimingJudgement.Bad:
-                    SetPressedTimeVisual(
-                        badColor,
-                        badScale);
-                    break;
+                case TimingJudgement.Perfect: SetPressedTimeVisual(perfectColor, perfectScale); break;
+                case TimingJudgement.Great:   SetPressedTimeVisual(greatColor,   greatScale);   break;
+                case TimingJudgement.Good:    SetPressedTimeVisual(goodColor,    goodScale);    break;
+                case TimingJudgement.Bad:     SetPressedTimeVisual(badColor,     badScale);     break;
             }
         }
 
-        private void SetPressedTimeVisual(
-            Color color,
-            float scale)
+        private void SetPressedTimeVisual(Color color, float scale)
         {
             pressedTimeText.color = color;
-
-            pressedTimeText.transform.localScale =
-                originalPressedTimeScale * scale;
+            pressedTimeText.transform.localScale = originalPressedTimeScale * scale;
         }
-
 
         private void HidePressedTime()
         {
             if (pressedTimeText == null) return;
-
-            // 타이머가 남아있으면 숨기지 않음
             if (pressedTimeTimer > 0f) return;
 
             pressedTimeText.gameObject.SetActive(false);
@@ -282,7 +217,7 @@ namespace UI
         private void HideSkillText()
         {
             if (skillText == null) return;
-            if (skillTextTimer > 0f) return; // 타이머 남아있으면 스킵
+            if (skillTextTimer > 0f) return;
 
             skillText.gameObject.SetActive(false);
             skillText.SetText(string.Empty);
@@ -290,7 +225,7 @@ namespace UI
 
         private void ClearSkill()
         {
-            HideSkillText(); // SetText 직접 호출 대신 타이머 체크
+            HideSkillText();
 
             if (skillImage != null)
                 skillImage.enabled = false;
@@ -298,23 +233,15 @@ namespace UI
             HidePressedTime();
         }
 
-        private void ClearUI()
-        {
-            ClearSkill();
-        }
+        private void ClearUI() => ClearSkill();
 
         private void ResolveReferences()
         {
             if (stopWatch == null)
-            {
                 stopWatch = GetComponentInParent<StopWatch>();
-            }
 
             if (skillInventory == null)
-            {
-                skillInventory =
-                    Object.FindFirstObjectByType<SkillInventory>();
-            }
+                skillInventory = Object.FindFirstObjectByType<SkillInventory>();
         }
     }
 }

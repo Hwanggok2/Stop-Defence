@@ -1512,17 +1512,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::UI.TimerPopupUI
   stopWatch: {fileID: 1399077655092127493}
   skillInventory: {fileID: 0}
+  skillDatabase: {fileID: 11400000, guid: 0fc6e602547e8734f8dc7c13e7a08f19, type: 2}
   skillImage: {fileID: 430210102004147442}
   skillText: {fileID: 4201906114806573949}
   pressedTimeText: {fileID: 6174215217833441161}
-  skillImages:
-  - {fileID: 21300000, guid: 529d9480c95cdd5419dd836b3b3d55df, type: 2}
-  - {fileID: 21300000, guid: 0efbed2c9efc29f48a02eba7ecf90415, type: 2}
-  - {fileID: 21300000, guid: 6850aafc3e535b648ab0ef6780897d60, type: 2}
-  - {fileID: 21300000, guid: c2b03ed185ae588418c98f10ac662d6a, type: 2}
-  - {fileID: 21300000, guid: 5b7b8a279c795c746bdaeb919eb74573, type: 2}
-  - {fileID: 5986030973748356752, guid: 774e3327b1813244495cd6ca65d6ea05, type: 3}
-  - {fileID: 21300000, guid: d30cac86ab68253428fd212f4ae2ca1e, type: 2}
   displayWindow: 0.5
   skillTextDisplayDuration: 0.5
   pressedTimeDisplayDuration: 2
@@ -2015,6 +2008,7 @@ MonoBehaviour:
   castSkill: {fileID: 2407998283639730312}
   maxTimer: 10
   inputCooldown: 0.1
+  timerAdjustStep: 2
   perfectWindow: 0.05
   greatWindow: 0.15
   goodWindow: 0.3
