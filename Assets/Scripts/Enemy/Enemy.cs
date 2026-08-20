@@ -1,4 +1,6 @@
+using System.Globalization;
 using System.Collections;
+using TMPro;
 using UnityEngine;
 
 namespace Enemy
@@ -67,7 +69,9 @@ namespace Enemy
                 return;
             }
 
+            float previousHp = stat.hp;
             stat.hp = Mathf.Max(0f, stat.hp - amount);
+            DamagePopup.Show(transform.position, previousHp - stat.hp);
             if (stat.hp > 0f)
             {
                 return;
@@ -200,5 +204,61 @@ namespace Enemy
             slowRoutine = null;
         }
 
+    }
+
+    internal sealed class DamagePopup : MonoBehaviour
+    {
+        private const float Lifetime = 0.75f;
+        private const float RiseSpeed = 1.2f;
+
+        private TMP_Text label;
+        private float elapsed;
+
+        public static void Show(Vector3 hitPosition, float damage)
+        {
+            if (damage <= 0f)
+            {
+                return;
+            }
+
+            var popupObject = new GameObject(
+                "Damage Popup",
+                typeof(TextMeshPro),
+                typeof(DamagePopup));
+            popupObject.transform.position = hitPosition + new Vector3(
+                Random.Range(-0.15f, 0.15f),
+                1f,
+                -0.1f);
+
+            DamagePopup popup = popupObject.GetComponent<DamagePopup>();
+            popup.label = popupObject.GetComponent<TextMeshPro>();
+            popup.label.text = damage.ToString("0.#", CultureInfo.InvariantCulture);
+            popup.label.alignment = TextAlignmentOptions.Center;
+            popup.label.color = new Color(1f, 0.35f, 0.1f, 1f);
+            popup.label.fontSize = 3.5f;
+            popup.label.fontStyle = FontStyles.Bold;
+            popup.label.raycastTarget = false;
+
+            MeshRenderer popupRenderer = popupObject.GetComponent<MeshRenderer>();
+            if (popupRenderer != null)
+            {
+                popupRenderer.sortingOrder = 1000;
+            }
+        }
+
+        private void Update()
+        {
+            elapsed += Time.deltaTime;
+            transform.position += Vector3.up * (RiseSpeed * Time.deltaTime);
+
+            Color color = label.color;
+            color.a = 1f - Mathf.Clamp01(elapsed / Lifetime);
+            label.color = color;
+
+            if (elapsed >= Lifetime)
+            {
+                Destroy(gameObject);
+            }
+        }
     }
 }

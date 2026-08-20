@@ -26,6 +26,9 @@ namespace StopDefence.Editor
             "Category",
             "Grade",
             "BaseDamage",
+            "DamagePerLevel",
+            "BaseDotDamage",
+            "DotDamagePerLevel",
             "ImagePath",
             "Enabled",
             "StatType",
@@ -41,6 +44,9 @@ namespace StopDefence.Editor
             "Category",
             "Grade",
             "BaseDamage",
+            "DamagePerLevel",
+            "BaseDotDamage",
+            "DotDamagePerLevel",
             "Enabled",
             "StatType",
             "StatValue",
@@ -98,6 +104,9 @@ namespace StopDefence.Editor
                 string categoryText = GetValue(row, columns, "Category").Trim();
                 string gradeText = GetValue(row, columns, "Grade").Trim();
                 string baseDamageText = GetValue(row, columns, "BaseDamage").Trim();
+                string damagePerLevelText = GetValue(row, columns, "DamagePerLevel").Trim();
+                string baseDotDamageText = GetValue(row, columns, "BaseDotDamage").Trim();
+                string dotDamagePerLevelText = GetValue(row, columns, "DotDamagePerLevel").Trim();
                 string imagePath = GetValue(row, columns, "ImagePath").Trim();
                 string enabledText = GetValue(row, columns, "Enabled").Trim();
                 string statTypeText = GetValue(row, columns, "StatType").Trim();
@@ -126,6 +135,30 @@ namespace StopDefence.Editor
                     WarnAndExclude(
                         rowNumber,
                         $"BaseDamage must be a non-negative number, but was '{baseDamageText}'");
+                    continue;
+                }
+
+                if (!TryParseNonNegativeFloat(damagePerLevelText, out float damagePerLevel))
+                {
+                    WarnAndExclude(
+                        rowNumber,
+                        $"DamagePerLevel must be a non-negative number, but was '{damagePerLevelText}'");
+                    continue;
+                }
+
+                if (!TryParseNonNegativeFloat(baseDotDamageText, out float baseDotDamage))
+                {
+                    WarnAndExclude(
+                        rowNumber,
+                        $"BaseDotDamage must be a non-negative number, but was '{baseDotDamageText}'");
+                    continue;
+                }
+
+                if (!TryParseNonNegativeFloat(dotDamagePerLevelText, out float dotDamagePerLevel))
+                {
+                    WarnAndExclude(
+                        rowNumber,
+                        $"DotDamagePerLevel must be a non-negative number, but was '{dotDamagePerLevelText}'");
                     continue;
                 }
 
@@ -163,6 +196,9 @@ namespace StopDefence.Editor
                         category,
                         grade,
                         baseDamage,
+                        damagePerLevel,
+                        baseDotDamage,
+                        dotDamagePerLevel,
                         statType,
                         statValue,
                         statCap))
@@ -198,6 +234,9 @@ namespace StopDefence.Editor
                     category,
                     grade,
                     baseDamage,
+                    damagePerLevel,
+                    baseDotDamage,
+                    dotDamagePerLevel,
                     imagePath,
                     image,
                     enabled,
@@ -429,6 +468,9 @@ namespace StopDefence.Editor
             SkillCategory category,
             int grade,
             float baseDamage,
+            float damagePerLevel,
+            float baseDotDamage,
+            float dotDamagePerLevel,
             PlayerStatType statType,
             float statValue,
             float statCap)
@@ -458,9 +500,10 @@ namespace StopDefence.Editor
                 return false;
             }
 
-            if (baseDamage != 0f)
+            if (baseDamage != 0f || damagePerLevel != 0f ||
+                baseDotDamage != 0f || dotDamagePerLevel != 0f)
             {
-                WarnAndExclude(rowNumber, "StatUpgrade BaseDamage must be 0");
+                WarnAndExclude(rowNumber, "StatUpgrade damage values must all be 0");
                 return false;
             }
 

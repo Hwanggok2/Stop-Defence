@@ -109,10 +109,17 @@ public sealed class CastSkill : MonoBehaviour
             : 1f;
     }
 
-    private float GetBaseDamage(string skillId, float fallback)
+    private float GetDamage(string skillId, float fallback)
     {
         return database != null && database.TryGetSkill(skillId, out SkillData skill)
-            ? skill.BaseDamage
+            ? skill.CalculateDamage(player != null ? player.Level : 1)
+            : fallback;
+    }
+
+    private float GetDotDamage(string skillId, float fallback)
+    {
+        return database != null && database.TryGetSkill(skillId, out SkillData skill)
+            ? skill.CalculateDotDamage(player != null ? player.Level : 1)
             : fallback;
     }
 
@@ -136,23 +143,24 @@ public sealed class CastSkill : MonoBehaviour
 
         foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, fireballRange))
         {
-            enemy.TakeDamage(GetBaseDamage(FireballId, fireballDamage) * multiplier);
+            enemy.TakeDamage(GetDamage(FireballId, fireballDamage) * multiplier);
             enemy.ApplyDamageOverTime(
-                burnDamagePerSecond * multiplier,
+                GetDotDamage(FireballId, burnDamagePerSecond) * multiplier,
                 burnDuration);
         }
     }
 
     private bool CastEarthMagic(float multiplier)
     {
-        if (GetActiveEnemies().Count == 0)
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        if (target == null)
         {
             return false;
         }
 
-        Vector3 origin = GetOriginPosition();
-        SpawnEffect(earthMagicEffectPrefab, origin);
-        StartCoroutine(ApplyEarthMagicImpact(origin, multiplier));
+        Vector3 impactPosition = target.transform.position;
+        SpawnEffect(earthMagicEffectPrefab, impactPosition);
+        StartCoroutine(ApplyEarthMagicImpact(impactPosition, multiplier));
         return true;
     }
 
@@ -168,7 +176,7 @@ public sealed class CastSkill : MonoBehaviour
                 direction = Vector3.right;
             }
 
-            enemy.TakeDamage(GetBaseDamage(EarthMagicId, earthMagicDamage) * multiplier);
+            enemy.TakeDamage(GetDamage(EarthMagicId, earthMagicDamage) * multiplier);
             enemy.Knockback(direction, earthKnockbackDistance);
         }
     }
@@ -195,7 +203,7 @@ public sealed class CastSkill : MonoBehaviour
                 bolt.Play(origin, targetPosition);
             }
 
-            target.TakeDamage(GetBaseDamage(ChainLightningId, chainLightningDamage) * multiplier);
+            target.TakeDamage(GetDamage(ChainLightningId, chainLightningDamage) * multiplier);
             hitEnemies.Add(target);
             origin = targetPosition;
         }
@@ -214,7 +222,7 @@ public sealed class CastSkill : MonoBehaviour
         SpawnEffect(nailDrivingEffectPrefab, target.transform.position);
         StartCoroutine(ApplySingleTargetDamage(
             target,
-            GetBaseDamage(NailDrivingId, nailDrivingDamage) * multiplier,
+            GetDamage(NailDrivingId, nailDrivingDamage) * multiplier,
             0.45f));
         return true;
     }
@@ -251,7 +259,7 @@ public sealed class CastSkill : MonoBehaviour
         foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, plagueRadius))
         {
             enemy.ApplyDamageOverTime(
-                GetBaseDamage(PlagueMagicId, plagueDamagePerSecond) * multiplier,
+                GetDotDamage(PlagueMagicId, plagueDamagePerSecond) * multiplier,
                 plagueDuration);
         }
     }
@@ -278,7 +286,7 @@ public sealed class CastSkill : MonoBehaviour
             yield break;
         }
 
-        target.TakeDamage(GetBaseDamage(IceLanceId, iceLanceDamage) * multiplier);
+        target.TakeDamage(GetDamage(IceLanceId, iceLanceDamage) * multiplier);
         target.ApplySlow(iceSlowRate, iceSlowDuration);
     }
 
@@ -298,7 +306,7 @@ public sealed class CastSkill : MonoBehaviour
 
         foreach (Enemy.Enemy enemy in enemies)
         {
-            enemy.TakeDamage(GetBaseDamage(MegaExplosionId, megaExplosionDamage) * multiplier);
+            enemy.TakeDamage(GetDamage(MegaExplosionId, megaExplosionDamage) * multiplier);
         }
 
         return true;
@@ -312,7 +320,7 @@ public sealed class CastSkill : MonoBehaviour
             return false;
         }
 
-        target.TakeDamage(GetBaseDamage(RoundingThirtyId, roundingThirtyDamage) * multiplier);
+        target.TakeDamage(GetDamage(RoundingThirtyId, roundingThirtyDamage) * multiplier);
         return true;
     }
 

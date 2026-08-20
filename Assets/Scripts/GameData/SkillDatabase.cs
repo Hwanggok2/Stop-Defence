@@ -47,8 +47,17 @@ namespace StopDefence.GameData
         [Tooltip("원본 스킬 Grade 메타데이터입니다. 현재 초 단위 발동 판정에는 사용하지 않습니다.")]
         private int grade;
         [SerializeField, Min(0f)]
-        [Tooltip("판정 배율 적용 전 기본 데미지입니다. 지속 피해 스킬은 틱당 데미지입니다.")]
+        [Tooltip("직접 피해 기본값입니다. 실제 피해 = BaseDamage + DamagePerLevel × Player.Level 입니다.")]
         private float baseDamage;
+        [SerializeField, Min(0f)]
+        [Tooltip("Player.Level 1당 증가하는 직접 피해입니다.")]
+        private float damagePerLevel;
+        [SerializeField, Min(0f)]
+        [Tooltip("지속 피해의 틱당 기본값입니다.")]
+        private float baseDotDamage;
+        [SerializeField, Min(0f)]
+        [Tooltip("Player.Level 1당 증가하는 틱당 지속 피해입니다.")]
+        private float dotDamagePerLevel;
         [SerializeField] private string imagePath;
         [SerializeField] private Sprite image;
         [SerializeField] private bool enabled;
@@ -63,6 +72,9 @@ namespace StopDefence.GameData
         public SkillCategory Category => category;
         public int Grade => grade;
         public float BaseDamage => baseDamage;
+        public float DamagePerLevel => damagePerLevel;
+        public float BaseDotDamage => baseDotDamage;
+        public float DotDamagePerLevel => dotDamagePerLevel;
         public string ImagePath => imagePath;
         public Sprite Image => image;
         public bool Enabled => enabled;
@@ -77,6 +89,9 @@ namespace StopDefence.GameData
             SkillCategory category,
             int grade,
             float baseDamage,
+            float damagePerLevel,
+            float baseDotDamage,
+            float dotDamagePerLevel,
             string imagePath,
             Sprite image,
             bool enabled,
@@ -90,12 +105,25 @@ namespace StopDefence.GameData
             this.category = category;
             this.grade = grade;
             this.baseDamage = baseDamage;
+            this.damagePerLevel = damagePerLevel;
+            this.baseDotDamage = baseDotDamage;
+            this.dotDamagePerLevel = dotDamagePerLevel;
             this.imagePath = imagePath;
             this.image = image;
             this.enabled = enabled;
             this.statType = statType;
             this.statValue = statValue;
             this.statCap = statCap;
+        }
+
+        public float CalculateDamage(int playerLevel)
+        {
+            return baseDamage + damagePerLevel * Mathf.Max(0, playerLevel);
+        }
+
+        public float CalculateDotDamage(int playerLevel)
+        {
+            return baseDotDamage + dotDamagePerLevel * Mathf.Max(0, playerLevel);
         }
     }
 

@@ -125,7 +125,7 @@ public sealed class SkillSelectionUI : MonoBehaviour
         {
             SkillData skill = candidates[i];
             int targetSecond = inventory.CreateOfferTargetSecond(skill);
-            if (skill.Category == SkillCategory.Active && targetSecond == 0)
+            if (skill.Category == SkillCategory.Active && targetSecond < 0)
             {
                 continue;
             }
