@@ -15,6 +15,7 @@ public sealed class StopWatch : MonoBehaviour
     [Header("Timer")]
     [SerializeField, Min(1f)] private float maxTimer = 10f;
     [SerializeField, Min(0f)] private float inputCooldown = 0.1f;
+    [SerializeField, Min(0f)] private float timerAdjustStep = 2f;
 
     [Header("Judgement Windows")]
     [SerializeField, Min(0f)] private float perfectWindow = 0.05f;
@@ -56,11 +57,43 @@ public sealed class StopWatch : MonoBehaviour
     {
         UpdateTimer();
 
-        if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
+        ReadKeyboardInput();
+        UpdateTimerText();
+    }
+
+    private void ReadKeyboardInput()
+    {
+        Keyboard keyboard = Keyboard.current;
+        if (keyboard == null)
+        {
+            return;
+        }
+
+        if (keyboard.spaceKey.wasPressedThisFrame)
         {
             TryCastOwnedSkills();
         }
 
+        if (keyboard.digit1Key.wasPressedThisFrame || keyboard.numpad1Key.wasPressedThisFrame)
+        {
+            AdjustTimer(timerAdjustStep);
+        }
+
+        if (keyboard.digit2Key.wasPressedThisFrame || keyboard.numpad2Key.wasPressedThisFrame)
+        {
+            AdjustTimer(-timerAdjustStep);
+        }
+    }
+
+    // Nudges the timer so the player can line a skill up with its target second.
+    // Winding the timer up stops at the top of the cycle, while skipping ahead is
+    // allowed to roll over into the next cycle: 1.2s minus 2s lands on 9.2s.
+    public void AdjustTimer(float deltaSeconds)
+    {
+        float adjusted = currentTimer + deltaSeconds;
+        currentTimer = deltaSeconds < 0f
+            ? Mathf.Repeat(adjusted, maxTimer)
+            : Mathf.Min(adjusted, maxTimer);
         UpdateTimerText();
     }
 
