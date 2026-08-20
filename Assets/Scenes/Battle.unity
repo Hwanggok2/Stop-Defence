@@ -355,6 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e67a5ad1facb48945a82e0557e8ba128, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Input.PlayerInput
+  keyboardMoveSpeed: 5
 --- !u!4 &356647792
 Transform:
   m_ObjectHideFlags: 0
@@ -1147,9 +1148,17 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 2717045671561276891, guid: 9e7172b26d6fda34b9b82229ad737fcf, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
     - target: {fileID: 5477573341480848740, guid: 9e7172b26d6fda34b9b82229ad737fcf, type: 3}
       propertyPath: m_Name
       value: GameOverCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 5762571741878018692, guid: 9e7172b26d6fda34b9b82229ad737fcf, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6234520987605519866, guid: 9e7172b26d6fda34b9b82229ad737fcf, type: 3}
       propertyPath: player
@@ -1733,6 +1742,14 @@ PrefabInstance:
     - target: {fileID: 3641980944734077950, guid: 3906a8fa21e07d743a98a149d84026e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3888058372303171978, guid: 3906a8fa21e07d743a98a149d84026e1, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3934117489262557646, guid: 3906a8fa21e07d743a98a149d84026e1, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
