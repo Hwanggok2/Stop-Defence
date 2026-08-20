@@ -5,18 +5,19 @@ namespace Enemy
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField] protected EnemyStat stat;
-        private Player player;
+        [SerializeField] private Player player;
 
         protected bool isInAttackRange;
-    
+        protected bool isTarget;
+
         private float attackTimer;
-    
+
         public void SetLevel(int level)
         {
             stat.level = level;
             UpdateStat();
         }
-        
+
         protected virtual void Start()
         {
             SetLevel(1);
@@ -25,12 +26,12 @@ namespace Enemy
         protected abstract void UpdateStat();
 
         protected abstract void Attack(Player player);
-    
+
         private void OnValidate()
         {
             UpdateStat();
         }
-    
+
         public void SetTarget(Player target)
         {
             player = target;
@@ -49,15 +50,23 @@ namespace Enemy
         protected virtual void Update()
         {
             UpdateInAttackRange();
-        
+
             if (isInAttackRange)
             {
                 UpdateAttackTimer();
                 return;
             }
-            MoveToTarget();
+            
+            if (isTarget)
+                MoveToTarget();
+            else
+                Move();
         }
 
+        private void Move()
+        {
+            transform.position += Vector3.left * stat.moveSpeed * Time.deltaTime;
+        }
         private void MoveToTarget()
         {
             transform.position = Vector3.MoveTowards(
@@ -81,6 +90,12 @@ namespace Enemy
                 attackTimer = 0f;
                 Attack(player);
             }
+        }
+        
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other == GameManager.Instance.TargetArea)
+                isTarget = true;
         }
     }
 }

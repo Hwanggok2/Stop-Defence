@@ -101,8 +101,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5716837550562065662}
-  - component: {fileID: 6372772510316648593}
   - component: {fileID: 1345645996267586816}
+  - component: {fileID: 6372772510316648593}
   m_Layer: 0
   m_Name: Skeleton
   m_TagString: Untagged
@@ -126,26 +126,6 @@ Transform:
   - {fileID: 6313717161266562936}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6372772510316648593
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5265795541389732512}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 949f692d257abee4086068fbda73e926, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Skeleton
-  stat:
-    level: 0
-    hp: 0
-    attackDamage: 0
-    attackSpeed: 0
-    attackRange: 0
-    moveSpeed: 0
-    dropCoin: 0
 --- !u!70 &1345645996267586816
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -176,10 +156,30 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
   m_Offset: {x: 0, y: 0}
   m_Size: {x: 0.5, y: 1}
   m_Direction: 0
+--- !u!114 &6372772510316648593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5265795541389732512}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 949f692d257abee4086068fbda73e926, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Skeleton
+  stat:
+    level: 1
+    hp: 20
+    attackDamage: 20
+    attackSpeed: 0.81
+    attackRange: 1
+    moveSpeed: 5
+    dropCoin: 10
