@@ -7,14 +7,18 @@ public sealed class EnemySpawner : MonoBehaviour
     [SerializeField] private EnemyDatabase database;
     [SerializeField] private Transform spawnRoot;
     [SerializeField] private Player target;
+    [SerializeField, Min(0)] private int projectilePrewarmCount = 12;
 
     private float elapsedTime;
     private int nextSpawnIndex;
     private Transform[] spawnPoints;
+    private BattleObjectPool objectPool;
 
     private void Awake()
     {
+        objectPool = new BattleObjectPool(transform);
         CacheSpawnPoints();
+        PrewarmPools();
     }
 
     private void Update()
@@ -35,13 +39,17 @@ public sealed class EnemySpawner : MonoBehaviour
 
     private IEnumerator SpawnGroup(EnemySpawnData spawnData)
     {
+        WaitForSeconds interval = spawnData.Interval > 0f
+            ? new WaitForSeconds(spawnData.Interval)
+            : null;
+
         for (int index = 0; index < spawnData.Count; index++)
         {
             SpawnOne(spawnData);
 
-            if (index + 1 < spawnData.Count && spawnData.Interval > 0f)
+            if (index + 1 < spawnData.Count && interval != null)
             {
-                yield return new WaitForSeconds(spawnData.Interval);
+                yield return interval;
             }
         }
     }
@@ -72,23 +80,53 @@ public sealed class EnemySpawner : MonoBehaviour
         }
 
         Transform spawnPoint = spawnPoints[childIndex];
-        GameObject instance = Instantiate(
+        DataDrivenEnemy enemyController = objectPool.GetEnemy(
             enemy.Prefab,
             spawnPoint.position,
             spawnPoint.rotation);
-        instance.name = $"{enemy.Id}_Lv{spawnData.Level}";
+        enemyController.name = $"{enemy.Id}_Lv{spawnData.Level}";
+        enemyController.Initialize(database, enemy.Id, spawnData.Level, target, objectPool);
+    }
 
-        DataDrivenEnemy enemyController = instance.GetComponent<DataDrivenEnemy>();
-        if (enemyController == null)
+    private void PrewarmPools()
+    {
+        if (database == null)
         {
-            Debug.LogError(
-                $"[EnemySpawner] Prefab '{enemy.Prefab.name}' has no DataDrivenEnemy component.",
-                instance);
-            Destroy(instance);
             return;
         }
 
-        enemyController.Initialize(database, enemy.Id, spawnData.Level, target);
+        foreach (EnemyData enemy in database.Enemies)
+        {
+            if (enemy.Prefab == null)
+            {
+                continue;
+            }
+
+            int enemyCount = GetLargestSpawnGroup(enemy.Id);
+            objectPool.PrewarmEnemy(enemy.Prefab, enemyCount);
+
+            DataDrivenEnemy controller = enemy.Prefab.GetComponent<DataDrivenEnemy>();
+            if (controller != null && controller.ProjectilePrefab != null)
+            {
+                objectPool.PrewarmProjectile(
+                    controller.ProjectilePrefab,
+                    projectilePrewarmCount);
+            }
+        }
+    }
+
+    private int GetLargestSpawnGroup(string enemyId)
+    {
+        int largestCount = 1;
+        foreach (EnemySpawnData spawnData in database.SpawnSchedule)
+        {
+            if (spawnData.EnemyId == enemyId)
+            {
+                largestCount = Mathf.Max(largestCount, spawnData.Count);
+            }
+        }
+
+        return largestCount;
     }
 
     private void CacheSpawnPoints()

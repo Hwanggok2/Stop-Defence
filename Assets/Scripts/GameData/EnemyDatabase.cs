@@ -21,6 +21,7 @@ namespace StopDefence.GameData
         [SerializeField, Min(0f)] private float attackRange;
         [SerializeField, Min(0f)] private float moveSpeed;
         [SerializeField, Min(0)] private int dropCoin;
+        [SerializeField, Min(0)] private int experience;
 
         public int Level => level;
         public float Hp => hp;
@@ -29,6 +30,7 @@ namespace StopDefence.GameData
         public float AttackRange => attackRange;
         public float MoveSpeed => moveSpeed;
         public int DropCoin => dropCoin;
+        public int Experience => experience;
 
         public EnemyLevelData(
             int level,
@@ -37,7 +39,8 @@ namespace StopDefence.GameData
             float attackSpeed,
             float attackRange,
             float moveSpeed,
-            int dropCoin)
+            int dropCoin,
+            int experience)
         {
             this.level = level;
             this.hp = hp;
@@ -46,6 +49,7 @@ namespace StopDefence.GameData
             this.attackRange = attackRange;
             this.moveSpeed = moveSpeed;
             this.dropCoin = dropCoin;
+            this.experience = experience;
         }
     }
 

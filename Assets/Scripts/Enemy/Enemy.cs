@@ -8,9 +8,10 @@ namespace Enemy
         [SerializeField] private Player player;
 
         protected bool isInAttackRange;
-        protected bool isTarget;
 
         private float attackTimer;
+        private Transform targetTransform;
+        private bool isDead;
 
         public void SetLevel(int level)
         {
@@ -20,7 +21,10 @@ namespace Enemy
 
         protected virtual void Start()
         {
-            SetLevel(1);
+            if (stat.level <= 0)
+            {
+                SetLevel(1);
+            }
         }
 
         protected abstract void UpdateStat();
@@ -35,11 +39,34 @@ namespace Enemy
         public void SetTarget(Player target)
         {
             player = target;
+            targetTransform = target != null ? target.transform : null;
+        }
+
+        protected void PrepareForSpawn(Player target)
+        {
+            attackTimer = 0f;
+            isDead = false;
+            isInAttackRange = false;
+            SetTarget(target);
+            enabled = target != null;
         }
 
         public void TakeDamage(float amount)
         {
-            stat.hp -= amount;
+            if (amount <= 0f || isDead)
+            {
+                return;
+            }
+
+            stat.hp = Mathf.Max(0f, stat.hp - amount);
+            if (stat.hp > 0f)
+            {
+                return;
+            }
+
+            isDead = true;
+            enabled = false;
+            Die();
         }
 
         public void HealHp(float amount)
@@ -49,53 +76,52 @@ namespace Enemy
 
         protected virtual void Update()
         {
-            UpdateInAttackRange();
+            if (targetTransform == null)
+            {
+                return;
+            }
+
+            Vector3 targetPosition = targetTransform.position;
+            UpdateInAttackRange(targetPosition);
 
             if (isInAttackRange)
             {
                 UpdateAttackTimer();
                 return;
             }
-            
-            if (isTarget)
-                MoveToTarget();
-            else
-                Move();
-        }
 
-        private void Move()
-        {
-            transform.position += Vector3.left * (stat.moveSpeed * Time.deltaTime);
-        }
-        private void MoveToTarget()
-        {
             transform.position = Vector3.MoveTowards(
                 transform.position,
-                player.transform.position,
+                targetPosition,
                 stat.moveSpeed * Time.deltaTime
             );
         }
 
-        private void UpdateInAttackRange()
+        protected virtual void Die()
         {
-            var distance = Vector3.Distance(player.transform.position, transform.position);
-            isInAttackRange = distance <= stat.attackRange;
+            Destroy(gameObject);
+        }
+
+        private void UpdateInAttackRange(Vector3 targetPosition)
+        {
+            Vector3 offset = targetPosition - transform.position;
+            float attackRange = stat.attackRange;
+            isInAttackRange = offset.sqrMagnitude <= attackRange * attackRange;
         }
 
         private void UpdateAttackTimer()
         {
+            if (stat.attackSpeed <= 0f)
+            {
+                return;
+            }
+
             attackTimer += Time.deltaTime;
             if (attackTimer >= 1f / stat.attackSpeed)
             {
                 attackTimer = 0f;
                 Attack(player);
             }
-        }
-        
-        private void OnTriggerEnter2D(Collider2D other)
-        {
-            if (other == GameManager.Instance.TargetArea)
-                isTarget = true;
         }
     }
 }
