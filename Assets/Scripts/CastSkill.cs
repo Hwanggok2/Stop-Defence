@@ -28,9 +28,10 @@ public sealed class CastSkill : MonoBehaviour
     [SerializeField] private SkillParticleEffect nailDrivingEffectPrefab;
     [SerializeField] private SkillParticleEffect plagueMagicEffectPrefab;
     [SerializeField] private SkillParticleEffect iceLanceEffectPrefab;
+    [SerializeField] private SkillParticleEffect megaExplosionEffectPrefab;
     [SerializeField] private ChainLightningBolt chainLightningEffectPrefab;
 
-    [Header("Skill Balance")]
+    [Header("Skill Balance (Database Fallbacks)")]
     [SerializeField, Min(0f)] private float fireballDamage = 10f;
     [SerializeField, Min(0f)] private float fireballRange = 5f;
     [SerializeField, Min(0f)] private float burnDamagePerSecond = 2f;
@@ -108,6 +109,13 @@ public sealed class CastSkill : MonoBehaviour
             : 1f;
     }
 
+    private float GetBaseDamage(string skillId, float fallback)
+    {
+        return database != null && database.TryGetSkill(skillId, out SkillData skill)
+            ? skill.BaseDamage
+            : fallback;
+    }
+
     private bool CastFireball(float multiplier)
     {
         Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
@@ -128,7 +136,7 @@ public sealed class CastSkill : MonoBehaviour
 
         foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, fireballRange))
         {
-            enemy.TakeDamage(fireballDamage * multiplier);
+            enemy.TakeDamage(GetBaseDamage(FireballId, fireballDamage) * multiplier);
             enemy.ApplyDamageOverTime(
                 burnDamagePerSecond * multiplier,
                 burnDuration);
@@ -160,7 +168,7 @@ public sealed class CastSkill : MonoBehaviour
                 direction = Vector3.right;
             }
 
-            enemy.TakeDamage(earthMagicDamage * multiplier);
+            enemy.TakeDamage(GetBaseDamage(EarthMagicId, earthMagicDamage) * multiplier);
             enemy.Knockback(direction, earthKnockbackDistance);
         }
     }
@@ -187,7 +195,7 @@ public sealed class CastSkill : MonoBehaviour
                 bolt.Play(origin, targetPosition);
             }
 
-            target.TakeDamage(chainLightningDamage * multiplier);
+            target.TakeDamage(GetBaseDamage(ChainLightningId, chainLightningDamage) * multiplier);
             hitEnemies.Add(target);
             origin = targetPosition;
         }
@@ -204,7 +212,10 @@ public sealed class CastSkill : MonoBehaviour
         }
 
         SpawnEffect(nailDrivingEffectPrefab, target.transform.position);
-        StartCoroutine(ApplySingleTargetDamage(target, nailDrivingDamage * multiplier, 0.45f));
+        StartCoroutine(ApplySingleTargetDamage(
+            target,
+            GetBaseDamage(NailDrivingId, nailDrivingDamage) * multiplier,
+            0.45f));
         return true;
     }
 
@@ -240,7 +251,7 @@ public sealed class CastSkill : MonoBehaviour
         foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, plagueRadius))
         {
             enemy.ApplyDamageOverTime(
-                plagueDamagePerSecond * multiplier,
+                GetBaseDamage(PlagueMagicId, plagueDamagePerSecond) * multiplier,
                 plagueDuration);
         }
     }
@@ -267,7 +278,7 @@ public sealed class CastSkill : MonoBehaviour
             yield break;
         }
 
-        target.TakeDamage(iceLanceDamage * multiplier);
+        target.TakeDamage(GetBaseDamage(IceLanceId, iceLanceDamage) * multiplier);
         target.ApplySlow(iceSlowRate, iceSlowDuration);
     }
 
@@ -279,9 +290,15 @@ public sealed class CastSkill : MonoBehaviour
             return false;
         }
 
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        if (target != null)
+        {
+            SpawnEffect(megaExplosionEffectPrefab, target.transform.position);
+        }
+
         foreach (Enemy.Enemy enemy in enemies)
         {
-            enemy.TakeDamage(megaExplosionDamage * multiplier);
+            enemy.TakeDamage(GetBaseDamage(MegaExplosionId, megaExplosionDamage) * multiplier);
         }
 
         return true;
@@ -295,7 +312,7 @@ public sealed class CastSkill : MonoBehaviour
             return false;
         }
 
-        target.TakeDamage(roundingThirtyDamage * multiplier);
+        target.TakeDamage(GetBaseDamage(RoundingThirtyId, roundingThirtyDamage) * multiplier);
         return true;
     }
 

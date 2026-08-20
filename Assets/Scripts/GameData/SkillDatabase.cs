@@ -46,6 +46,9 @@ namespace StopDefence.GameData
         [SerializeField, Range(0, 10)]
         [Tooltip("원본 스킬 Grade 메타데이터입니다. 현재 초 단위 발동 판정에는 사용하지 않습니다.")]
         private int grade;
+        [SerializeField, Min(0f)]
+        [Tooltip("판정 배율 적용 전 기본 데미지입니다. 지속 피해 스킬은 틱당 데미지입니다.")]
+        private float baseDamage;
         [SerializeField] private string imagePath;
         [SerializeField] private Sprite image;
         [SerializeField] private bool enabled;
@@ -59,6 +62,7 @@ namespace StopDefence.GameData
         public string Description => description;
         public SkillCategory Category => category;
         public int Grade => grade;
+        public float BaseDamage => baseDamage;
         public string ImagePath => imagePath;
         public Sprite Image => image;
         public bool Enabled => enabled;
@@ -72,6 +76,7 @@ namespace StopDefence.GameData
             string description,
             SkillCategory category,
             int grade,
+            float baseDamage,
             string imagePath,
             Sprite image,
             bool enabled,
@@ -84,6 +89,7 @@ namespace StopDefence.GameData
             this.description = description;
             this.category = category;
             this.grade = grade;
+            this.baseDamage = baseDamage;
             this.imagePath = imagePath;
             this.image = image;
             this.enabled = enabled;

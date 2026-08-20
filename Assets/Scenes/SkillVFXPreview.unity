@@ -133,7 +133,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2915705532587055019, guid: 0c58af57442552b4fa694f143e97b11b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 2915705532587055019, guid: 0c58af57442552b4fa694f143e97b11b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -189,6 +189,78 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2a9aae5074f05046b54a19a7ccbf575, type: 3}
+  m_Name:
+  m_EditorClassIdentifier: Assembly-CSharp::StopDefence.Vfx.SkillParticleEffect
+--- !u!1001 &485689729
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3221088126802610326, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: destroyWhenFinished
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5535920833337620549, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_Name
+      value: Skill_008_MegaExplosion
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -4.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321812735793420665, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+--- !u!114 &485689730 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3221088126802610326, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+  m_PrefabInstance: {fileID: 485689729}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f2a9aae5074f05046b54a19a7ccbf575, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::StopDefence.Vfx.SkillParticleEffect
 --- !u!1001 &702255141
@@ -209,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7763665104407574574, guid: b6cf00f7ef834ff41a01968b543a49b1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 7763665104407574574, guid: b6cf00f7ef834ff41a01968b543a49b1, type: 3}
       propertyPath: m_LocalPosition.z
@@ -324,7 +396,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 7.2
+  orthographic size: 8.8
   m_Depth: 0
   m_CullingMask:
     serializedVersion: 2
@@ -349,7 +421,7 @@ Transform:
   m_GameObject: {fileID: 739241485}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.1, z: -10}
+  m_LocalPosition: {x: 0, y: 0.8, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -373,7 +445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2775869764951055865, guid: 8b8d113a4a87b9747ae98ab6bfc87c24, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 2775869764951055865, guid: 8b8d113a4a87b9747ae98ab6bfc87c24, type: 3}
       propertyPath: m_LocalPosition.z
@@ -449,7 +521,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5924482830098395472, guid: 549f4308cc26f9d438a217748d781181, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 5924482830098395472, guid: 549f4308cc26f9d438a217748d781181, type: 3}
       propertyPath: m_LocalPosition.z
@@ -521,7 +593,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8491330981634572182, guid: f5d4f8ef4038a96408132043bb90ef3b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 8491330981634572182, guid: f5d4f8ef4038a96408132043bb90ef3b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -605,6 +677,7 @@ MonoBehaviour:
   nailDriving: {fileID: 822039584}
   plagueMagic: {fileID: 2131202669}
   iceLance: {fileID: 315514159}
+  megaExplosion: {fileID: 485689730}
   flashbang: {fileID: 1337862363}
 --- !u!4 &2130292160
 Transform:
@@ -643,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8402085297040322013, guid: ee879f18eb1dc9b44a9a7773dbbbffa2, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.7
+      value: 3.2
       objectReference: {fileID: 0}
     - target: {fileID: 8402085297040322013, guid: ee879f18eb1dc9b44a9a7773dbbbffa2, type: 3}
       propertyPath: m_LocalPosition.z
@@ -700,8 +773,9 @@ SceneRoots:
   - {fileID: 739241488}
   - {fileID: 1698900025}
   - {fileID: 702255141}
-  - {fileID: 2130292160}
   - {fileID: 822039583}
   - {fileID: 2131202668}
   - {fileID: 315514158}
   - {fileID: 1337862362}
+  - {fileID: 485689729}
+  - {fileID: 2130292160}
