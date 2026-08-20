@@ -120,7 +120,7 @@ public sealed class StopWatch : MonoBehaviour
                 continue;
             }
 
-            float error = Mathf.Abs(currentTimer - skill.TargetSecond);
+            float error = GetCyclicError(skill.TargetSecond);
             if (!TryEvaluateJudgement(error, out TimingJudgement judgement))
             {
                 continue;
@@ -131,6 +131,15 @@ public sealed class StopWatch : MonoBehaviour
                 castThisCycle.Add(skill.SkillId);
             }
         }
+    }
+
+    // The timer wraps from 0 back to maxTimer, so the gap between the timer and a
+    // target has to wrap as well. Measured linearly, a timer of 0.1s looks 9.9s away
+    // from a 10s target instead of 0.1s, and the skill never becomes castable.
+    private float GetCyclicError(float targetSecond)
+    {
+        float delta = Mathf.Repeat(currentTimer - targetSecond, maxTimer);
+        return Mathf.Min(delta, maxTimer - delta);
     }
 
     public bool TryEvaluateJudgement(
