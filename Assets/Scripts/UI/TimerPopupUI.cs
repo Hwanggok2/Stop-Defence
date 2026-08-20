@@ -49,6 +49,9 @@ namespace UI
             ClearUI();
         }
 
+        private float pressedTimeTimer = 0f;
+        [SerializeField, Min(0f)] private float pressedTimeDisplayDuration = 1f; // 표시 유지 시간
+
         private void Update()
         {
             ResolveReferences();
@@ -59,9 +62,12 @@ namespace UI
                 return;
             }
 
+            // 타이머 차감
+            if (pressedTimeTimer > 0f)
+                pressedTimeTimer -= Time.deltaTime;
+
             UpdatePopup();
 
-            // 실제 입력 순간의 판정 표시
             if (Keyboard.current != null &&
                 Keyboard.current.spaceKey.wasPressedThisFrame)
             {
@@ -219,19 +225,13 @@ namespace UI
             float error,
             TimingJudgement judgement)
         {
-            if (pressedTimeText == null)
-            {
-                return;
-            }
+            if (pressedTimeText == null) return;
 
-            pressedTimeText.text =
-                $"{error:F2}초";
-
+            pressedTimeText.text = $"{error:F2}초";
             pressedTimeText.gameObject.SetActive(true);
-
+            pressedTimeTimer = pressedTimeDisplayDuration; // 타이머 시작
             ApplyJudgementVisual(judgement);
         }
-
         private void ApplyJudgementVisual(
             TimingJudgement judgement)
         {
@@ -273,17 +273,16 @@ namespace UI
                 originalPressedTimeScale * scale;
         }
 
+
         private void HidePressedTime()
         {
-            if (pressedTimeText == null)
-            {
-                return;
-            }
+            if (pressedTimeText == null) return;
+
+            // 타이머가 남아있으면 숨기지 않음
+            if (pressedTimeTimer > 0f) return;
 
             pressedTimeText.gameObject.SetActive(false);
-
-            pressedTimeText.transform.localScale =
-                originalPressedTimeScale;
+            pressedTimeText.transform.localScale = originalPressedTimeScale;
         }
 
         private void ClearSkill()

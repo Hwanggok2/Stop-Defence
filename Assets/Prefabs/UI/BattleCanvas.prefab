@@ -1495,7 +1495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -695.5631, y: -283.09973}
+  m_AnchoredPosition: {x: 0, y: -258}
   m_SizeDelta: {x: 528.8689, y: 205.7971}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2355697924858008731
@@ -1532,6 +1532,7 @@ MonoBehaviour:
   greatScale: 1.3
   goodScale: 1.15
   badScale: 1
+  pressedTimeDisplayDuration: 1
 --- !u!1 &8690727075894842118
 GameObject:
   m_ObjectHideFlags: 0
