@@ -1495,7 +1495,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -695.5631, y: -283.09973}
+  m_AnchoredPosition: {x: 0, y: -258}
   m_SizeDelta: {x: 528.8689, y: 205.7971}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2355697924858008731
@@ -1524,17 +1524,16 @@ MonoBehaviour:
   - {fileID: 5986030973748356752, guid: 774e3327b1813244495cd6ca65d6ea05, type: 3}
   - {fileID: 21300000, guid: d30cac86ab68253428fd212f4ae2ca1e, type: 2}
   displayWindow: 0.5
-  perfectColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  greatColor: {r: 0, g: 1, b: 0, a: 1}
-  goodColor: {r: 1, g: 1, b: 1, a: 1}
-  badColor: {r: 1, g: 0, b: 0, a: 1}
+  skillTextDisplayDuration: 0.5
+  pressedTimeDisplayDuration: 2
+  perfectColor: {r: 1, g: 0, b: 0, a: 1}
+  greatColor: {r: 0.9916151, g: 1, b: 0, a: 1}
+  goodColor: {r: 0.73732764, g: 1, b: 0.6999999, a: 1}
+  badColor: {r: 0, g: 0, b: 0, a: 1}
   perfectScale: 1.5
   greatScale: 1.3
   goodScale: 1.15
   badScale: 1
-  pressedTimeDuration: 2
-  perfectShakeDuration: 0.65
-  perfectShakeStrength: 0.3
 --- !u!1 &8690727075894842118
 GameObject:
   m_ObjectHideFlags: 0
@@ -1975,19 +1974,25 @@ MonoBehaviour:
   fireballRange: 5
   burnDamagePerSecond: 2
   burnDuration: 3
+  burnDurationPerAttackLevel: 0.2
   earthMagicDamage: 15
   earthKnockbackDistance: 3
+  earthKnockbackPerAttackLevel: 0.2
   chainLightningDamage: 3
   maxChainTargets: 7
   nailDrivingDamage: 20
   repairAmount: 20
+  repairPerAttackLevel: 2
   plagueDamagePerSecond: 5
   plagueDuration: 3
+  plagueDurationPerAttackLevel: 0.2
   plagueRadius: 3
   iceLanceDamage: 5
   iceLanceHitRadius: 1.25
   iceSlowRate: 0.3
+  iceSlowPerAttackLevel: 0.01
   iceSlowDuration: 1
+  iceSlowDurationPerAttackLevel: 0.1
   megaExplosionDamage: 100
   roundingThirtyDamage: 30
   caffeineDamageMultiplier: 1.3

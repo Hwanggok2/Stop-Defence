@@ -123,6 +123,16 @@ namespace GameInput
                     ""interactions"": """",
                     ""initialStateCheck"": true,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""KeyMove"",
+                    ""type"": ""Value"",
+                    ""id"": ""62a481b2-6722-4d33-836d-da65f854841f"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -158,6 +168,61 @@ namespace GameInput
                     ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""2D Vector"",
+                    ""id"": ""539e39bb-bcf2-4e99-88ed-f155155cedd0"",
+                    ""path"": ""2DVector"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyMove"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""up"",
+                    ""id"": ""4ee12324-ca66-4713-9cf5-4136107c60ac"",
+                    ""path"": ""<Keyboard>/upArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""down"",
+                    ""id"": ""74b79263-c04a-47e7-a0e8-62e8862929ec"",
+                    ""path"": ""<Keyboard>/downArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""left"",
+                    ""id"": ""3d3dfd84-02fd-4e69-ae7e-e3de452ae2eb"",
+                    ""path"": ""<Keyboard>/leftArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""right"",
+                    ""id"": ""719b2eeb-37b8-4dd5-9ce4-742b1b1604df"",
+                    ""path"": ""<Keyboard>/rightArrow"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""KeyMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -169,6 +234,7 @@ namespace GameInput
             m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
             m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
             m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
+            m_Player_KeyMove = m_Player.FindAction("KeyMove", throwIfNotFound: true);
         }
 
         ~@PlayerInputAction()
@@ -252,6 +318,7 @@ namespace GameInput
         private readonly InputAction m_Player_Drag;
         private readonly InputAction m_Player_MouseMove;
         private readonly InputAction m_Player_Zoom;
+        private readonly InputAction m_Player_KeyMove;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -275,6 +342,10 @@ namespace GameInput
             /// Provides access to the underlying input action "Player/Zoom".
             /// </summary>
             public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/KeyMove".
+            /// </summary>
+            public InputAction @KeyMove => m_Wrapper.m_Player_KeyMove;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -310,6 +381,9 @@ namespace GameInput
                 @Zoom.started += instance.OnZoom;
                 @Zoom.performed += instance.OnZoom;
                 @Zoom.canceled += instance.OnZoom;
+                @KeyMove.started += instance.OnKeyMove;
+                @KeyMove.performed += instance.OnKeyMove;
+                @KeyMove.canceled += instance.OnKeyMove;
             }
 
             /// <summary>
@@ -330,6 +404,9 @@ namespace GameInput
                 @Zoom.started -= instance.OnZoom;
                 @Zoom.performed -= instance.OnZoom;
                 @Zoom.canceled -= instance.OnZoom;
+                @KeyMove.started -= instance.OnKeyMove;
+                @KeyMove.performed -= instance.OnKeyMove;
+                @KeyMove.canceled -= instance.OnKeyMove;
             }
 
             /// <summary>
@@ -391,6 +468,13 @@ namespace GameInput
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnZoom(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "KeyMove" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnKeyMove(InputAction.CallbackContext context);
         }
     }
 }

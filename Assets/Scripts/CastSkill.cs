@@ -168,10 +168,13 @@ public sealed class CastSkill : MonoBehaviour
 
         foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, fireballRange))
         {
-            enemy.TakeDamage(GetDamage(FireballId, fireballDamage) * multiplier);
+            enemy.TakeDamage(
+                GetDamage(FireballId, fireballDamage) * multiplier,
+                FireballId);
             enemy.ApplyDamageOverTime(
                 GetDotDamage(FireballId, burnDamagePerSecond) * multiplier,
-                ScaleByAttackPowerLevel(burnDuration, burnDurationPerAttackLevel));
+                ScaleByAttackPowerLevel(burnDuration, burnDurationPerAttackLevel),
+                FireballId);
         }
     }
 
@@ -201,7 +204,9 @@ public sealed class CastSkill : MonoBehaviour
                 direction = Vector3.right;
             }
 
-            enemy.TakeDamage(GetDamage(EarthMagicId, earthMagicDamage) * multiplier);
+            enemy.TakeDamage(
+                GetDamage(EarthMagicId, earthMagicDamage) * multiplier,
+                EarthMagicId);
             enemy.Knockback(
                 direction,
                 ScaleByAttackPowerLevel(
@@ -232,7 +237,9 @@ public sealed class CastSkill : MonoBehaviour
                 bolt.Play(origin, targetPosition);
             }
 
-            target.TakeDamage(GetDamage(ChainLightningId, chainLightningDamage) * multiplier);
+            target.TakeDamage(
+                GetDamage(ChainLightningId, chainLightningDamage) * multiplier,
+                ChainLightningId);
             hitEnemies.Add(target);
             origin = targetPosition;
         }
@@ -252,7 +259,8 @@ public sealed class CastSkill : MonoBehaviour
         StartCoroutine(ApplySingleTargetDamage(
             target,
             GetDamage(NailDrivingId, nailDrivingDamage) * multiplier,
-            0.45f));
+            0.45f,
+            NailDrivingId));
         return true;
     }
 
@@ -291,7 +299,8 @@ public sealed class CastSkill : MonoBehaviour
                 GetDotDamage(PlagueMagicId, plagueDamagePerSecond) * multiplier,
                 ScaleByAttackPowerLevel(
                     plagueDuration,
-                    plagueDurationPerAttackLevel));
+                    plagueDurationPerAttackLevel),
+                PlagueMagicId);
         }
     }
 
@@ -356,7 +365,7 @@ public sealed class CastSkill : MonoBehaviour
                 }
 
                 hitEnemies.Add(enemy);
-                enemy.TakeDamage(damage);
+                enemy.TakeDamage(damage, IceLanceId);
                 enemy.ApplySlow(
                     ScaleByAttackPowerLevel(iceSlowRate, iceSlowPerAttackLevel),
                     ScaleByAttackPowerLevel(
@@ -403,7 +412,9 @@ public sealed class CastSkill : MonoBehaviour
 
         foreach (Enemy.Enemy enemy in enemies)
         {
-            enemy.TakeDamage(GetDamage(MegaExplosionId, megaExplosionDamage) * multiplier);
+            enemy.TakeDamage(
+                GetDamage(MegaExplosionId, megaExplosionDamage) * multiplier,
+                MegaExplosionId);
         }
 
         return true;
@@ -417,7 +428,9 @@ public sealed class CastSkill : MonoBehaviour
             return false;
         }
 
-        target.TakeDamage(GetDamage(RoundingThirtyId, roundingThirtyDamage) * multiplier);
+        target.TakeDamage(
+            GetDamage(RoundingThirtyId, roundingThirtyDamage) * multiplier,
+            RoundingThirtyId);
         return true;
     }
 
@@ -448,13 +461,14 @@ public sealed class CastSkill : MonoBehaviour
     private static IEnumerator ApplySingleTargetDamage(
         Enemy.Enemy target,
         float damage,
-        float delay)
+        float delay,
+        string skillId)
     {
         yield return new WaitForSeconds(delay);
 
         if (target != null && !target.IsDead && target.gameObject.activeInHierarchy)
         {
-            target.TakeDamage(damage);
+            target.TakeDamage(damage, skillId);
         }
     }
 

@@ -62,7 +62,7 @@ namespace Enemy
             enabled = target != null;
         }
 
-        public void TakeDamage(float amount)
+        public void TakeDamage(float amount, string skillId = null)
         {
             if (amount <= 0f || isDead)
             {
@@ -71,7 +71,9 @@ namespace Enemy
 
             float previousHp = stat.hp;
             stat.hp = Mathf.Max(0f, stat.hp - amount);
-            DamagePopup.Show(transform.position, previousHp - stat.hp);
+            float appliedDamage = previousHp - stat.hp;
+            BattleStatistics.RecordSkillDamage(skillId, appliedDamage);
+            DamagePopup.Show(transform.position, appliedDamage);
             if (stat.hp > 0f)
             {
                 return;
@@ -90,6 +92,7 @@ namespace Enemy
         public void ApplyDamageOverTime(
             float damagePerTick,
             float duration,
+            string skillId = null,
             float tickInterval = 1f)
         {
             if (damagePerTick <= 0f || duration <= 0f || tickInterval <= 0f || isDead)
@@ -97,7 +100,11 @@ namespace Enemy
                 return;
             }
 
-            StartCoroutine(DamageOverTimeRoutine(damagePerTick, duration, tickInterval));
+            StartCoroutine(DamageOverTimeRoutine(
+                damagePerTick,
+                duration,
+                tickInterval,
+                skillId));
         }
 
         public void ApplySlow(float slowRate, float duration)
@@ -178,14 +185,15 @@ namespace Enemy
         private IEnumerator DamageOverTimeRoutine(
             float damagePerTick,
             float duration,
-            float tickInterval)
+            float tickInterval,
+            string skillId)
         {
             float elapsed = 0f;
             var wait = new WaitForSeconds(tickInterval);
 
             while (elapsed < duration && !isDead)
             {
-                TakeDamage(damagePerTick);
+                TakeDamage(damagePerTick, skillId);
                 if (isDead)
                 {
                     yield break;
