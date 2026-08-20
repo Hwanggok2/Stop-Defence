@@ -41,6 +41,56 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "CameraAction",
+            "id": "1dce741d-e1f9-4c45-9f1d-ba5f2c007d58",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "de9c5436-3c14-46d1-8d4c-238b070f6266",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                },
+                {
+                    "name": "Zoom",
+                    "type": "Value",
+                    "id": "691643db-a595-4233-8a18-c834b67f3bf1",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true,
+                    "priority": 0
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "9d09de94-1b3d-4119-af92-ce12cb38bfc3",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";PC",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b744ddb2-1070-4d86-8ff1-eadf9e3edc30",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [
