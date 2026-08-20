@@ -5,18 +5,21 @@ using System.Collections.Generic;
 
 public class CastSkill : MonoBehaviour
 {
-    [SerializeField]
     GameObject player;
     Dictionary<string, int> skillDict = new Dictionary<string, int>
     {
-        { "폭발 화염구", 0 },
-        { "대지 마법", 1 },
-        { "연쇄 번개", 2 },
-        { "대못 박기", 3 },
-        { "수리 마법", 4 },
+        { "chain lightning", 2 }
     };
 
     int maxChainValue = 7;
+
+    [SerializeField]
+    float chainLightningDamage = 20f;
+
+    void Start()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+    }
 
 
     public void Cast(int ind)
@@ -30,20 +33,30 @@ public class CastSkill : MonoBehaviour
 
     void ChainLightning()
     {
-        // 처음에는 플레이어 기준으로 적에게 발사
-        // 이후 6번 반복하며 적에게 발사
+        Debug.Log("cast");
+        HashSet<GameObject> hitEnemies = new HashSet<GameObject>();
+        GameObject origin = player;
+
         for (int i = 0; i < maxChainValue; i++)
         {
-            GameObject target = FindEnemy(player);
-            if (target != null)
+            GameObject target = FindEnemy(origin, hitEnemies);
+            if (target == null)
             {
-                 // target의 hp 감소시키는 로직 추가
-                
+                break;
             }
+
+            Enemy.Enemy enemy = target.GetComponent<Enemy.Enemy>();
+            if (enemy != null)
+            {
+                enemy.TakeDamage(chainLightningDamage);
+            }
+
+            hitEnemies.Add(target);
+            origin = target;
         }
     }
 
-    GameObject FindEnemy(GameObject obj)
+    GameObject FindEnemy(GameObject obj, HashSet<GameObject> exclude = null)
     {
         if (obj == null) return null;
 
@@ -58,6 +71,7 @@ public class CastSkill : MonoBehaviour
         {
             if (enemy == null) continue;
             if (enemy == obj) continue;
+            if (exclude != null && exclude.Contains(enemy)) continue;
 
             Vector3 diff = enemy.transform.position - originPos;
             float sqrDistance = diff.sqrMagnitude;
