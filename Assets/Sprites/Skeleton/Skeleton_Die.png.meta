@@ -286,6 +286,19 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
@@ -294,9 +307,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 836
+        y: 828
         width: 418
-        height: 418
+        height: 426
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -316,9 +329,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 418
-        y: 836
+        y: 829
         width: 418
-        height: 418
+        height: 425
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -338,9 +351,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 836
-        y: 836
+        y: 828
         width: 418
-        height: 418
+        height: 426
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -360,9 +373,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 418
+        y: 409
         width: 418
-        height: 418
+        height: 415
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -384,7 +397,7 @@ TextureImporter:
         x: 418
         y: 418
         width: 418
-        height: 418
+        height: 407
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -404,9 +417,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 836
-        y: 418
+        y: 386
         width: 418
-        height: 418
+        height: 430
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -428,7 +441,7 @@ TextureImporter:
         x: 0
         y: 0
         width: 418
-        height: 418
+        height: 408
       alignment: 9
       pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
