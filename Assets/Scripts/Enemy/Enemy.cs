@@ -5,7 +5,7 @@ namespace Enemy
     public abstract class Enemy : MonoBehaviour
     {
         [SerializeField] protected EnemyStat stat;
-        [SerializeField] private Player player;
+        private Player player;
 
         protected bool isInAttackRange;
     
