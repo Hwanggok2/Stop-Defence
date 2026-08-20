@@ -4,12 +4,12 @@
     "maps": [
         {
             "name": "Player",
-            "id": "884955a9-9606-4b53-93b8-d6436c392b43",
+            "id": "3370a5ad-577f-4704-ab09-a6f69e83a7d8",
             "actions": [
                 {
                     "name": "Drag",
                     "type": "Button",
-                    "id": "00ca341d-561d-4db1-8b6e-7e04e6df20aa",
+                    "id": "c375b9cf-842b-4548-b523-3600622da76f",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -17,9 +17,9 @@
                     "priority": 0
                 },
                 {
-                    "name": "Zoom",
+                    "name": "MouseMove",
                     "type": "Value",
-                    "id": "84470e4c-76cd-4036-a8ad-e8ed13ac1e2b",
+                    "id": "142b9b9e-1745-41f8-b6ba-c5627b5944cd",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -27,9 +27,9 @@
                     "priority": 0
                 },
                 {
-                    "name": "MouseMove",
+                    "name": "Zoom",
                     "type": "Value",
-                    "id": "0492ca80-8294-4a3b-bda5-e8f8c94889db",
+                    "id": "c7ff4abc-c04d-42ec-8bc5-e75885abb555",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
@@ -40,7 +40,7 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "34161241-f10a-4da5-ac92-a33d5514055d",
+                    "id": "682767ab-c282-4047-aff1-f6bef2d8221d",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -51,23 +51,23 @@
                 },
                 {
                     "name": "",
-                    "id": "3f06e0a7-1d15-4b71-b33a-4bc75a495d66",
-                    "path": "<Mouse>/scroll",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Zoom",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "36c8387f-9a46-442d-96e8-34a0a3b7d165",
+                    "id": "b3297944-2e2f-47bf-81f8-acc9d8c49f72",
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "MouseMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a178d833-8ae3-4f21-8d7b-7ef0e538e718",
+                    "path": "<Mouse>/scroll",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Zoom",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

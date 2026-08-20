@@ -1,116 +1,113 @@
 using UnityEngine;
 
-namespace Camera
+public class CameraController : MonoBehaviour
 {
-    public class CameraController : MonoBehaviour
+    public static CameraController Instance { get; private set; }
+
+    [SerializeField] private UnityEngine.Camera cam;
+
+    [Header("줌")]
+    [SerializeField] private float minOrthoSize = 2f;
+    [SerializeField] private float maxOrthoSize = 5.4f;
+    [SerializeField] private float zoomSpeed = 0.5f;
+
+    [Header("월드 바운드")]
+    [SerializeField] private Collider2D boundaryCollider;
+
+    private Vector2 pendingDelta; // 흔들림 수정: 델타 누적 후 LateUpdate에서 한 번만 적용
+    private bool IsZoomedIn => cam.orthographicSize < maxOrthoSize - 0.01f;
+    
+    private void Awake()
     {
-        public static CameraController Instance { get; private set; }
+        Instance = this;
 
-        [SerializeField] private UnityEngine.Camera cam;
+        if (cam == null)
+            cam = UnityEngine.Camera.main;
 
-        [Header("줌")]
-        [SerializeField] private float minOrthoSize = 2f;
-        [SerializeField] private float maxOrthoSize = 5.4f;
-        [SerializeField] private float zoomSpeed = 0.5f;
+        cam.orthographicSize = Mathf.Min(
+            maxOrthoSize,
+            GetMaxOrthoSizeFromBounds()
+        );
 
-        [Header("월드 바운드")]
-        [SerializeField] private Collider2D boundaryCollider;
+        ClampPosition();
+    }
 
-        private Vector2 pendingDelta; // 흔들림 수정: 델타 누적 후 LateUpdate에서 한 번만 적용
-        private bool IsZoomedIn => cam.orthographicSize < maxOrthoSize - 0.01f;
-        
-        private void Awake()
-        {
-            Instance = this;
+    // 흔들림 수정: LateUpdate에서 한 번만 이동 처리
+    private void LateUpdate()
+    {
+        if (pendingDelta == Vector2.zero) return;
 
-            if (cam == null)
-                cam = UnityEngine.Camera.main;
+        ApplyMove(pendingDelta);
+        pendingDelta = Vector2.zero;
+    }
 
-            cam.orthographicSize = Mathf.Min(
-                maxOrthoSize,
-                GetMaxOrthoSizeFromBounds()
-            );
+    public void Move(Vector2 mouseDelta)
+    {
+        pendingDelta += mouseDelta; // 바로 적용하지 않고 누적
+    }
 
-            ClampPosition();
-        }
+    private void ApplyMove(Vector2 mouseDelta)
+    {
+        float unitsPerPixel = (cam.orthographicSize * 2f) / Screen.height;
 
-        // 흔들림 수정: LateUpdate에서 한 번만 이동 처리
-        private void LateUpdate()
-        {
-            if (pendingDelta == Vector2.zero) return;
+        Vector3 move = new Vector3(
+            -mouseDelta.x * unitsPerPixel,
+            IsZoomedIn ? -mouseDelta.y * unitsPerPixel : 0f,
+            0f
+        );
 
-            ApplyMove(pendingDelta);
-            pendingDelta = Vector2.zero;
-        }
+        transform.position += move;
+        ClampPosition();
+    }
 
-        public void Move(Vector2 mouseDelta)
-        {
-            pendingDelta += mouseDelta; // 바로 적용하지 않고 누적
-        }
+    public void Zoom(float scroll)
+    {
+        if (scroll == 0f) return;
 
-        private void ApplyMove(Vector2 mouseDelta)
-        {
-            float unitsPerPixel = (cam.orthographicSize * 2f) / Screen.height;
+        float maxAllowed = GetMaxOrthoSizeFromBounds();
 
-            Vector3 move = new Vector3(
-                -mouseDelta.x * unitsPerPixel,
-                IsZoomedIn ? -mouseDelta.y * unitsPerPixel : 0f,
-                0f
-            );
+        float maxZoomOut = Mathf.Min(maxOrthoSize, maxAllowed);
 
-            transform.position += move;
-            ClampPosition();
-        }
+        cam.orthographicSize = Mathf.Clamp(
+            cam.orthographicSize - scroll * zoomSpeed,
+            minOrthoSize,
+            maxZoomOut
+        );
 
-        public void Zoom(float scroll)
-        {
-            if (scroll == 0f) return;
+        ClampPosition();
+    }
 
-            float maxAllowed = GetMaxOrthoSizeFromBounds();
+    // 경계 초과 줌아웃 수정: bounds 크기 기반으로 최대 줌아웃 한계 계산
+    private float GetMaxOrthoSizeFromBounds()
+    {
+        if (!boundaryCollider) return maxOrthoSize;
 
-            float maxZoomOut = Mathf.Min(maxOrthoSize, maxAllowed);
+        Bounds bounds = boundaryCollider.bounds;
+        float maxByHeight = bounds.size.y / 2f;
+        float maxByWidth  = bounds.size.x / 2f / cam.aspect;
 
-            cam.orthographicSize = Mathf.Clamp(
-                cam.orthographicSize - scroll * zoomSpeed,
-                minOrthoSize,
-                maxZoomOut
-            );
+        return Mathf.Min(maxByHeight, maxByWidth); // 좁은 쪽 기준
+    }
 
-            ClampPosition();
-        }
+    private void ClampPosition()
+    {
+        if (!boundaryCollider) return;
 
-        // 경계 초과 줌아웃 수정: bounds 크기 기반으로 최대 줌아웃 한계 계산
-        private float GetMaxOrthoSizeFromBounds()
-        {
-            if (!boundaryCollider) return maxOrthoSize;
+        float camHalfH = cam.orthographicSize;
+        float camHalfW = camHalfH * cam.aspect;
 
-            Bounds bounds = boundaryCollider.bounds;
-            float maxByHeight = bounds.size.y / 2f;
-            float maxByWidth  = bounds.size.x / 2f / cam.aspect;
+        Bounds bounds = boundaryCollider.bounds;
 
-            return Mathf.Min(maxByHeight, maxByWidth); // 좁은 쪽 기준
-        }
+        float clampedX = Mathf.Clamp(
+            transform.position.x,
+            bounds.min.x + camHalfW,
+            bounds.max.x - camHalfW
+        );
 
-        private void ClampPosition()
-        {
-            if (!boundaryCollider) return;
+        float clampedY = IsZoomedIn
+            ? Mathf.Clamp(transform.position.y, bounds.min.y + camHalfH, bounds.max.y - camHalfH)
+            : 0f;
 
-            float camHalfH = cam.orthographicSize;
-            float camHalfW = camHalfH * cam.aspect;
-
-            Bounds bounds = boundaryCollider.bounds;
-
-            float clampedX = Mathf.Clamp(
-                transform.position.x,
-                bounds.min.x + camHalfW,
-                bounds.max.x - camHalfW
-            );
-
-            float clampedY = IsZoomedIn
-                ? Mathf.Clamp(transform.position.y, bounds.min.y + camHalfH, bounds.max.y - camHalfH)
-                : 0f;
-
-            transform.position = new Vector3(clampedX, clampedY, transform.position.z);
-        }
+        transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
 }

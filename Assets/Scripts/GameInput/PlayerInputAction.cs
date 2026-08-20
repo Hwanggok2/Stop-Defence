@@ -15,7 +15,7 @@ using System.Collections.Generic;
 using UnityEngine.InputSystem;
 using UnityEngine.InputSystem.Utilities;
 
-namespace Input
+namespace GameInput
 {
     /// <summary>
     /// Provides programmatic access to <see cref="InputActionAsset" />, <see cref="InputActionMap" />, <see cref="InputAction" /> and <see cref="InputControlScheme" /> instances defined in asset "Assets/InputAction/PlayerInputAction.inputactions".
@@ -92,12 +92,12 @@ namespace Input
     ""maps"": [
         {
             ""name"": ""Player"",
-            ""id"": ""884955a9-9606-4b53-93b8-d6436c392b43"",
+            ""id"": ""3370a5ad-577f-4704-ab09-a6f69e83a7d8"",
             ""actions"": [
                 {
                     ""name"": ""Drag"",
                     ""type"": ""Button"",
-                    ""id"": ""00ca341d-561d-4db1-8b6e-7e04e6df20aa"",
+                    ""id"": ""c375b9cf-842b-4548-b523-3600622da76f"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -105,9 +105,9 @@ namespace Input
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""Zoom"",
+                    ""name"": ""MouseMove"",
                     ""type"": ""Value"",
-                    ""id"": ""84470e4c-76cd-4036-a8ad-e8ed13ac1e2b"",
+                    ""id"": ""142b9b9e-1745-41f8-b6ba-c5627b5944cd"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -115,9 +115,9 @@ namespace Input
                     ""priority"": 0
                 },
                 {
-                    ""name"": ""MouseMove"",
+                    ""name"": ""Zoom"",
                     ""type"": ""Value"",
-                    ""id"": ""0492ca80-8294-4a3b-bda5-e8f8c94889db"",
+                    ""id"": ""c7ff4abc-c04d-42ec-8bc5-e75885abb555"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -128,7 +128,7 @@ namespace Input
             ""bindings"": [
                 {
                     ""name"": """",
-                    ""id"": ""34161241-f10a-4da5-ac92-a33d5514055d"",
+                    ""id"": ""682767ab-c282-4047-aff1-f6bef2d8221d"",
                     ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -139,23 +139,23 @@ namespace Input
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3f06e0a7-1d15-4b71-b33a-4bc75a495d66"",
-                    ""path"": ""<Mouse>/scroll"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Zoom"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""36c8387f-9a46-442d-96e8-34a0a3b7d165"",
+                    ""id"": ""b3297944-2e2f-47bf-81f8-acc9d8c49f72"",
                     ""path"": ""<Mouse>/delta"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""MouseMove"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a178d833-8ae3-4f21-8d7b-7ef0e538e718"",
+                    ""path"": ""<Mouse>/scroll"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -167,8 +167,8 @@ namespace Input
             // Player
             m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
             m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
-            m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
             m_Player_MouseMove = m_Player.FindAction("MouseMove", throwIfNotFound: true);
+            m_Player_Zoom = m_Player.FindAction("Zoom", throwIfNotFound: true);
         }
 
         ~@PlayerInputAction()
@@ -250,8 +250,8 @@ namespace Input
         private readonly InputActionMap m_Player;
         private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
         private readonly InputAction m_Player_Drag;
-        private readonly InputAction m_Player_Zoom;
         private readonly InputAction m_Player_MouseMove;
+        private readonly InputAction m_Player_Zoom;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -268,13 +268,13 @@ namespace Input
             /// </summary>
             public InputAction @Drag => m_Wrapper.m_Player_Drag;
             /// <summary>
-            /// Provides access to the underlying input action "Player/Zoom".
-            /// </summary>
-            public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
-            /// <summary>
             /// Provides access to the underlying input action "Player/MouseMove".
             /// </summary>
             public InputAction @MouseMove => m_Wrapper.m_Player_MouseMove;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Zoom".
+            /// </summary>
+            public InputAction @Zoom => m_Wrapper.m_Player_Zoom;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -304,12 +304,12 @@ namespace Input
                 @Drag.started += instance.OnDrag;
                 @Drag.performed += instance.OnDrag;
                 @Drag.canceled += instance.OnDrag;
-                @Zoom.started += instance.OnZoom;
-                @Zoom.performed += instance.OnZoom;
-                @Zoom.canceled += instance.OnZoom;
                 @MouseMove.started += instance.OnMouseMove;
                 @MouseMove.performed += instance.OnMouseMove;
                 @MouseMove.canceled += instance.OnMouseMove;
+                @Zoom.started += instance.OnZoom;
+                @Zoom.performed += instance.OnZoom;
+                @Zoom.canceled += instance.OnZoom;
             }
 
             /// <summary>
@@ -324,12 +324,12 @@ namespace Input
                 @Drag.started -= instance.OnDrag;
                 @Drag.performed -= instance.OnDrag;
                 @Drag.canceled -= instance.OnDrag;
-                @Zoom.started -= instance.OnZoom;
-                @Zoom.performed -= instance.OnZoom;
-                @Zoom.canceled -= instance.OnZoom;
                 @MouseMove.started -= instance.OnMouseMove;
                 @MouseMove.performed -= instance.OnMouseMove;
                 @MouseMove.canceled -= instance.OnMouseMove;
+                @Zoom.started -= instance.OnZoom;
+                @Zoom.performed -= instance.OnZoom;
+                @Zoom.canceled -= instance.OnZoom;
             }
 
             /// <summary>
@@ -378,19 +378,19 @@ namespace Input
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnDrag(InputAction.CallbackContext context);
             /// <summary>
-            /// Method invoked when associated input action "Zoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
-            /// </summary>
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
-            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
-            void OnZoom(InputAction.CallbackContext context);
-            /// <summary>
             /// Method invoked when associated input action "MouseMove" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
             /// </summary>
             /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnMouseMove(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Zoom" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnZoom(InputAction.CallbackContext context);
         }
     }
 }

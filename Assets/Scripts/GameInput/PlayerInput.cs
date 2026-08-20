@@ -1,8 +1,7 @@
-using Camera;
+using GameInput;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-namespace Input
+namespace GameInput
 {
     public class PlayerInput : MonoBehaviour, PlayerInputAction.IPlayerActions
     {
@@ -18,19 +17,19 @@ namespace Input
             input.Player.Enable();
         }
 
-        public void OnDrag(InputAction.CallbackContext context)
+        public void OnDrag(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
             if (context.started)  isDragging = true;
             if (context.canceled) isDragging = false;
         }
 
-        public void OnMouseMove(InputAction.CallbackContext context)
+        public void OnMouseMove(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
             if (!isDragging) return;
             CameraController.Instance.Move(context.ReadValue<Vector2>());
         }
 
-        public void OnZoom(InputAction.CallbackContext context)
+        public void OnZoom(UnityEngine.InputSystem.InputAction.CallbackContext context)
         {
             float scroll = context.ReadValue<Vector2>().y;
             CameraController.Instance.Zoom(scroll);
