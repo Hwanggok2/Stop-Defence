@@ -1,7 +1,7 @@
 using StopDefence.GameData;
 using UnityEngine;
 
-public sealed class DataDrivenEnemy : Enemy
+public sealed class DataDrivenEnemy : Enemy.Enemy
 {
     private static readonly int AttackTrigger = Animator.StringToHash("Attack");
 

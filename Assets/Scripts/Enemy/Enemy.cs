@@ -65,7 +65,7 @@ namespace Enemy
 
         private void Move()
         {
-            transform.position += Vector3.left * stat.moveSpeed * Time.deltaTime;
+            transform.position += Vector3.left * (stat.moveSpeed * Time.deltaTime);
         }
         private void MoveToTarget()
         {
