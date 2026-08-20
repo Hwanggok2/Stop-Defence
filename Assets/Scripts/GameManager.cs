@@ -3,6 +3,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    [field: SerializeField] public Collider2D TargetArea { get; private set; }
 
     private void Awake()
     {
