@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Text;
 using StopDefence.GameData;
 using TMPro;
@@ -93,7 +94,7 @@ public sealed class GameOverUI : MonoBehaviour
     {
         if (player == null)
         {
-            player = Object.FindFirstObjectByType<Player>();
+            player = UnityEngine.Object.FindFirstObjectByType<Player>();
         }
 
         if (skillInventory == null && player != null)
@@ -106,5 +107,40 @@ public sealed class GameOverUI : MonoBehaviour
     {
         Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+}
+
+public static class BattleStatistics
+{
+    private static readonly Dictionary<string, float> DamageBySkill =
+        new(System.StringComparer.OrdinalIgnoreCase);
+
+    public static float TotalSkillDamage { get; private set; }
+    public static int FinalScore => Mathf.RoundToInt(TotalSkillDamage);
+
+    public static void Reset()
+    {
+        DamageBySkill.Clear();
+        TotalSkillDamage = 0f;
+    }
+
+    public static void RecordSkillDamage(string skillId, float amount)
+    {
+        if (string.IsNullOrWhiteSpace(skillId) || amount <= 0f)
+        {
+            return;
+        }
+
+        DamageBySkill.TryGetValue(skillId, out float currentDamage);
+        DamageBySkill[skillId] = currentDamage + amount;
+        TotalSkillDamage += amount;
+    }
+
+    public static float GetSkillDamage(string skillId)
+    {
+        return !string.IsNullOrWhiteSpace(skillId) &&
+               DamageBySkill.TryGetValue(skillId, out float damage)
+            ? damage
+            : 0f;
     }
 }
