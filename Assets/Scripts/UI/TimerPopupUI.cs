@@ -1,7 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 namespace UI
@@ -34,7 +34,12 @@ namespace UI
         [SerializeField, Min(0f)] private float goodScale = 1.15f;
         [SerializeField, Min(0f)] private float badScale = 1f;
 
+        [SerializeField, Min(0f)] private float pressedTimeDuration = 2f;
+        [SerializeField, Min(0f)] private float perfectShakeDuration = 0.65f;
+        [SerializeField, Min(0f)] private float perfectShakeStrength = 0.3f;
+
         private Vector3 originalPressedTimeScale;
+        private Coroutine pressedTimeRoutine;
 
         private void Awake()
         {
@@ -47,6 +52,33 @@ namespace UI
             }
 
             ClearUI();
+            HidePressedTime();
+        }
+
+        private void OnEnable()
+        {
+            ResolveReferences();
+
+            if (stopWatch != null)
+            {
+                stopWatch.SpacePressed += ShowPressedResult;
+            }
+        }
+
+        private void OnDisable()
+        {
+            if (stopWatch != null)
+            {
+                stopWatch.SpacePressed -= ShowPressedResult;
+            }
+
+            if (pressedTimeRoutine != null)
+            {
+                StopCoroutine(pressedTimeRoutine);
+                pressedTimeRoutine = null;
+            }
+
+            HidePressedTime();
         }
 
         private void Update()
@@ -60,13 +92,6 @@ namespace UI
             }
 
             UpdatePopup();
-
-            // 실제 입력 순간의 판정 표시
-            if (Keyboard.current != null &&
-                Keyboard.current.spaceKey.wasPressedThisFrame)
-            {
-                ShowPressedResult();
-            }
         }
 
         private void UpdatePopup()
@@ -132,9 +157,6 @@ namespace UI
             }
 
             SetSkillImage(skill.SkillId);
-
-            // pressedTimeText는 실제 입력 시에만 표시
-            HidePressedTime();
         }
 
         private void SetSkillImage(string skillId)
@@ -166,7 +188,7 @@ namespace UI
             skillImage.enabled = false;
         }
 
-        private void ShowPressedResult()
+        private void ShowPressedResult(float currentTimer)
         {
             IReadOnlyList<OwnedActiveSkill> skills =
                 skillInventory.OwnedActiveSkills;
@@ -175,8 +197,6 @@ namespace UI
             {
                 return;
             }
-
-            float currentTimer = stopWatch.CurrentTimer;
 
             OwnedActiveSkill? closestSkill = null;
             float closestError = float.MaxValue;
@@ -199,8 +219,6 @@ namespace UI
                 return;
             }
 
-            OwnedActiveSkill skillToShow = closestSkill.Value;
-
             if (!stopWatch.TryEvaluateJudgement(
                     closestError,
                     out TimingJudgement judgement))
@@ -209,14 +227,12 @@ namespace UI
             }
 
             ShowJudgement(
-                skillToShow,
-                closestError,
+                currentTimer,
                 judgement);
         }
 
         private void ShowJudgement(
-            OwnedActiveSkill skill,
-            float error,
+            float pressedTime,
             TimingJudgement judgement)
         {
             if (pressedTimeText == null)
@@ -224,12 +240,40 @@ namespace UI
                 return;
             }
 
-            pressedTimeText.text =
-                $"{error:F2}초";
+            if (pressedTimeRoutine != null)
+            {
+                StopCoroutine(pressedTimeRoutine);
+            }
+
+            pressedTimeText.text = $"{pressedTime:F2}초";
+            pressedTimeText.transform.localScale = originalPressedTimeScale;
 
             pressedTimeText.gameObject.SetActive(true);
 
             ApplyJudgementVisual(judgement);
+            if (judgement == TimingJudgement.Perfect)
+            {
+                CameraController.Instance?.Shake(
+                    perfectShakeDuration,
+                    perfectShakeStrength);
+            }
+
+            pressedTimeRoutine = StartCoroutine(
+                ShowPressedTimeRoutine());
+        }
+
+        private IEnumerator ShowPressedTimeRoutine()
+        {
+            float elapsed = 0f;
+
+            while (elapsed < pressedTimeDuration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                yield return null;
+            }
+
+            pressedTimeRoutine = null;
+            HidePressedTime();
         }
 
         private void ApplyJudgementVisual(
@@ -297,8 +341,6 @@ namespace UI
             {
                 skillImage.enabled = false;
             }
-
-            HidePressedTime();
         }
 
         private void ClearUI()

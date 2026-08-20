@@ -27,6 +27,8 @@ public sealed class StopWatch : MonoBehaviour
     private float currentTimer;
     private float nextInputTime;
 
+    public event System.Action<float> SpacePressed;
+
     public float CurrentTimer => currentTimer;
 
     private void Awake()
@@ -58,6 +60,7 @@ public sealed class StopWatch : MonoBehaviour
 
         if (Keyboard.current != null && Keyboard.current.spaceKey.wasPressedThisFrame)
         {
+            SpacePressed?.Invoke(currentTimer);
             TryCastOwnedSkills();
         }
 

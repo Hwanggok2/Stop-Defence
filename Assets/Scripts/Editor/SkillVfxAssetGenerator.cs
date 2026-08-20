@@ -329,9 +329,9 @@ namespace StopDefence.Editor
                 "MegaBeam_Alpha.mat",
                 LoadTexture("MegaBeam.png"),
                 BlendMode.OneMinusSrcAlpha);
-            Material blast = CreateMaterial(
-                "MegaBlast_Alpha.mat",
-                LoadTexture("MegaBlastCloud.png"),
+            Material debris = CreateMaterial(
+                "MegaDebris_Alpha.mat",
+                LoadTexture("Rock.png"),
                 BlendMode.OneMinusSrcAlpha);
             Material scorch = CreateMaterial(
                 "MegaScorch_Alpha.mat",
@@ -345,7 +345,7 @@ namespace StopDefence.Editor
             return CreateMegaExplosionPrefab(
                 rune,
                 beam,
-                blast,
+                debris,
                 scorch,
                 impactGlow,
                 pixelGlow,
@@ -1009,17 +1009,17 @@ namespace StopDefence.Editor
             GameObject root = CreateEffectRoot("Skill_007_IceLance", "skill_007");
 
             ParticleSystem lanceGlow = CreateSystem(root.transform, "IceLanceGlow", lanceAdditive, 14);
-            ConfigureBase(lanceGlow, 0.7f, 0.51f, 9.1f, 1f, 2, Color.white);
+            ConfigureBase(lanceGlow, 1.8f, 1.6f, 25f, 1f, 2, Color.white);
             ParticleSystem.MainModule lanceGlowMain = lanceGlow.main;
-            lanceGlowMain.startLifetime = new ParticleSystem.MinMaxCurve(0.5f, 0.52f);
-            lanceGlowMain.startSpeed = new ParticleSystem.MinMaxCurve(8.95f, 9.15f);
+            lanceGlowMain.startLifetime = new ParticleSystem.MinMaxCurve(1.58f, 1.62f);
+            lanceGlowMain.startSpeed = new ParticleSystem.MinMaxCurve(24.8f, 25.2f);
             SetStartSize3D(lanceGlow, 4.15f, 1.18f);
             ConfigureCone(
                 lanceGlow,
                 new Vector3(0f, 90f, 0f),
                 0.35f,
                 0.01f,
-                new Vector3(-4.6f, 0.72f, 0f));
+                new Vector3(-40f, 0.72f, 0f));
             SetBursts(lanceGlow, new ParticleSystem.Burst(0f, 1));
             SetColorOverLifetime(
                 lanceGlow,
@@ -1030,17 +1030,17 @@ namespace StopDefence.Editor
             SetDeterministic(lanceGlow, 7001);
 
             ParticleSystem lanceCore = CreateSystem(root.transform, "IceLanceCore", lanceAlpha, 15);
-            ConfigureBase(lanceCore, 0.7f, 0.51f, 9.1f, 1f, 2, Color.white);
+            ConfigureBase(lanceCore, 1.8f, 1.6f, 25f, 1f, 2, Color.white);
             ParticleSystem.MainModule lanceCoreMain = lanceCore.main;
-            lanceCoreMain.startLifetime = new ParticleSystem.MinMaxCurve(0.5f, 0.52f);
-            lanceCoreMain.startSpeed = new ParticleSystem.MinMaxCurve(8.95f, 9.15f);
+            lanceCoreMain.startLifetime = new ParticleSystem.MinMaxCurve(1.58f, 1.62f);
+            lanceCoreMain.startSpeed = new ParticleSystem.MinMaxCurve(24.8f, 25.2f);
             SetStartSize3D(lanceCore, 3.55f, 0.86f);
             ConfigureCone(
                 lanceCore,
                 new Vector3(0f, 90f, 0f),
                 0.2f,
                 0.01f,
-                new Vector3(-4.6f, 0.72f, 0f));
+                new Vector3(-40f, 0.72f, 0f));
             SetBursts(lanceCore, new ParticleSystem.Burst(0f, 1));
             SetColorOverLifetime(
                 lanceCore,
@@ -1051,10 +1051,10 @@ namespace StopDefence.Editor
             SetDeterministic(lanceCore, 7002);
 
             ParticleSystem lanceWake = CreateSystem(root.transform, "LanceWakeShards", pixelShard, 13);
-            ConfigureBase(lanceWake, 0.8f, 0.4f, 7.6f, 0.25f, 36, Color.white);
+            ConfigureBase(lanceWake, 1.9f, 1.6f, 25f, 0.25f, 36, Color.white);
             ParticleSystem.MainModule lanceWakeMain = lanceWake.main;
-            lanceWakeMain.startLifetime = new ParticleSystem.MinMaxCurve(0.18f, 0.46f);
-            lanceWakeMain.startSpeed = new ParticleSystem.MinMaxCurve(6.5f, 8.8f);
+            lanceWakeMain.startLifetime = new ParticleSystem.MinMaxCurve(1.35f, 1.65f);
+            lanceWakeMain.startSpeed = new ParticleSystem.MinMaxCurve(24f, 26f);
             lanceWakeMain.startSize = new ParticleSystem.MinMaxCurve(0.08f, 0.3f);
             lanceWakeMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
             ConfigureCone(
@@ -1062,7 +1062,7 @@ namespace StopDefence.Editor
                 new Vector3(0f, 90f, 0f),
                 8f,
                 0.2f,
-                new Vector3(-4.45f, 0.72f, 0f));
+                new Vector3(-40f, 0.72f, 0f));
             SetBursts(lanceWake, new ParticleSystem.Burst(0f, 20));
             SetColorOverLifetime(
                 lanceWake,
@@ -1077,7 +1077,7 @@ namespace StopDefence.Editor
             frost.transform.localPosition = new Vector3(0f, 0.1f, 0f);
             ConfigureBase(frost, 2.7f, 2.05f, 0f, 1f, 2, Color.white);
             ParticleSystem.MainModule frostMain = frost.main;
-            frostMain.startDelay = 0.48f;
+            frostMain.startDelay = 1.6f;
             frostMain.startLifetime = 2.05f;
             SetStartSize3D(frost, 4.15f, 0.82f);
             SetBursts(frost, new ParticleSystem.Burst(0f, 1));
@@ -1096,7 +1096,7 @@ namespace StopDefence.Editor
             backCrown.transform.localPosition = new Vector3(0f, 1.24f, 0f);
             ConfigureBase(backCrown, 1.9f, 1.15f, 0f, 1f, 2, Color.white);
             ParticleSystem.MainModule backCrownMain = backCrown.main;
-            backCrownMain.startDelay = 0.48f;
+            backCrownMain.startDelay = 1.6f;
             backCrownMain.startLifetime = 1.15f;
             SetStartSize3D(backCrown, 3.7f, 2.75f);
             SetBursts(backCrown, new ParticleSystem.Burst(0f, 1));
@@ -1115,7 +1115,7 @@ namespace StopDefence.Editor
             frontCrown.transform.localPosition = new Vector3(0f, 0.55f, 0f);
             ConfigureBase(frontCrown, 1.95f, 1.2f, 0f, 1f, 2, Color.white);
             ParticleSystem.MainModule frontCrownMain = frontCrown.main;
-            frontCrownMain.startDelay = 0.5f;
+            frontCrownMain.startDelay = 1.62f;
             frontCrownMain.startLifetime = 1.2f;
             SetStartSize3D(frontCrown, 3.55f, 1.35f);
             SetBursts(frontCrown, new ParticleSystem.Burst(0f, 1));
@@ -1134,7 +1134,7 @@ namespace StopDefence.Editor
             contact.transform.localPosition = new Vector3(0f, 0.52f, 0f);
             ConfigureBase(contact, 0.8f, 0.2f, 0f, 1f, 5, Color.white);
             ParticleSystem.MainModule contactMain = contact.main;
-            contactMain.startDelay = 0.47f;
+            contactMain.startDelay = 1.59f;
             contactMain.startLifetime = new ParticleSystem.MinMaxCurve(0.12f, 0.2f);
             contactMain.startSize = new ParticleSystem.MinMaxCurve(0.6f, 1.25f);
             SetBursts(contact, new ParticleSystem.Burst(0f, 3));
@@ -1150,7 +1150,7 @@ namespace StopDefence.Editor
             ParticleSystem impactShards = CreateSystem(root.transform, "ImpactIceNeedles", pixelShard, 12);
             ConfigureBase(impactShards, 1.2f, 0.55f, 5f, 0.28f, 60, Color.white);
             ParticleSystem.MainModule impactShardMain = impactShards.main;
-            impactShardMain.startDelay = 0.48f;
+            impactShardMain.startDelay = 1.6f;
             impactShardMain.startLifetime = new ParticleSystem.MinMaxCurve(0.28f, 0.68f);
             impactShardMain.startSpeed = new ParticleSystem.MinMaxCurve(2.8f, 7.4f);
             impactShardMain.startSize = new ParticleSystem.MinMaxCurve(0.1f, 0.48f);
@@ -1171,7 +1171,7 @@ namespace StopDefence.Editor
             ParticleSystem breakShards = CreateSystem(root.transform, "BreakingIceShards", pixelShard, 11);
             ConfigureBase(breakShards, 2.4f, 0.72f, 3.3f, 0.32f, 40, Color.white);
             ParticleSystem.MainModule breakShardMain = breakShards.main;
-            breakShardMain.startDelay = 1.42f;
+            breakShardMain.startDelay = 2.54f;
             breakShardMain.startLifetime = new ParticleSystem.MinMaxCurve(0.42f, 0.9f);
             breakShardMain.startSpeed = new ParticleSystem.MinMaxCurve(1.6f, 4.8f);
             breakShardMain.startSize = new ParticleSystem.MinMaxCurve(0.12f, 0.58f);
@@ -1196,7 +1196,7 @@ namespace StopDefence.Editor
             ParticleSystem snow = CreateSystem(root.transform, "SnowCrystals", snowflake, 10);
             ConfigureBase(snow, 2.7f, 1.1f, 0f, 0.2f, 36, Color.white);
             ParticleSystem.MainModule snowMain = snow.main;
-            snowMain.startDelay = 0.68f;
+            snowMain.startDelay = 1.8f;
             snowMain.startLifetime = new ParticleSystem.MinMaxCurve(0.72f, 1.35f);
             snowMain.startSize = new ParticleSystem.MinMaxCurve(0.12f, 0.3f);
             snowMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
@@ -1230,7 +1230,7 @@ namespace StopDefence.Editor
             mist.transform.localPosition = new Vector3(0f, 1.25f, 0f);
             ConfigureBase(mist, 2.5f, 1.35f, 0.55f, 0.9f, 30, Color.white);
             ParticleSystem.MainModule mistMain = mist.main;
-            mistMain.startDelay = 0.54f;
+            mistMain.startDelay = 1.66f;
             mistMain.startLifetime = new ParticleSystem.MinMaxCurve(0.85f, 1.6f);
             mistMain.startSpeed = new ParticleSystem.MinMaxCurve(0.18f, 0.72f);
             mistMain.startSize = new ParticleSystem.MinMaxCurve(0.38f, 0.9f);
@@ -1481,7 +1481,7 @@ namespace StopDefence.Editor
         private static GameObject CreateMegaExplosionPrefab(
             Material runeMaterial,
             Material beamMaterial,
-            Material blastMaterial,
+            Material debrisMaterial,
             Material scorchMaterial,
             Material impactGlow,
             Material pixelGlow,
@@ -1603,10 +1603,10 @@ namespace StopDefence.Editor
 
             ParticleSystem impactFlash = CreateSystem(root.transform, "CataclysmFlash", impactGlow, 15);
             impactFlash.transform.localPosition = new Vector3(0f, 0.36f, 0f);
-            ConfigureBase(impactFlash, 1.2f, 0.2f, 0f, 4.2f, 4, Color.white);
+            ConfigureBase(impactFlash, 1.2f, 0.32f, 0f, 4.2f, 4, Color.white);
             ParticleSystem.MainModule impactFlashMain = impactFlash.main;
             impactFlashMain.startDelay = 0.68f;
-            impactFlashMain.startSize = new ParticleSystem.MinMaxCurve(3.5f, 4.6f);
+            impactFlashMain.startSize = new ParticleSystem.MinMaxCurve(3.6f, 4.8f);
             impactFlashMain.startColor = new ParticleSystem.MinMaxGradient(
                 new Color(1f, 0.42f, 0.02f),
                 new Color(1f, 1f, 0.76f));
@@ -1619,53 +1619,90 @@ namespace StopDefence.Editor
 
             ParticleSystem shockwave = CreateSystem(root.transform, "GroundCataclysmRing", runeMaterial, 9);
             shockwave.transform.localScale = new Vector3(1f, 0.46f, 1f);
-            ConfigureBase(shockwave, 1.3f, 0.58f, 0f, 8.8f, 3, Color.white);
+            ConfigureBase(shockwave, 1.2f, 0.46f, 0f, 7.2f, 2, Color.white);
             ParticleSystem.MainModule shockwaveMain = shockwave.main;
             shockwaveMain.startDelay = 0.68f;
             shockwaveMain.startColor = new Color(1f, 0.52f, 0.045f);
-            SetBursts(
-                shockwave,
-                new ParticleSystem.Burst(0f, 1),
-                new ParticleSystem.Burst(0.14f, 1));
+            SetBursts(shockwave, new ParticleSystem.Burst(0f, 1));
             SetSizeOverLifetime(
                 shockwave,
                 Curve((0f, 0.12f), (0.42f, 0.86f), (1f, 1.22f)));
             SetFade(shockwave, 0.95f, 0f);
             SetDeterministic(shockwave, 8008);
 
-            ParticleSystem blastCloud = CreateSystem(root.transform, "DesignedBlastCloud", blastMaterial, 10);
-            blastCloud.transform.localPosition = new Vector3(0f, 1.92f, 0f);
-            ConfigureBase(blastCloud, 2.2f, 1.35f, 0f, 1f, 2, Color.white);
-            ParticleSystem.MainModule blastMain = blastCloud.main;
-            blastMain.startDelay = 0.72f;
-            SetStartSize3D(blastCloud, 6.8f, 5.2f);
-            SetBursts(blastCloud, new ParticleSystem.Burst(0f, 1));
+            ParticleSystem radialRays = CreateSystem(root.transform, "RadialBlastRays", beamMaterial, 14);
+            radialRays.transform.localPosition = new Vector3(0f, 0.32f, 0f);
+            ConfigureBase(radialRays, 1.3f, 0.34f, 10f, 0.12f, 100, Color.white);
+            ParticleSystem.MainModule radialRayMain = radialRays.main;
+            radialRayMain.startDelay = 0.67f;
+            radialRayMain.startLifetime = new ParticleSystem.MinMaxCurve(0.16f, 0.42f);
+            radialRayMain.startSpeed = new ParticleSystem.MinMaxCurve(7.5f, 14.5f);
+            radialRayMain.startSize = new ParticleSystem.MinMaxCurve(0.05f, 0.16f);
+            ConfigureCircle(radialRays, 0.18f);
+            SetBursts(radialRays, new ParticleSystem.Burst(0f, 62));
+            SetColorOverLifetime(
+                radialRays,
+                new Color(1f, 1f, 0.72f),
+                new Color(1f, 0.24f, 0.01f),
+                1f,
+                0f);
+            ParticleSystemRenderer radialRayRenderer =
+                radialRays.GetComponent<ParticleSystemRenderer>();
+            radialRayRenderer.renderMode = ParticleSystemRenderMode.Stretch;
+            radialRayRenderer.lengthScale = 2.7f;
+            radialRayRenderer.velocityScale = 0.055f;
+            SetDeterministic(radialRays, 8009);
+
+            ParticleSystem fireballs = CreateSystem(root.transform, "RollingFireBursts", pixelFlame, 12);
+            fireballs.transform.localPosition = new Vector3(0f, 0.42f, 0f);
+            ConfigureBase(fireballs, 2f, 0.68f, 3f, 0.8f, 100, Color.white);
+            ParticleSystem.MainModule fireballMain = fireballs.main;
+            fireballMain.startDelay = 0.69f;
+            fireballMain.startLifetime = new ParticleSystem.MinMaxCurve(0.38f, 0.92f);
+            fireballMain.startSpeed = new ParticleSystem.MinMaxCurve(1.2f, 4.8f);
+            fireballMain.startSize = new ParticleSystem.MinMaxCurve(0.58f, 1.72f);
+            fireballMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
+            fireballMain.startColor = new ParticleSystem.MinMaxGradient(
+                new Color(1f, 0.22f, 0.005f),
+                new Color(1f, 0.88f, 0.2f));
+            ConfigureCircle(fireballs, 0.72f);
+            SetBursts(
+                fireballs,
+                new ParticleSystem.Burst(0f, 38),
+                new ParticleSystem.Burst(0.16f, 24));
+            ConfigureNoise(fireballs, 0.42f, 0.8f);
+            ConfigureRotation(fireballs, -2.8f, 2.8f);
+            SetColorOverLifetime(
+                fireballs,
+                new Color(1f, 0.9f, 0.24f),
+                new Color(0.86f, 0.035f, 0.002f),
+                1f,
+                0f);
             SetSizeOverLifetime(
-                blastCloud,
-                Curve((0f, 0.08f), (0.16f, 0.88f), (0.36f, 1f), (0.82f, 0.94f), (1f, 0.78f)));
-            SetFade(blastCloud, 1f, 0f);
-            SetDeterministic(blastCloud, 8009);
+                fireballs,
+                Curve((0f, 0.14f), (0.22f, 1f), (0.72f, 0.78f), (1f, 0.05f)));
+            SetDeterministic(fireballs, 8010);
 
             ParticleSystem fireColumn = CreateSystem(root.transform, "ToweringFireColumn", pixelFlame, 13);
             ConfigureBase(fireColumn, 2.2f, 0.9f, 6f, 0.8f, 110, Color.white);
             ParticleSystem.MainModule fireMain = fireColumn.main;
             fireMain.startDelay = 0.7f;
-            fireMain.startLifetime = new ParticleSystem.MinMaxCurve(0.45f, 1.3f);
-            fireMain.startSpeed = new ParticleSystem.MinMaxCurve(3.2f, 9.2f);
-            fireMain.startSize = new ParticleSystem.MinMaxCurve(0.28f, 1.15f);
+            fireMain.startLifetime = new ParticleSystem.MinMaxCurve(0.42f, 1.08f);
+            fireMain.startSpeed = new ParticleSystem.MinMaxCurve(4.4f, 10.8f);
+            fireMain.startSize = new ParticleSystem.MinMaxCurve(0.36f, 1.28f);
             fireMain.startColor = new ParticleSystem.MinMaxGradient(
                 new Color(1f, 0.2f, 0.005f),
                 new Color(1f, 0.9f, 0.28f));
             ConfigureCone(
                 fireColumn,
                 new Vector3(-90f, 0f, 0f),
-                54f,
-                1.45f,
+                34f,
+                0.82f,
                 new Vector3(0f, 0.14f, 0f));
             SetBursts(
                 fireColumn,
-                new ParticleSystem.Burst(0f, 58),
-                new ParticleSystem.Burst(0.16f, 36));
+                new ParticleSystem.Burst(0f, 48),
+                new ParticleSystem.Burst(0.16f, 30));
             ConfigureNoise(fireColumn, 0.36f, 0.75f);
             SetColorOverLifetime(
                 fireColumn,
@@ -1678,67 +1715,95 @@ namespace StopDefence.Editor
                 Curve((0f, 0.18f), (0.18f, 1f), (0.72f, 0.82f), (1f, 0.08f)));
             fireColumn.GetComponent<ParticleSystemRenderer>().alignment =
                 ParticleSystemRenderSpace.Velocity;
-            SetDeterministic(fireColumn, 8010);
+            SetDeterministic(fireColumn, 8011);
 
-            ParticleSystem debris = CreateSystem(root.transform, "CataclysmDebris", pixelShard, 14);
+            ParticleSystem debris = CreateSystem(root.transform, "CataclysmDebris", debrisMaterial, 14);
             ConfigureBase(debris, 2.8f, 1.25f, 6f, 0.36f, 90, Color.white);
             ParticleSystem.MainModule debrisMain = debris.main;
             debrisMain.startDelay = 0.7f;
             debrisMain.startLifetime = new ParticleSystem.MinMaxCurve(0.65f, 1.8f);
             debrisMain.startSpeed = new ParticleSystem.MinMaxCurve(3.2f, 9.8f);
-            debrisMain.startSize = new ParticleSystem.MinMaxCurve(0.14f, 0.72f);
+            debrisMain.startSize = new ParticleSystem.MinMaxCurve(0.16f, 0.58f);
             debrisMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
             debrisMain.gravityModifier = new ParticleSystem.MinMaxCurve(1.8f, 3.2f);
             debrisMain.startColor = new ParticleSystem.MinMaxGradient(
-                new Color(0.14f, 0.07f, 0.035f),
-                new Color(0.7f, 0.18f, 0.02f));
+                new Color(0.18f, 0.08f, 0.035f),
+                new Color(0.58f, 0.2f, 0.055f));
             ConfigureCone(
                 debris,
                 new Vector3(-90f, 0f, 0f),
                 76f,
                 1.25f,
                 new Vector3(0f, 0.18f, 0f));
-            SetBursts(debris, new ParticleSystem.Burst(0f, 48));
+            SetBursts(debris, new ParticleSystem.Burst(0f, 24));
             ConfigureRotation(debris, -7f, 7f);
             SetFade(debris, 1f, 0f);
-            debris.GetComponent<ParticleSystemRenderer>().alignment =
-                ParticleSystemRenderSpace.Velocity;
-            SetDeterministic(debris, 8011);
+            SetDeterministic(debris, 8012);
 
             ParticleSystem smoke = CreateSystem(root.transform, "MushroomSmoke", pixelSmoke, 7);
             smoke.transform.localPosition = new Vector3(0f, 0.4f, 0f);
-            ConfigureBase(smoke, 3.6f, 2f, 1.8f, 1.4f, 90, Color.white);
+            ConfigureBase(smoke, 3.6f, 2f, 2.4f, 1.2f, 110, Color.white);
             ParticleSystem.MainModule smokeMain = smoke.main;
-            smokeMain.startDelay = 0.84f;
-            smokeMain.startLifetime = new ParticleSystem.MinMaxCurve(1.2f, 2.65f);
-            smokeMain.startSpeed = new ParticleSystem.MinMaxCurve(0.8f, 3.1f);
-            smokeMain.startSize = new ParticleSystem.MinMaxCurve(0.72f, 2.15f);
+            smokeMain.startDelay = 0.76f;
+            smokeMain.startLifetime = new ParticleSystem.MinMaxCurve(0.95f, 2.45f);
+            smokeMain.startSpeed = new ParticleSystem.MinMaxCurve(1.2f, 4.4f);
+            smokeMain.startSize = new ParticleSystem.MinMaxCurve(0.7f, 2.05f);
             smokeMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
-            smokeMain.startColor = new ParticleSystem.MinMaxGradient(
-                new Color(0.12f, 0.08f, 0.065f, 0.86f),
-                new Color(0.36f, 0.17f, 0.08f, 0.72f));
+            smokeMain.startColor = Color.white;
             ConfigureCone(
                 smoke,
                 new Vector3(-90f, 0f, 0f),
-                64f,
-                1.6f,
+                52f,
+                1.35f,
                 new Vector3(0f, 0.2f, 0f));
             SetBursts(
                 smoke,
-                new ParticleSystem.Burst(0f, 24),
-                new ParticleSystem.Burst(0.36f, 20),
-                new ParticleSystem.Burst(0.8f, 16));
+                new ParticleSystem.Burst(0f, 30),
+                new ParticleSystem.Burst(0.32f, 24),
+                new ParticleSystem.Burst(0.72f, 18));
             ConfigureNoise(smoke, 0.5f, 0.42f);
             SetColorOverLifetime(
                 smoke,
                 new Color(0.32f, 0.13f, 0.055f),
                 new Color(0.055f, 0.045f, 0.04f),
-                0.82f,
+                0.94f,
                 0f);
             SetSizeOverLifetime(
                 smoke,
                 Curve((0f, 0.35f), (0.44f, 1f), (1f, 1.42f)));
-            SetDeterministic(smoke, 8012);
+            SetDeterministic(smoke, 8013);
+
+            ParticleSystem rollingSmoke = CreateSystem(
+                root.transform,
+                "RollingSmokeFront",
+                pixelSmoke,
+                11);
+            rollingSmoke.transform.localPosition = new Vector3(0f, 0.46f, 0f);
+            ConfigureBase(rollingSmoke, 3.2f, 1.25f, 2.2f, 1f, 80, Color.white);
+            ParticleSystem.MainModule rollingSmokeMain = rollingSmoke.main;
+            rollingSmokeMain.startDelay = 0.86f;
+            rollingSmokeMain.startLifetime = new ParticleSystem.MinMaxCurve(0.78f, 1.8f);
+            rollingSmokeMain.startSpeed = new ParticleSystem.MinMaxCurve(1f, 3.8f);
+            rollingSmokeMain.startSize = new ParticleSystem.MinMaxCurve(0.62f, 1.72f);
+            rollingSmokeMain.startRotation = new ParticleSystem.MinMaxCurve(-Mathf.PI, Mathf.PI);
+            rollingSmokeMain.startColor = Color.white;
+            ConfigureCircle(rollingSmoke, 0.82f);
+            SetBursts(
+                rollingSmoke,
+                new ParticleSystem.Burst(0f, 28),
+                new ParticleSystem.Burst(0.42f, 18));
+            ConfigureNoise(rollingSmoke, 0.55f, 0.48f);
+            ConfigureRotation(rollingSmoke, -1.6f, 1.6f);
+            SetColorOverLifetime(
+                rollingSmoke,
+                new Color(0.42f, 0.15f, 0.045f),
+                new Color(0.045f, 0.038f, 0.035f),
+                0.92f,
+                0f);
+            SetSizeOverLifetime(
+                rollingSmoke,
+                Curve((0f, 0.24f), (0.38f, 1f), (1f, 1.35f)));
+            SetDeterministic(rollingSmoke, 8014);
 
             ParticleSystem embers = CreateSystem(root.transform, "LongLivedEmbers", pixelGlow, 16);
             ConfigureBase(embers, 3.8f, 2f, 6f, 0.1f, 170, Color.white);
@@ -1763,7 +1828,7 @@ namespace StopDefence.Editor
                 new ParticleSystem.Burst(0.42f, 42));
             ConfigureNoise(embers, 0.42f, 1.1f);
             SetFade(embers, 1f, 0f);
-            SetDeterministic(embers, 8013);
+            SetDeterministic(embers, 8015);
 
             ParticleSystem scorch = CreateSystem(root.transform, "BurningScorch", scorchMaterial, 1);
             scorch.transform.localPosition = new Vector3(0f, -0.03f, 0f);
@@ -1776,7 +1841,7 @@ namespace StopDefence.Editor
                 scorch,
                 Curve((0f, 0.08f), (0.1f, 1f), (0.82f, 1f), (1f, 0.94f)));
             SetFade(scorch, 1f, 0f);
-            SetDeterministic(scorch, 8014);
+            SetDeterministic(scorch, 8016);
 
             ParticleSystem groundFire = CreateSystem(root.transform, "GroundAfterburn", pixelFlame, 8);
             ConfigureBase(groundFire, 3.4f, 1.1f, 1.1f, 0.5f, 70, Color.white);
@@ -1808,7 +1873,7 @@ namespace StopDefence.Editor
                 Curve((0f, 0.18f), (0.2f, 1f), (1f, 0.05f)));
             groundFire.GetComponent<ParticleSystemRenderer>().alignment =
                 ParticleSystemRenderSpace.Velocity;
-            SetDeterministic(groundFire, 8015);
+            SetDeterministic(groundFire, 8017);
 
             return SavePrefab(root, MegaExplosionPrefabPath);
         }
@@ -1977,6 +2042,7 @@ namespace StopDefence.Editor
             color.enabled = true;
             color.color = new ParticleSystem.MinMaxGradient(gradient);
         }
+
 
         private static void SetSizeOverLifetime(ParticleSystem system, AnimationCurve curve)
         {

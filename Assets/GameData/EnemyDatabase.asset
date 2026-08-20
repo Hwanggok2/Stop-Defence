@@ -392,43 +392,43 @@ MonoBehaviour:
   - time: 3
     enemyId: skeleton
     level: 1
-    spawnPoint: 5
+    spawnPoint: 1
     count: 3
     interval: 1.2
   - time: 5
     enemyId: goblin_mage
     level: 1
-    spawnPoint: 6
+    spawnPoint: 2
     count: 3
     interval: 1.2
   - time: 15
     enemyId: goblin_mage
     level: 2
-    spawnPoint: 7
+    spawnPoint: 3
     count: 3
     interval: 1
   - time: 22
     enemyId: goblin_mage
     level: 1
-    spawnPoint: 5
+    spawnPoint: 4
     count: 2
     interval: 2
   - time: 28
     enemyId: skeleton
     level: 3
-    spawnPoint: 6
+    spawnPoint: 2
     count: 4
     interval: 0.9
   - time: 34
     enemyId: goblin_mage
     level: 2
-    spawnPoint: 4
+    spawnPoint: 3
     count: 2
     interval: 1.6
   - time: 40
     enemyId: skeleton
     level: 4
-    spawnPoint: 9
+    spawnPoint: 4
     count: 4
     interval: 0.8
   - time: 47
