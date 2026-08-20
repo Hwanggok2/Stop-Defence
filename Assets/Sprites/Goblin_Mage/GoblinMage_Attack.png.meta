@@ -1,0 +1,377 @@
+fileFormatVersion: 2
+guid: 9d6578c8d2900aa499bd5e6aa8e69a0b
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -8064498933566715782
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_0"
+  - first:
+      213: 5729709362721136142
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_1"
+  - first:
+      213: -1340002499182659281
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_2"
+  - first:
+      213: -2348581247858775486
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_3"
+  - first:
+      213: 7391326370139454686
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_4"
+  - first:
+      213: 8680944091827027471
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_5"
+  - first:
+      213: -2542793776246347499
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_6"
+  - first:
+      213: -1594334824185452001
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_7"
+  - first:
+      213: 854719862767326587
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_8"
+  - first:
+      213: -8470494337923133761
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_9"
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GoblinMage_Attack_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 682
+        width: 512
+        height: 342
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eac988225b36eb542a08ea147e018512
+      internalID: 1877850246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_01
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 682
+        width: 512
+        height: 342
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a93beafb2c49f64469a547fc68d3d40f
+      internalID: -919113208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_02
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 682
+        width: 512
+        height: 342
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b949ef1aee69e904ca6c71f31b1fffb1
+      internalID: -2105149524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_03
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 341
+        width: 512
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23a0372dbaf67eb4e9c40a97b089bd41
+      internalID: 1036628124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_04
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 341
+        width: 512
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a87c8e5b5baf8540babb584779d8b2f
+      internalID: -2050785236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_05
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 341
+        width: 512
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 943204b36e2de894ea2462b4fb4ef8c5
+      internalID: 918796538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_06
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 512
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40d68c97b6caed941aa7c72f8f3e579c
+      internalID: -1001720654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_07
+      rect:
+        serializedVersion: 2
+        x: 512
+        y: 0
+        width: 512
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8001309a3686ade41a6fc0d1690e35b2
+      internalID: 33592384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Attack_08
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 0
+        width: 512
+        height: 341
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5d81f45bf72d114b9fbafd96ec1f16b
+      internalID: -2131437572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: f9d1ec45dad082d4e890aba4c8ba97fb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_0": -8064498933566715782
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_1": 5729709362721136142
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_2": -1340002499182659281
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_3": -2348581247858775486
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_4": 7391326370139454686
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_5": 8680944091827027471
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_6": -2542793776246347499
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_7": -1594334824185452001
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_8": 854719862767326587
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_52_57_9": -8470494337923133761
+      GoblinMage_Attack_00: 1877850246
+      GoblinMage_Attack_01: -919113208
+      GoblinMage_Attack_02: -2105149524
+      GoblinMage_Attack_03: 1036628124
+      GoblinMage_Attack_04: -2050785236
+      GoblinMage_Attack_05: 918796538
+      GoblinMage_Attack_06: -1001720654
+      GoblinMage_Attack_07: 33592384
+      GoblinMage_Attack_08: -2131437572
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

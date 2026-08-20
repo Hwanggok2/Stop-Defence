@@ -1,25 +1,10 @@
 fileFormatVersion: 2
-guid: d872de520d45bb64294e8094d3e978e3
+guid: 25168dd61eed358438f9c21730021f65
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 7915560389485995962
-    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_0"
-  - first:
-      213: 129923227915438309
-    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_1"
-  - first:
-      213: 5936033562787829012
-    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_2"
-  - first:
-      213: -9110025244806223693
-    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_3"
-  - first:
-      213: -1187866666940353118
-    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_4"
-  - first:
-      213: -5685152665819829666
-    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_5"
+      213: 6796052949861946623
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_46_29_0"
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -66,7 +51,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 300
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -111,137 +96,194 @@ TextureImporter:
     ignorePlatformSupport: 0
     androidETC2FallbackOverride: 0
     forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_0"
+      name: GoblinMage_Walk_00
       rect:
         serializedVersion: 2
-        x: 13
-        y: 210
-        width: 487
-        height: 242
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 836
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ab7277d5c38b9dd60800000000000000
-      internalID: 7915560389485995962
+      spriteID: 012513aeac6f1474fa4509938d500b1c
+      internalID: 1493508510
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_1"
+      name: GoblinMage_Walk_01
       rect:
         serializedVersion: 2
-        x: 362
-        y: 23
-        width: 1282
-        height: 631
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 418
+        y: 836
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 5e8c8f7cc749dc100800000000000000
-      internalID: 129923227915438309
+      spriteID: 73955b8bfda543a4fb4b6a2ec655d8c2
+      internalID: -530130826
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_2"
+      name: GoblinMage_Walk_02
       rect:
         serializedVersion: 2
-        x: 1673
-        y: 65
-        width: 484
-        height: 534
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 836
+        y: 836
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 415d3cc2317016250800000000000000
-      internalID: 5936033562787829012
+      spriteID: 4f8f53d59a4770e44a164f845850bbb0
+      internalID: 2145861171
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_3"
+      name: GoblinMage_Walk_03
       rect:
         serializedVersion: 2
-        x: 1629
-        y: 101
-        width: 13
-        height: 12
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 0
+        y: 418
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 3b8eb7c8e40b29180800000000000000
-      internalID: -9110025244806223693
+      spriteID: 28acb9707496d714ab0fe6aedfbb7478
+      internalID: 1674917621
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_4"
+      name: GoblinMage_Walk_04
       rect:
         serializedVersion: 2
-        x: 22
-        y: 53
-        width: 295
-        height: 40
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 418
+        y: 418
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 2a53e7c5f89d38fe0800000000000000
-      internalID: -1187866666940353118
+      spriteID: 2963ea3e8a6429541aa85d3d48badadd
+      internalID: 1369822160
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_5"
+      name: GoblinMage_Walk_05
       rect:
         serializedVersion: 2
-        x: 1518
-        y: 69
-        width: 20
-        height: 22
-      alignment: 0
-      pivot: {x: 0, y: 0}
+        x: 836
+        y: 418
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: e5aa1fb85c74a11b0800000000000000
-      internalID: -5685152665819829666
+      spriteID: 2c5a3878de2fac6469b4f4a05d191d9b
+      internalID: 596075162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Walk_06
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9bae83e16ff5fd47af8ecac8f6dbddf
+      internalID: -191889676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Walk_07
+      rect:
+        serializedVersion: 2
+        x: 418
+        y: 0
+        width: 418
+        height: 418
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f670597217fb2de499d0415f270d8f60
+      internalID: 664850985
       vertices: []
       indices: 
       edges: []
@@ -250,7 +292,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 49601b0d345d26a49835ee1ada4d7ca5
     internalID: 0
     vertices: []
     indices: 
@@ -260,12 +302,15 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_0": 7915560389485995962
-      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_1": 129923227915438309
-      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_2": 5936033562787829012
-      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_3": -9110025244806223693
-      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_4": -1187866666940353118
-      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 02_23_20_5": -5685152665819829666
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 04_46_29_0": 6796052949861946623
+      GoblinMage_Walk_00: 1493508510
+      GoblinMage_Walk_01: -530130826
+      GoblinMage_Walk_02: 2145861171
+      GoblinMage_Walk_03: 1674917621
+      GoblinMage_Walk_04: 1369822160
+      GoblinMage_Walk_05: 596075162
+      GoblinMage_Walk_06: -191889676
+      GoblinMage_Walk_07: 664850985
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

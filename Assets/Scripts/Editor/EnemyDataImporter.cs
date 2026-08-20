@@ -4,7 +4,6 @@ using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Text;
 using System.Xml.Linq;
 using StopDefence.GameData;
 using UnityEditor;
@@ -19,7 +18,20 @@ namespace StopDefence.Editor
         private const int HeaderRow = 1;
         private const int FirstDataRow = 2;
 
-        private static readonly string[] RequiredColumns =
+        private const string EnemyInfoSheetName = "EnemyInfo";
+        private const string SpawnSheetName = "Spawn";
+
+        private static readonly string[] EnemyInfoColumns =
+        {
+            "EnemyId",
+            "DisplayName",
+            "DataSheet",
+            "EnemyType",
+            "PrefabPath",
+            "MaxLevel"
+        };
+
+        private static readonly string[] StatColumns =
         {
             "LV",
             "HP",
@@ -28,6 +40,16 @@ namespace StopDefence.Editor
             "ATK Range",
             "move speed",
             "drop coin"
+        };
+
+        private static readonly string[] SpawnColumns =
+        {
+            "Time",
+            "EnemyId",
+            "Level",
+            "SpawnPoint",
+            "Count",
+            "Interval"
         };
 
         [MenuItem("Tools/Game Data/Import Enemy Data")]
@@ -42,80 +64,139 @@ namespace StopDefence.Editor
                 throw new FileNotFoundException("Enemy data workbook was not found.", sourcePath);
             }
 
-            IReadOnlyList<XlsxSheet> sheets = XlsxWorkbook.ReadWorksheets(sourcePath);
+            Dictionary<string, XlsxSheet> sheets = XlsxWorkbook.ReadWorksheets(sourcePath)
+                .ToDictionary(sheet => sheet.Name, StringComparer.OrdinalIgnoreCase);
+
+            if (!sheets.TryGetValue(EnemyInfoSheetName, out XlsxSheet enemyInfoSheet))
+            {
+                throw new InvalidDataException($"Worksheet '{EnemyInfoSheetName}' was not found.");
+            }
+
+            if (!sheets.TryGetValue(SpawnSheetName, out XlsxSheet spawnSheet))
+            {
+                throw new InvalidDataException($"Worksheet '{SpawnSheetName}' was not found.");
+            }
+
             var enemies = new List<EnemyData>();
             var enemyIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            Dictionary<string, int> infoColumns = BuildColumnMap(enemyInfoSheet.GetRow(HeaderRow));
+            ValidateRequiredColumns(EnemyInfoSheetName, infoColumns, EnemyInfoColumns);
 
-            foreach (XlsxSheet sheet in sheets)
+            foreach (int rowNumber in enemyInfoSheet.RowNumbers.Where(row => row >= FirstDataRow))
             {
-                Dictionary<string, int> columns = BuildColumnMap(sheet.GetRow(HeaderRow));
-                ValidateRequiredColumns(sheet.Name, columns);
-
-                string displayName = sheet.GetValue(HeaderRow, 0).Trim();
-                if (string.IsNullOrEmpty(displayName))
+                IReadOnlyDictionary<int, string> infoRow = enemyInfoSheet.GetRow(rowNumber);
+                string enemyId = GetValue(infoRow, infoColumns, "EnemyId").Trim();
+                if (string.IsNullOrEmpty(enemyId))
                 {
-                    throw new InvalidDataException(
-                        $"Worksheet '{sheet.Name}' must contain the enemy name in cell A1.");
+                    continue;
                 }
 
-                string enemyId = NormalizeId(sheet.Name);
                 if (!enemyIds.Add(enemyId))
                 {
                     throw new InvalidDataException(
-                        $"Worksheet '{sheet.Name}' produces duplicate enemy ID '{enemyId}'.");
+                        $"Duplicate enemy ID '{enemyId}' in worksheet '{EnemyInfoSheetName}', row {rowNumber}.");
                 }
 
-                var levels = new List<EnemyLevelData>();
-                var levelNumbers = new HashSet<int>();
+                string displayName = GetRequiredValue(
+                    infoRow, infoColumns, "DisplayName", EnemyInfoSheetName, rowNumber);
+                string dataSheetName = GetRequiredValue(
+                    infoRow, infoColumns, "DataSheet", EnemyInfoSheetName, rowNumber);
+                string enemyTypeText = GetRequiredValue(
+                    infoRow, infoColumns, "EnemyType", EnemyInfoSheetName, rowNumber);
+                string prefabPath = GetRequiredValue(
+                    infoRow, infoColumns, "PrefabPath", EnemyInfoSheetName, rowNumber);
+                int maxLevel = ParseRequiredInt(
+                    infoRow, infoColumns, "MaxLevel", EnemyInfoSheetName, rowNumber);
 
-                foreach (int rowNumber in sheet.RowNumbers.Where(row => row >= FirstDataRow))
-                {
-                    IReadOnlyDictionary<int, string> row = sheet.GetRow(rowNumber);
-                    string levelText = GetValue(row, columns, "LV").Trim();
-                    if (string.IsNullOrEmpty(levelText))
-                    {
-                        continue;
-                    }
-
-                    int level = ParseRequiredInt(row, columns, "LV", sheet.Name, rowNumber);
-                    if (level < 1)
-                    {
-                        throw new InvalidDataException(
-                            $"'LV' must be at least 1 in worksheet '{sheet.Name}', row {rowNumber}.");
-                    }
-
-                    if (!levelNumbers.Add(level))
-                    {
-                        throw new InvalidDataException(
-                            $"Duplicate level {level} in worksheet '{sheet.Name}', row {rowNumber}.");
-                    }
-
-                    levels.Add(new EnemyLevelData(
-                        level,
-                        ParseRequiredFloat(row, columns, "HP", sheet.Name, rowNumber),
-                        ParseRequiredFloat(row, columns, "ATK", sheet.Name, rowNumber),
-                        ParseRequiredFloat(row, columns, "ATK Speed", sheet.Name, rowNumber),
-                        ParseRequiredFloat(row, columns, "ATK Range", sheet.Name, rowNumber),
-                        ParseRequiredFloat(row, columns, "move speed", sheet.Name, rowNumber),
-                        ParseRequiredInt(row, columns, "drop coin", sheet.Name, rowNumber)));
-                }
-
-                if (levels.Count == 0)
+                if (!Enum.TryParse(enemyTypeText, true, out EnemyType enemyType))
                 {
                     throw new InvalidDataException(
-                        $"Worksheet '{sheet.Name}' does not contain any level rows.");
+                        $"Unknown EnemyType '{enemyTypeText}' in worksheet '{EnemyInfoSheetName}', row {rowNumber}.");
                 }
 
-                enemies.Add(new EnemyData(
-                    enemyId,
-                    displayName,
-                    levels.OrderBy(level => level.Level)));
+                if (!sheets.TryGetValue(dataSheetName, out XlsxSheet statSheet))
+                {
+                    throw new InvalidDataException(
+                        $"Stat worksheet '{dataSheetName}' for enemy '{enemyId}' was not found.");
+                }
+
+                GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject>(prefabPath);
+                if (prefab == null)
+                {
+                    throw new InvalidDataException(
+                        $"Enemy prefab '{prefabPath}' for enemy '{enemyId}' was not found.");
+                }
+
+                List<EnemyLevelData> levels = ParseLevels(statSheet);
+                if (maxLevel != levels.Count || levels[levels.Count - 1].Level != maxLevel)
+                {
+                    throw new InvalidDataException(
+                        $"Enemy '{enemyId}' declares MaxLevel {maxLevel}, but worksheet '{dataSheetName}' contains levels 1-{levels[levels.Count - 1].Level} ({levels.Count} rows).");
+                }
+
+                enemies.Add(new EnemyData(enemyId, displayName, enemyType, prefab, levels));
             }
 
             if (enemies.Count == 0)
             {
-                throw new InvalidDataException("The workbook does not contain any enemy worksheets.");
+                throw new InvalidDataException(
+                    $"Worksheet '{EnemyInfoSheetName}' does not contain any enemies.");
             }
+
+            Dictionary<string, int> spawnColumns = BuildColumnMap(spawnSheet.GetRow(HeaderRow));
+            ValidateRequiredColumns(SpawnSheetName, spawnColumns, SpawnColumns);
+            var spawnSchedule = new List<EnemySpawnData>();
+
+            foreach (int rowNumber in spawnSheet.RowNumbers.Where(row => row >= FirstDataRow))
+            {
+                IReadOnlyDictionary<int, string> row = spawnSheet.GetRow(rowNumber);
+                string timeText = GetValue(row, spawnColumns, "Time").Trim();
+                if (string.IsNullOrEmpty(timeText))
+                {
+                    continue;
+                }
+
+                float time = ParseRequiredFloat(row, spawnColumns, "Time", SpawnSheetName, rowNumber);
+                string enemyId = GetRequiredValue(
+                    row, spawnColumns, "EnemyId", SpawnSheetName, rowNumber);
+                int level = ParseRequiredInt(row, spawnColumns, "Level", SpawnSheetName, rowNumber);
+                int spawnPoint = ParseRequiredInt(
+                    row, spawnColumns, "SpawnPoint", SpawnSheetName, rowNumber);
+                int count = ParseRequiredInt(row, spawnColumns, "Count", SpawnSheetName, rowNumber);
+                float interval = ParseRequiredFloat(
+                    row, spawnColumns, "Interval", SpawnSheetName, rowNumber);
+
+                EnemyData enemy = enemies.Find(value =>
+                    string.Equals(value.Id, enemyId, StringComparison.OrdinalIgnoreCase));
+                if (enemy == null)
+                {
+                    throw new InvalidDataException(
+                        $"Unknown EnemyId '{enemyId}' in worksheet '{SpawnSheetName}', row {rowNumber}.");
+                }
+
+                if (time < 0f || spawnPoint < 1 || count < 1 || interval < 0f)
+                {
+                    throw new InvalidDataException(
+                        $"Spawn values must satisfy Time >= 0, SpawnPoint >= 1, Count >= 1 and Interval >= 0 in row {rowNumber}.");
+                }
+
+                if (enemy.GetLevel(level) == null)
+                {
+                    throw new InvalidDataException(
+                        $"Enemy '{enemyId}' has no level {level} in worksheet '{SpawnSheetName}', row {rowNumber}.");
+                }
+
+                spawnSchedule.Add(new EnemySpawnData(
+                    time, enemyId, level, spawnPoint, count, interval));
+            }
+
+            if (spawnSchedule.Count == 0)
+            {
+                throw new InvalidDataException(
+                    $"Worksheet '{SpawnSheetName}' does not contain any spawn rows.");
+            }
+
+            spawnSchedule = spawnSchedule.OrderBy(value => value.Time).ToList();
 
             EnemyDatabase database = AssetDatabase.LoadAssetAtPath<EnemyDatabase>(OutputAssetPath);
             if (database == null)
@@ -124,15 +205,68 @@ namespace StopDefence.Editor
                 AssetDatabase.CreateAsset(database, OutputAssetPath);
             }
 
-            database.ReplaceEnemies(enemies);
+            database.ReplaceData(enemies, spawnSchedule);
             EditorUtility.SetDirty(database);
             AssetDatabase.SaveAssets();
             AssetDatabase.Refresh();
             Selection.activeObject = database;
 
             Debug.Log(
-                $"[EnemyDataImporter] Imported {enemies.Count} enemy sheets from " +
-                $"'{SourceRelativePath}' into '{OutputAssetPath}'.");
+                $"[EnemyDataImporter] Imported {enemies.Count} enemies and " +
+                $"{spawnSchedule.Count} spawn groups from '{SourceRelativePath}' into " +
+                $"'{OutputAssetPath}'.");
+        }
+
+        private static List<EnemyLevelData> ParseLevels(XlsxSheet sheet)
+        {
+            Dictionary<string, int> columns = BuildColumnMap(sheet.GetRow(HeaderRow));
+            ValidateRequiredColumns(sheet.Name, columns, StatColumns);
+            var levels = new List<EnemyLevelData>();
+            var levelNumbers = new HashSet<int>();
+
+            foreach (int rowNumber in sheet.RowNumbers.Where(row => row >= FirstDataRow))
+            {
+                IReadOnlyDictionary<int, string> row = sheet.GetRow(rowNumber);
+                string levelText = GetValue(row, columns, "LV").Trim();
+                if (string.IsNullOrEmpty(levelText))
+                {
+                    continue;
+                }
+
+                int level = ParseRequiredInt(row, columns, "LV", sheet.Name, rowNumber);
+                if (level < 1 || !levelNumbers.Add(level))
+                {
+                    throw new InvalidDataException(
+                        $"Level {level} must be unique and at least 1 in worksheet '{sheet.Name}', row {rowNumber}.");
+                }
+
+                levels.Add(new EnemyLevelData(
+                    level,
+                    ParseRequiredFloat(row, columns, "HP", sheet.Name, rowNumber),
+                    ParseRequiredFloat(row, columns, "ATK", sheet.Name, rowNumber),
+                    ParseRequiredFloat(row, columns, "ATK Speed", sheet.Name, rowNumber),
+                    ParseRequiredFloat(row, columns, "ATK Range", sheet.Name, rowNumber),
+                    ParseRequiredFloat(row, columns, "move speed", sheet.Name, rowNumber),
+                    ParseRequiredInt(row, columns, "drop coin", sheet.Name, rowNumber)));
+            }
+
+            if (levels.Count == 0)
+            {
+                throw new InvalidDataException(
+                    $"Worksheet '{sheet.Name}' does not contain any level rows.");
+            }
+
+            levels = levels.OrderBy(value => value.Level).ToList();
+            for (int index = 0; index < levels.Count; index++)
+            {
+                if (levels[index].Level != index + 1)
+                {
+                    throw new InvalidDataException(
+                        $"Worksheet '{sheet.Name}' levels must be consecutive starting at 1.");
+                }
+            }
+
+            return levels;
         }
 
         private static Dictionary<string, int> BuildColumnMap(
@@ -148,9 +282,10 @@ namespace StopDefence.Editor
 
         private static void ValidateRequiredColumns(
             string sheetName,
-            IReadOnlyDictionary<string, int> columns)
+            IReadOnlyDictionary<string, int> columns,
+            IEnumerable<string> requiredColumns)
         {
-            string[] missingColumns = RequiredColumns
+            string[] missingColumns = requiredColumns
                 .Where(column => !columns.ContainsKey(column))
                 .ToArray();
             if (missingColumns.Length > 0)
@@ -159,38 +294,6 @@ namespace StopDefence.Editor
                     $"Worksheet '{sheetName}' is missing columns: " +
                     $"{string.Join(", ", missingColumns)}.");
             }
-        }
-
-        private static string NormalizeId(string sheetName)
-        {
-            var builder = new StringBuilder();
-            bool needsSeparator = false;
-
-            foreach (char character in sheetName.Trim())
-            {
-                if (char.IsLetterOrDigit(character))
-                {
-                    if (needsSeparator && builder.Length > 0)
-                    {
-                        builder.Append('_');
-                    }
-
-                    builder.Append(char.ToLowerInvariant(character));
-                    needsSeparator = false;
-                }
-                else
-                {
-                    needsSeparator = true;
-                }
-            }
-
-            if (builder.Length == 0)
-            {
-                throw new InvalidDataException(
-                    $"Worksheet name '{sheetName}' cannot be converted to an enemy ID.");
-            }
-
-            return builder.ToString();
         }
 
         private static string GetValue(

@@ -1,6 +1,4 @@
-using System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 public abstract class Enemy : MonoBehaviour
 {
@@ -43,28 +41,34 @@ public abstract class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        UpdateInAttackRange();
+        if (player == null)
+        {
+            return;
+        }
+
+        Vector3 targetPosition = player.transform.position;
+        UpdateInAttackRange(targetPosition);
         
         if (isInAttackRange)
         {
             UpdateAttackTimer();
             return;
         }
-        MoveToTarget();
+        MoveToTarget(targetPosition);
     }
 
-    private void MoveToTarget()
+    private void MoveToTarget(Vector3 targetPosition)
     {
         transform.position = Vector3.MoveTowards(
             transform.position,
-            player.transform.position,
+            targetPosition,
             stat.moveSpeed * Time.deltaTime
         );
     }
 
-    private void UpdateInAttackRange()
+    private void UpdateInAttackRange(Vector3 targetPosition)
     {
-        var distance = Vector3.Distance(player.transform.position, transform.position);
+        var distance = Vector3.Distance(targetPosition, transform.position);
         isInAttackRange = distance <= stat.attackRange;
     }
 

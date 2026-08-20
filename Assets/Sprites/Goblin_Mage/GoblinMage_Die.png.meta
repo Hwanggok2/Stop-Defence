@@ -1,0 +1,588 @@
+fileFormatVersion: 2
+guid: 713c1156121ca364598d5dbf115be757
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -4974237675981252626
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_0"
+  - first:
+      213: -3458154735000812850
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_1"
+  - first:
+      213: -5185901929488857755
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_2"
+  - first:
+      213: -2225593637522975971
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_3"
+  - first:
+      213: 6773344396646858006
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_4"
+  - first:
+      213: -2553340080094194072
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_5"
+  - first:
+      213: 2507904265790819942
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_6"
+  - first:
+      213: -7383377679545359576
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_7"
+  - first:
+      213: -6799303089527340865
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_8"
+  - first:
+      213: 5983435560801021284
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_9"
+  - first:
+      213: -8157032214095647590
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_10"
+  - first:
+      213: 8634670344592449460
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_11"
+  - first:
+      213: -4378787781244096673
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_12"
+  - first:
+      213: 212931266192687160
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_13"
+  - first:
+      213: 6564391679431459608
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_14"
+  - first:
+      213: -1609353598753572070
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_15"
+  - first:
+      213: 3333316082992511742
+    second: "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_16"
+  - first:
+      213: 4649713013100095130
+    second: GoblinMage_Die_00
+  - first:
+      213: 6629775847061146781
+    second: GoblinMage_Die_01
+  - first:
+      213: 2120570999183662654
+    second: GoblinMage_Die_02
+  - first:
+      213: -8122584435038991855
+    second: GoblinMage_Die_03
+  - first:
+      213: 7123998659141798215
+    second: GoblinMage_Die_04
+  - first:
+      213: -7443174944700160197
+    second: GoblinMage_Die_05
+  - first:
+      213: 7907656326684377948
+    second: GoblinMage_Die_06
+  - first:
+      213: 1711442833780700644
+    second: GoblinMage_Die_07
+  - first:
+      213: -307327258238122041
+    second: GoblinMage_Die_08
+  - first:
+      213: 4067661778317259473
+    second: GoblinMage_Die_09
+  - first:
+      213: 9143606562413750352
+    second: GoblinMage_Die_10
+  - first:
+      213: -912034863437155338
+    second: GoblinMage_Die_11
+  - first:
+      213: -1897287845215333482
+    second: GoblinMage_Die_12
+  - first:
+      213: 4940305215239833222
+    second: GoblinMage_Die_13
+  - first:
+      213: 5220046703846856710
+    second: GoblinMage_Die_14
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 300
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 4096
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WebGL
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: GoblinMage_Die_00
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 482
+        width: 434
+        height: 242
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc7c80ceee683cd44bfb3ff180c010bd
+      internalID: 4649713013100095130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_01
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 482
+        width: 434
+        height: 242
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e54dfcc6cb3123a49957a0e71ca7e81f
+      internalID: 6629775847061146781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_02
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 482
+        width: 435
+        height: 242
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1929cf5dfbd0ab419ec891de806c691
+      internalID: 2120570999183662654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_03
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 482
+        width: 434
+        height: 242
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41b09f775f56f4b4b9fb9c2b582476a6
+      internalID: -8122584435038991855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_04
+      rect:
+        serializedVersion: 2
+        x: 1737
+        y: 482
+        width: 435
+        height: 242
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e960b52844bb24842879fbdfcd473c80
+      internalID: 7123998659141798215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_05
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 241
+        width: 434
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e914c52847042545a80df2024ddf405
+      internalID: -7443174944700160197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_06
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 241
+        width: 434
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbed8e280934aae4dad4158fcb73aac6
+      internalID: 7907656326684377948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_07
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 241
+        width: 435
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a3514cba99431c4c919743d298cc691
+      internalID: 1711442833780700644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_08
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 241
+        width: 434
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d957f610052b48d429717d29c248ca81
+      internalID: -307327258238122041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_09
+      rect:
+        serializedVersion: 2
+        x: 1737
+        y: 241
+        width: 435
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a19dbe04b157a55489e395cc718cf43b
+      internalID: 4067661778317259473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 434
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2026e7190e90ee4f99f5e5aa9bb4631
+      internalID: 9143606562413750352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_11
+      rect:
+        serializedVersion: 2
+        x: 434
+        y: 0
+        width: 434
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c3e621b9540ec1408cfc721c347bfd6
+      internalID: -912034863437155338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_12
+      rect:
+        serializedVersion: 2
+        x: 868
+        y: 0
+        width: 435
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dbe78e42c0ea3147887df690321c3ca
+      internalID: -1897287845215333482
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_13
+      rect:
+        serializedVersion: 2
+        x: 1303
+        y: 0
+        width: 434
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b9f7b0f06c1d214d8e8169a3ffa86c4
+      internalID: 4940305215239833222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: GoblinMage_Die_14
+      rect:
+        serializedVersion: 2
+        x: 1737
+        y: 0
+        width: 435
+        height: 241
+      alignment: 9
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ead2c9881301134bb0c3697de21e0c9
+      internalID: 5220046703846856710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 09e5fcfcbbad6e5468974f506a2bb7b3
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_0": -4974237675981252626
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_1": -3458154735000812850
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_10": -8157032214095647590
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_11": 8634670344592449460
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_12": -4378787781244096673
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_13": 212931266192687160
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_14": 6564391679431459608
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_15": -1609353598753572070
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_16": 3333316082992511742
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_2": -5185901929488857755
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_3": -2225593637522975971
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_4": 6773344396646858006
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_5": -2553340080094194072
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_6": 2507904265790819942
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_7": -7383377679545359576
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_8": -6799303089527340865
+      "ChatGPT Image 2026\uB144 8\uC6D4 20\uC77C \uC624\uD6C4 03_00_52_9": 5983435560801021284
+      GoblinMage_Die_00: 4649713013100095130
+      GoblinMage_Die_01: 6629775847061146781
+      GoblinMage_Die_02: 2120570999183662654
+      GoblinMage_Die_03: -8122584435038991855
+      GoblinMage_Die_04: 7123998659141798215
+      GoblinMage_Die_05: -7443174944700160197
+      GoblinMage_Die_06: 7907656326684377948
+      GoblinMage_Die_07: 1711442833780700644
+      GoblinMage_Die_08: -307327258238122041
+      GoblinMage_Die_09: 4067661778317259473
+      GoblinMage_Die_10: 9143606562413750352
+      GoblinMage_Die_11: -912034863437155338
+      GoblinMage_Die_12: -1897287845215333482
+      GoblinMage_Die_13: 4940305215239833222
+      GoblinMage_Die_14: 5220046703846856710
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
