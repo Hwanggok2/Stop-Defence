@@ -76,12 +76,17 @@ public sealed class DataDrivenEnemy : Enemy.Enemy
 
     protected override void Attack(Player player)
     {
+        if (player == null)
+        {
+            return;
+        }
+
         if (animator != null)
         {
             animator.SetTrigger(AttackTrigger);
         }
 
-        if (projectilePrefab == null)
+        if (projectilePrefab == null || objectPool == null)
         {
             player.TakeDamage(stat.attackDamage);
             return;
@@ -103,7 +108,7 @@ public sealed class DataDrivenEnemy : Enemy.Enemy
 
         if (animator == null)
         {
-            objectPool.ReleaseEnemy(this);
+            ReleaseOrDestroy();
             return;
         }
 
@@ -119,6 +124,17 @@ public sealed class DataDrivenEnemy : Enemy.Enemy
     private IEnumerator ReleaseAfterDeathAnimation()
     {
         yield return DeathAnimationDelay;
-        objectPool.ReleaseEnemy(this);
+        ReleaseOrDestroy();
+    }
+
+    private void ReleaseOrDestroy()
+    {
+        if (objectPool != null)
+        {
+            objectPool.ReleaseEnemy(this);
+            return;
+        }
+
+        Destroy(gameObject);
     }
 }

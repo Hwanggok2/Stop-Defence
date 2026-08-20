@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 namespace Enemy
@@ -10,8 +11,13 @@ namespace Enemy
         protected bool isInAttackRange;
 
         private float attackTimer;
+        private float moveSpeedMultiplier = 1f;
         private Transform targetTransform;
         private bool isDead;
+        private Coroutine slowRoutine;
+
+        public bool IsDead => isDead;
+        public float CurrentHp => stat.hp;
 
         public void SetLevel(int level)
         {
@@ -44,7 +50,10 @@ namespace Enemy
 
         protected void PrepareForSpawn(Player target)
         {
+            StopAllCoroutines();
             attackTimer = 0f;
+            moveSpeedMultiplier = 1f;
+            slowRoutine = null;
             isDead = false;
             isInAttackRange = false;
             SetTarget(target);
@@ -74,6 +83,44 @@ namespace Enemy
             stat.hp += amount;
         }
 
+        public void ApplyDamageOverTime(
+            float damagePerTick,
+            float duration,
+            float tickInterval = 1f)
+        {
+            if (damagePerTick <= 0f || duration <= 0f || tickInterval <= 0f || isDead)
+            {
+                return;
+            }
+
+            StartCoroutine(DamageOverTimeRoutine(damagePerTick, duration, tickInterval));
+        }
+
+        public void ApplySlow(float slowRate, float duration)
+        {
+            if (slowRate <= 0f || duration <= 0f || isDead)
+            {
+                return;
+            }
+
+            if (slowRoutine != null)
+            {
+                StopCoroutine(slowRoutine);
+            }
+
+            slowRoutine = StartCoroutine(SlowRoutine(slowRate, duration));
+        }
+
+        public void Knockback(Vector3 direction, float distance)
+        {
+            if (distance <= 0f || isDead || direction.sqrMagnitude <= Mathf.Epsilon)
+            {
+                return;
+            }
+
+            transform.position += direction.normalized * distance;
+        }
+
         protected virtual void Update()
         {
             if (targetTransform == null)
@@ -93,7 +140,7 @@ namespace Enemy
             transform.position = Vector3.MoveTowards(
                 transform.position,
                 targetPosition,
-                stat.moveSpeed * Time.deltaTime
+                stat.moveSpeed * moveSpeedMultiplier * Time.deltaTime
             );
         }
 
@@ -123,5 +170,35 @@ namespace Enemy
                 Attack(player);
             }
         }
+
+        private IEnumerator DamageOverTimeRoutine(
+            float damagePerTick,
+            float duration,
+            float tickInterval)
+        {
+            float elapsed = 0f;
+            var wait = new WaitForSeconds(tickInterval);
+
+            while (elapsed < duration && !isDead)
+            {
+                TakeDamage(damagePerTick);
+                if (isDead)
+                {
+                    yield break;
+                }
+
+                yield return wait;
+                elapsed += tickInterval;
+            }
+        }
+
+        private IEnumerator SlowRoutine(float slowRate, float duration)
+        {
+            moveSpeedMultiplier = 1f - Mathf.Clamp(slowRate, 0f, 0.95f);
+            yield return new WaitForSeconds(duration);
+            moveSpeedMultiplier = 1f;
+            slowRoutine = null;
+        }
+
     }
 }

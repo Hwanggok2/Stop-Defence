@@ -1,87 +1,407 @@
-using UnityEngine;
-using UnityEngine.UI;
-using Unity.Collections;
+using System.Collections;
 using System.Collections.Generic;
+using StopDefence.GameData;
+using StopDefence.Vfx;
+using UnityEngine;
 
-public class CastSkill : MonoBehaviour
+public sealed class CastSkill : MonoBehaviour
 {
-    GameObject player;
-    Dictionary<string, int> skillDict = new Dictionary<string, int>
+    private const string FireballId = "skill_001";
+    private const string EarthMagicId = "skill_002";
+    private const string ChainLightningId = "skill_003";
+    private const string NailDrivingId = "skill_004";
+    private const string RepairId = "skill_005";
+    private const string PlagueMagicId = "skill_006";
+    private const string IceLanceId = "skill_007";
+    private const string MegaExplosionId = "skill_008";
+    private const string RoundingThirtyId = "skill_009";
+    private const string CaffeineId = "skill_011";
+
+    [Header("Runtime References")]
+    [SerializeField] private SkillDatabase database;
+    [SerializeField] private Player player;
+    [SerializeField] private Transform effectsRoot;
+
+    [Header("Effect Prefabs")]
+    [SerializeField] private SkillParticleEffect fireballEffectPrefab;
+    [SerializeField] private SkillParticleEffect earthMagicEffectPrefab;
+    [SerializeField] private SkillParticleEffect nailDrivingEffectPrefab;
+    [SerializeField] private SkillParticleEffect plagueMagicEffectPrefab;
+    [SerializeField] private SkillParticleEffect iceLanceEffectPrefab;
+    [SerializeField] private ChainLightningBolt chainLightningEffectPrefab;
+
+    [Header("Skill Balance")]
+    [SerializeField, Min(0f)] private float fireballDamage = 10f;
+    [SerializeField, Min(0f)] private float fireballRange = 5f;
+    [SerializeField, Min(0f)] private float burnDamagePerSecond = 2f;
+    [SerializeField, Min(0f)] private float burnDuration = 3f;
+    [SerializeField, Min(0f)] private float earthMagicDamage = 15f;
+    [SerializeField, Min(0f)] private float earthKnockbackDistance = 3f;
+    [SerializeField, Min(0f)] private float chainLightningDamage = 3f;
+    [SerializeField, Min(1)] private int maxChainTargets = 7;
+    [SerializeField, Min(0f)] private float nailDrivingDamage = 20f;
+    [SerializeField, Min(0f)] private float repairAmount = 20f;
+    [SerializeField, Min(0f)] private float plagueDamagePerSecond = 5f;
+    [SerializeField, Min(0f)] private float plagueDuration = 3f;
+    [SerializeField, Min(0f)] private float plagueRadius = 3f;
+    [SerializeField, Min(0f)] private float iceLanceDamage = 5f;
+    [SerializeField, Range(0f, 0.95f)] private float iceSlowRate = 0.3f;
+    [SerializeField, Min(0f)] private float iceSlowDuration = 1f;
+    [SerializeField, Min(0f)] private float megaExplosionDamage = 100f;
+    [SerializeField, Min(0f)] private float roundingThirtyDamage = 30f;
+    [SerializeField, Min(1f)] private float caffeineDamageMultiplier = 1.3f;
+    [SerializeField, Min(0f)] private float caffeineDuration = 5f;
+
+    private float activeDamageBuff = 1f;
+    private Coroutine caffeineRoutine;
+
+    private void Awake()
     {
-        { "chain lightning", 2 }
-    };
-
-    int maxChainValue = 7;
-
-    [SerializeField]
-    float chainLightningDamage = 20f;
-
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player");
+        ResolveRuntimeReferences();
     }
 
-
-    public void Cast(int ind)
+    public void Cast(int index)
     {
-        switch (ind) {
-            case 2:
-                ChainLightning();
-                break;
+        Cast($"skill_{index:000}", TimingJudgement.Perfect);
+    }
+
+    public bool Cast(string skillId, TimingJudgement judgement)
+    {
+        ResolveRuntimeReferences();
+        float damageMultiplier = GetDamageMultiplier(judgement) * activeDamageBuff;
+
+        bool castSucceeded = skillId switch
+        {
+            FireballId => CastFireball(damageMultiplier),
+            EarthMagicId => CastEarthMagic(damageMultiplier),
+            ChainLightningId => CastChainLightning(damageMultiplier),
+            NailDrivingId => CastNailDriving(damageMultiplier),
+            RepairId => CastRepair(),
+            PlagueMagicId => CastPlagueMagic(damageMultiplier),
+            IceLanceId => CastIceLance(damageMultiplier),
+            MegaExplosionId => CastMegaExplosion(damageMultiplier),
+            RoundingThirtyId => CastRoundingThirty(damageMultiplier),
+            CaffeineId => CastCaffeine(),
+            _ => false
+        };
+
+        if (castSucceeded)
+        {
+            Debug.Log(
+                $"[CastSkill] {skillId} cast: {judgement}, damage x{damageMultiplier:0.##}",
+                this);
+        }
+        else if (!string.IsNullOrWhiteSpace(skillId) &&
+                 (database == null || !database.TryGetSkill(skillId, out _)))
+        {
+            Debug.LogWarning($"[CastSkill] Unknown skill id '{skillId}'.", this);
+        }
+
+        return castSucceeded;
+    }
+
+    public float GetDamageMultiplier(TimingJudgement judgement)
+    {
+        return database != null &&
+               database.TryGetDamageMultiplier(judgement, out float multiplier)
+            ? multiplier
+            : 1f;
+    }
+
+    private bool CastFireball(float multiplier)
+    {
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        if (target == null)
+        {
+            return false;
+        }
+
+        Vector3 impactPosition = target.transform.position;
+        SpawnEffect(fireballEffectPrefab, impactPosition);
+        StartCoroutine(ApplyFireballImpact(impactPosition, multiplier));
+        return true;
+    }
+
+    private IEnumerator ApplyFireballImpact(Vector3 position, float multiplier)
+    {
+        yield return new WaitForSeconds(0.48f);
+
+        foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, fireballRange))
+        {
+            enemy.TakeDamage(fireballDamage * multiplier);
+            enemy.ApplyDamageOverTime(
+                burnDamagePerSecond * multiplier,
+                burnDuration);
         }
     }
 
-    void ChainLightning()
+    private bool CastEarthMagic(float multiplier)
     {
-        Debug.Log("cast");
-        HashSet<GameObject> hitEnemies = new HashSet<GameObject>();
-        GameObject origin = player;
-
-        for (int i = 0; i < maxChainValue; i++)
+        if (GetActiveEnemies().Count == 0)
         {
-            GameObject target = FindEnemy(origin, hitEnemies);
+            return false;
+        }
+
+        Vector3 origin = GetOriginPosition();
+        SpawnEffect(earthMagicEffectPrefab, origin);
+        StartCoroutine(ApplyEarthMagicImpact(origin, multiplier));
+        return true;
+    }
+
+    private IEnumerator ApplyEarthMagicImpact(Vector3 origin, float multiplier)
+    {
+        yield return new WaitForSeconds(0.04f);
+
+        foreach (Enemy.Enemy enemy in GetActiveEnemies())
+        {
+            Vector3 direction = enemy.transform.position - origin;
+            if (direction.sqrMagnitude <= Mathf.Epsilon)
+            {
+                direction = Vector3.right;
+            }
+
+            enemy.TakeDamage(earthMagicDamage * multiplier);
+            enemy.Knockback(direction, earthKnockbackDistance);
+        }
+    }
+
+    private bool CastChainLightning(float multiplier)
+    {
+        var hitEnemies = new HashSet<Enemy.Enemy>();
+        Vector3 origin = GetOriginPosition();
+
+        for (int index = 0; index < maxChainTargets; index++)
+        {
+            Enemy.Enemy target = FindNearestEnemy(origin, hitEnemies);
             if (target == null)
             {
                 break;
             }
 
-            Enemy.Enemy enemy = target.GetComponent<Enemy.Enemy>();
-            if (enemy != null)
+            Vector3 targetPosition = target.transform.position;
+            if (chainLightningEffectPrefab != null)
             {
-                enemy.TakeDamage(chainLightningDamage);
+                ChainLightningBolt bolt = Instantiate(
+                    chainLightningEffectPrefab,
+                    effectsRoot);
+                bolt.Play(origin, targetPosition);
             }
 
+            target.TakeDamage(chainLightningDamage * multiplier);
             hitEnemies.Add(target);
-            origin = target;
+            origin = targetPosition;
+        }
+
+        return hitEnemies.Count > 0;
+    }
+
+    private bool CastNailDriving(float multiplier)
+    {
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        if (target == null)
+        {
+            return false;
+        }
+
+        SpawnEffect(nailDrivingEffectPrefab, target.transform.position);
+        StartCoroutine(ApplySingleTargetDamage(target, nailDrivingDamage * multiplier, 0.45f));
+        return true;
+    }
+
+    private bool CastRepair()
+    {
+        if (player == null || player.IsDead)
+        {
+            return false;
+        }
+
+        player.HealHp(repairAmount);
+        return true;
+    }
+
+    private bool CastPlagueMagic(float multiplier)
+    {
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        if (target == null)
+        {
+            return false;
+        }
+
+        Vector3 impactPosition = target.transform.position;
+        SpawnEffect(plagueMagicEffectPrefab, impactPosition);
+        StartCoroutine(ApplyPlagueImpact(impactPosition, multiplier));
+        return true;
+    }
+
+    private IEnumerator ApplyPlagueImpact(Vector3 position, float multiplier)
+    {
+        yield return new WaitForSeconds(0.54f);
+
+        foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, plagueRadius))
+        {
+            enemy.ApplyDamageOverTime(
+                plagueDamagePerSecond * multiplier,
+                plagueDuration);
         }
     }
 
-    GameObject FindEnemy(GameObject obj, HashSet<GameObject> exclude = null)
+    private bool CastIceLance(float multiplier)
     {
-        if (obj == null) return null;
-
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        if (enemies.Length == 0) return null;
-
-        GameObject nearestEnemy = null;
-        float minSqrDistance = float.MaxValue;
-        Vector3 originPos = obj.transform.position;
-
-        foreach (GameObject enemy in enemies)
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        if (target == null)
         {
-            if (enemy == null) continue;
-            if (enemy == obj) continue;
-            if (exclude != null && exclude.Contains(enemy)) continue;
+            return false;
+        }
 
-            Vector3 diff = enemy.transform.position - originPos;
-            float sqrDistance = diff.sqrMagnitude;
+        SpawnEffect(iceLanceEffectPrefab, target.transform.position);
+        StartCoroutine(ApplyIceLanceImpact(target, multiplier));
+        return true;
+    }
 
-            if (sqrDistance < minSqrDistance) {
-                minSqrDistance = sqrDistance;
-                nearestEnemy = enemy;
+    private IEnumerator ApplyIceLanceImpact(Enemy.Enemy target, float multiplier)
+    {
+        yield return new WaitForSeconds(0.48f);
+
+        if (target == null || target.IsDead || !target.gameObject.activeInHierarchy)
+        {
+            yield break;
+        }
+
+        target.TakeDamage(iceLanceDamage * multiplier);
+        target.ApplySlow(iceSlowRate, iceSlowDuration);
+    }
+
+    private bool CastMegaExplosion(float multiplier)
+    {
+        List<Enemy.Enemy> enemies = GetActiveEnemies();
+        if (enemies.Count == 0)
+        {
+            return false;
+        }
+
+        foreach (Enemy.Enemy enemy in enemies)
+        {
+            enemy.TakeDamage(megaExplosionDamage * multiplier);
+        }
+
+        return true;
+    }
+
+    private bool CastRoundingThirty(float multiplier)
+    {
+        Enemy.Enemy target = FindNearestEnemy(GetOriginPosition());
+        if (target == null)
+        {
+            return false;
+        }
+
+        target.TakeDamage(roundingThirtyDamage * multiplier);
+        return true;
+    }
+
+    private bool CastCaffeine()
+    {
+        if (player == null || player.IsDead)
+        {
+            return false;
+        }
+
+        if (caffeineRoutine != null)
+        {
+            StopCoroutine(caffeineRoutine);
+        }
+
+        caffeineRoutine = StartCoroutine(CaffeineRoutine());
+        return true;
+    }
+
+    private IEnumerator CaffeineRoutine()
+    {
+        activeDamageBuff = caffeineDamageMultiplier;
+        yield return new WaitForSeconds(caffeineDuration);
+        activeDamageBuff = 1f;
+        caffeineRoutine = null;
+    }
+
+    private static IEnumerator ApplySingleTargetDamage(
+        Enemy.Enemy target,
+        float damage,
+        float delay)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (target != null && !target.IsDead && target.gameObject.activeInHierarchy)
+        {
+            target.TakeDamage(damage);
+        }
+    }
+
+    private void SpawnEffect(SkillParticleEffect prefab, Vector3 position)
+    {
+        if (prefab != null)
+        {
+            Instantiate(prefab, position, Quaternion.identity, effectsRoot);
+        }
+    }
+
+    private Enemy.Enemy FindNearestEnemy(
+        Vector3 origin,
+        ISet<Enemy.Enemy> excluded = null)
+    {
+        Enemy.Enemy nearest = null;
+        float nearestSqrDistance = float.MaxValue;
+
+        foreach (Enemy.Enemy enemy in GetActiveEnemies())
+        {
+            if (excluded != null && excluded.Contains(enemy))
+            {
+                continue;
+            }
+
+            float sqrDistance = (enemy.transform.position - origin).sqrMagnitude;
+            if (sqrDistance < nearestSqrDistance)
+            {
+                nearest = enemy;
+                nearestSqrDistance = sqrDistance;
             }
         }
 
-        return nearestEnemy;
+        return nearest;
+    }
+
+    private static List<Enemy.Enemy> FindEnemiesInRange(Vector3 origin, float range)
+    {
+        float sqrRange = range * range;
+        return GetActiveEnemies().FindAll(
+            enemy => (enemy.transform.position - origin).sqrMagnitude <= sqrRange);
+    }
+
+    private static List<Enemy.Enemy> GetActiveEnemies()
+    {
+        var activeEnemies = new List<Enemy.Enemy>();
+        foreach (Enemy.Enemy enemy in Object.FindObjectsByType<Enemy.Enemy>())
+        {
+            if (enemy != null &&
+                enemy.gameObject.activeInHierarchy &&
+                !enemy.IsDead)
+            {
+                activeEnemies.Add(enemy);
+            }
+        }
+
+        return activeEnemies;
+    }
+
+    private Vector3 GetOriginPosition()
+    {
+        return player != null ? player.transform.position : transform.position;
+    }
+
+    private void ResolveRuntimeReferences()
+    {
+        if (player == null)
+        {
+            player = Object.FindFirstObjectByType<Player>();
+        }
     }
 }

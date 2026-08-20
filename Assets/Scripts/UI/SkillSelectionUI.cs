@@ -27,11 +27,13 @@ public sealed class SkillSelectionUI : MonoBehaviour
 
     private void Awake()
     {
+        ResolveRuntimeReferences();
         selectionRoot.SetActive(false);
     }
 
     private void OnEnable()
     {
+        ResolveRuntimeReferences();
         if (player != null)
         {
             player.LevelGained += HandleLevelGained;
@@ -273,5 +275,20 @@ public sealed class SkillSelectionUI : MonoBehaviour
 
         Time.timeScale = previousTimeScale;
         ownsPause = false;
+    }
+
+    private void ResolveRuntimeReferences()
+    {
+        if (player == null)
+        {
+            player = Object.FindFirstObjectByType<Player>();
+        }
+
+        if (inventory == null)
+        {
+            inventory = player != null
+                ? player.GetComponent<SkillInventory>()
+                : Object.FindFirstObjectByType<SkillInventory>();
+        }
     }
 }
