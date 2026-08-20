@@ -981,8 +981,39 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::AudioManager
   bgmSource: {fileID: 862651094}
   sfxSource: {fileID: 172093552}
-  bgmClips: []
-  sfxClips: []
+  bgmClips:
+  - audioId: bgm_1
+    clip: {fileID: 8300000, guid: fe8c10394c4061f449eda6c2206ded76, type: 3}
+    volume: 1
+  - audioId: bgm_2
+    clip: {fileID: 8300000, guid: 693dc102bd9a0db429d351308ad37971, type: 3}
+    volume: 1
+  - audioId: bgm_3
+    clip: {fileID: 8300000, guid: 894a09fa589f48140af1e76c3957ab03, type: 3}
+    volume: 1
+  sfxClips:
+  - audioId: skill_001
+    clip: {fileID: 8300000, guid: c025075960061374aa5fa1cfb83001e9, type: 3}
+    volume: 1
+  - audioId: skill_002
+    clip: {fileID: 8300000, guid: c5bedf77b8f28ea4b879a42f0f3945dc, type: 3}
+    volume: 1
+  - audioId: skill_003
+    clip: {fileID: 8300000, guid: bb38245593f27e145bea26aff073e0f2, type: 3}
+    volume: 1
+  - audioId: skill_004
+    clip: {fileID: 8300000, guid: 1bfdace5bb3e48e4aa3c639ef421be87, type: 3}
+    volume: 1
+  - audioId: skill_005
+    clip: {fileID: 8300000, guid: b5b218690be876447846e58c3f0eaf3e, type: 3}
+    volume: 1
+  - audioId: skill_006
+    clip: {fileID: 8300000, guid: 7c2a7578d7eadb84a934a894d877eacb, type: 3}
+    volume: 1
+  - audioId: skill_008
+    clip: {fileID: 8300000, guid: 29878cdaef67a8847b10cddf006f1438, type: 3}
+    volume: 1
+  startupBgmId: bgm_1
 --- !u!82 &1053248297
 AudioSource:
   m_ObjectHideFlags: 0

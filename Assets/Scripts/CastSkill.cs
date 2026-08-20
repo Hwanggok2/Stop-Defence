@@ -88,6 +88,12 @@ public sealed class CastSkill : MonoBehaviour
 
         if (castSucceeded)
         {
+            // SFX ids mirror skill ids, so a registered clip plays without extra wiring.
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySFX(skillId);
+            }
+
             Debug.Log(
                 $"[CastSkill] {skillId} cast: {judgement}, damage x{damageMultiplier:0.##}",
                 this);

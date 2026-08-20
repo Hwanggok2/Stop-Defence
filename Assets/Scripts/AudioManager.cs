@@ -26,8 +26,15 @@ public class AudioManager : MonoBehaviour
     [SerializeField] private List<AudioEntry> bgmClips = new List<AudioEntry>();
     [SerializeField] private List<AudioEntry> sfxClips = new List<AudioEntry>();
 
+    [Header("Startup")]
+    [SerializeField] private string startupBgmId;
+
     [NonSerialized] private Dictionary<string, AudioEntry> bgmById;
     [NonSerialized] private Dictionary<string, AudioEntry> sfxById;
+
+    // Skills without a clip yet would otherwise warn on every single cast.
+    [NonSerialized] private readonly HashSet<string> warnedMissingIds =
+        new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
     public IReadOnlyList<AudioEntry> BgmClips => bgmClips;
     public IReadOnlyList<AudioEntry> SfxClips => sfxClips;
@@ -42,6 +49,14 @@ public class AudioManager : MonoBehaviour
 
         Instance = this;
         RebuildLookup();
+    }
+
+    private void Start()
+    {
+        if (!string.IsNullOrWhiteSpace(startupBgmId))
+        {
+            PlayBGM(startupBgmId);
+        }
     }
 
     private void OnDestroy()
@@ -75,7 +90,11 @@ public class AudioManager : MonoBehaviour
         EnsureLookup();
         if (!TryGetEntry(sfxById, audioId, out AudioEntry entry))
         {
-            Debug.LogWarning($"[AudioManager] Unknown SFX id '{audioId}'.", this);
+            if (warnedMissingIds.Add(audioId ?? string.Empty))
+            {
+                Debug.LogWarning($"[AudioManager] No SFX registered for id '{audioId}'.", this);
+            }
+
             return false;
         }
 
