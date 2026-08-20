@@ -106,6 +106,7 @@ InitTestScene*.unity*
 /[Aa]ssets/[Ss]ceneDependencyCache*
 
 # Editor-specific local state
+/.codex-work/
 /.idea/
 /.vscode/*
 !/.vscode/settings.json
