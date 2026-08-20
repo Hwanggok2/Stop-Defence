@@ -13,6 +13,7 @@ namespace StopDefence.Editor
     {
         private const string SourceRelativePath = "GameData/GameData_Skill.xlsx";
         private const string OutputAssetPath = "Assets/GameData/SkillDatabase.asset";
+        private const string SkillBalanceSheetName = "Sheet1";
         private const string SkillInfoSheetName = "SkillInfo";
         private const string JudgementBalanceSheetName = "JudgementBalance";
         private const int HeaderRow = 1;
@@ -25,10 +26,6 @@ namespace StopDefence.Editor
             "Description",
             "Category",
             "Grade",
-            "BaseDamage",
-            "DamagePerLevel",
-            "BaseDotDamage",
-            "DotDamagePerLevel",
             "ImagePath",
             "Enabled",
             "StatType",
@@ -43,10 +40,6 @@ namespace StopDefence.Editor
             "Description",
             "Category",
             "Grade",
-            "BaseDamage",
-            "DamagePerLevel",
-            "BaseDotDamage",
-            "DotDamagePerLevel",
             "Enabled",
             "StatType",
             "StatValue",
@@ -66,6 +59,8 @@ namespace StopDefence.Editor
             }
 
             IReadOnlyList<XlsxSheet> workbook = XlsxWorkbookReader.ReadWorksheets(sourcePath);
+            Dictionary<string, SkillDamageFormula> damageFormulas =
+                ReadSkillDamageFormulas(workbook);
             XlsxSheet sheet = workbook
                 .FirstOrDefault(value => string.Equals(
                     value.Name,
@@ -103,10 +98,6 @@ namespace StopDefence.Editor
                 string description = GetValue(row, columns, "Description").Trim();
                 string categoryText = GetValue(row, columns, "Category").Trim();
                 string gradeText = GetValue(row, columns, "Grade").Trim();
-                string baseDamageText = GetValue(row, columns, "BaseDamage").Trim();
-                string damagePerLevelText = GetValue(row, columns, "DamagePerLevel").Trim();
-                string baseDotDamageText = GetValue(row, columns, "BaseDotDamage").Trim();
-                string dotDamagePerLevelText = GetValue(row, columns, "DotDamagePerLevel").Trim();
                 string imagePath = GetValue(row, columns, "ImagePath").Trim();
                 string enabledText = GetValue(row, columns, "Enabled").Trim();
                 string statTypeText = GetValue(row, columns, "StatType").Trim();
@@ -130,37 +121,20 @@ namespace StopDefence.Editor
                     continue;
                 }
 
-                if (!TryParseNonNegativeFloat(baseDamageText, out float baseDamage))
+                SkillDamageFormula damageFormula = default;
+                if (category == SkillCategory.Active &&
+                    !damageFormulas.TryGetValue(displayName, out damageFormula))
                 {
                     WarnAndExclude(
                         rowNumber,
-                        $"BaseDamage must be a non-negative number, but was '{baseDamageText}'");
+                        $"'{SkillBalanceSheetName}' has no skill block named '{displayName}'");
                     continue;
                 }
 
-                if (!TryParseNonNegativeFloat(damagePerLevelText, out float damagePerLevel))
-                {
-                    WarnAndExclude(
-                        rowNumber,
-                        $"DamagePerLevel must be a non-negative number, but was '{damagePerLevelText}'");
-                    continue;
-                }
-
-                if (!TryParseNonNegativeFloat(baseDotDamageText, out float baseDotDamage))
-                {
-                    WarnAndExclude(
-                        rowNumber,
-                        $"BaseDotDamage must be a non-negative number, but was '{baseDotDamageText}'");
-                    continue;
-                }
-
-                if (!TryParseNonNegativeFloat(dotDamagePerLevelText, out float dotDamagePerLevel))
-                {
-                    WarnAndExclude(
-                        rowNumber,
-                        $"DotDamagePerLevel must be a non-negative number, but was '{dotDamagePerLevelText}'");
-                    continue;
-                }
+                float baseDamage = damageFormula.BaseDamage;
+                float damagePerLevel = damageFormula.DamagePerLevel;
+                float baseDotDamage = damageFormula.BaseDotDamage;
+                float dotDamagePerLevel = damageFormula.DotDamagePerLevel;
 
                 if (!TryParseBool(enabledText, out bool enabled))
                 {
@@ -271,6 +245,184 @@ namespace StopDefence.Editor
                 $"[SkillDataImporter] Imported {skills.Count} skills and " +
                 $"{judgementBalances.Count} judgement balances from " +
                 $"'{SourceRelativePath}' into '{OutputAssetPath}'.");
+        }
+
+        private static Dictionary<string, SkillDamageFormula> ReadSkillDamageFormulas(
+            IReadOnlyList<XlsxSheet> workbook)
+        {
+            XlsxSheet sheet = workbook.FirstOrDefault(value => string.Equals(
+                value.Name,
+                SkillBalanceSheetName,
+                StringComparison.OrdinalIgnoreCase))
+                ?? throw new InvalidDataException(
+                    $"Worksheet '{SkillBalanceSheetName}' was not found.");
+
+            var formulas = new Dictionary<string, SkillDamageFormula>(
+                StringComparer.OrdinalIgnoreCase);
+            foreach (int rowNumber in sheet.RowNumbers.OrderBy(value => value))
+            {
+                IReadOnlyDictionary<int, string> headerRow = sheet.GetRow(rowNumber);
+                string displayName = GetCellValue(headerRow, 0).Trim();
+                if (string.IsNullOrEmpty(displayName))
+                {
+                    continue;
+                }
+
+                int directDamageColumn = FindColumn(headerRow, "ATK");
+                int dotDamageColumn = FindColumn(headerRow, "Dot ATK");
+                IReadOnlyDictionary<int, string> formulaRow = sheet.GetRow(rowNumber + 2);
+
+                float baseDamage = 0f;
+                float damagePerLevel = 0f;
+                if (directDamageColumn >= 0)
+                {
+                    ParseDamageFormula(
+                        displayName,
+                        rowNumber + 2,
+                        "ATK",
+                        GetCellValue(formulaRow, directDamageColumn),
+                        out baseDamage,
+                        out damagePerLevel);
+                }
+
+                float baseDotDamage = 0f;
+                float dotDamagePerLevel = 0f;
+                if (dotDamageColumn >= 0)
+                {
+                    ParseDamageFormula(
+                        displayName,
+                        rowNumber + 2,
+                        "Dot ATK",
+                        GetCellValue(formulaRow, dotDamageColumn),
+                        out baseDotDamage,
+                        out dotDamagePerLevel);
+                }
+
+                if (!formulas.TryAdd(
+                        displayName,
+                        new SkillDamageFormula(
+                            baseDamage,
+                            damagePerLevel,
+                            baseDotDamage,
+                            dotDamagePerLevel)))
+                {
+                    throw new InvalidDataException(
+                        $"Worksheet '{SkillBalanceSheetName}' has duplicate skill block " +
+                        $"'{displayName}'.");
+                }
+            }
+
+            return formulas;
+        }
+
+        private static int FindColumn(
+            IReadOnlyDictionary<int, string> row,
+            string header)
+        {
+            foreach (KeyValuePair<int, string> cell in row)
+            {
+                if (string.Equals(cell.Value.Trim(), header, StringComparison.OrdinalIgnoreCase))
+                {
+                    return cell.Key;
+                }
+            }
+
+            return -1;
+        }
+
+        private static string GetCellValue(
+            IReadOnlyDictionary<int, string> row,
+            int column)
+        {
+            return row.TryGetValue(column, out string value) ? value : string.Empty;
+        }
+
+        private static void ParseDamageFormula(
+            string displayName,
+            int rowNumber,
+            string statName,
+            string value,
+            out float baseValue,
+            out float valuePerLevel)
+        {
+            if (TryParseLinearFormula(value, out baseValue, out valuePerLevel))
+            {
+                return;
+            }
+
+            throw new InvalidDataException(
+                $"Worksheet '{SkillBalanceSheetName}', row {rowNumber}, skill " +
+                $"'{displayName}' has invalid {statName} function '{value}'. " +
+                "Use a linear function such as '1.3x + 18'.");
+        }
+
+        private static bool TryParseLinearFormula(
+            string value,
+            out float baseValue,
+            out float valuePerLevel)
+        {
+            baseValue = 0f;
+            valuePerLevel = 0f;
+
+            string normalized = value
+                .Trim()
+                .ToLowerInvariant()
+                .Replace(" ", string.Empty)
+                .Replace("*", string.Empty);
+            if (TryParseNonNegativeFloat(normalized, out baseValue))
+            {
+                return true;
+            }
+
+            int xIndex = normalized.IndexOf('x');
+            if (xIndex < 0 || xIndex != normalized.LastIndexOf('x'))
+            {
+                return false;
+            }
+
+            string coefficientText = normalized.Substring(0, xIndex);
+            if (string.IsNullOrEmpty(coefficientText) || coefficientText == "+")
+            {
+                valuePerLevel = 1f;
+            }
+            else if (!TryParseNonNegativeFloat(coefficientText, out valuePerLevel))
+            {
+                return false;
+            }
+
+            string constantText = normalized.Substring(xIndex + 1);
+            if (string.IsNullOrEmpty(constantText))
+            {
+                baseValue = 0f;
+                return true;
+            }
+
+            if (constantText[0] != '+')
+            {
+                return false;
+            }
+
+            return TryParseNonNegativeFloat(constantText.Substring(1), out baseValue);
+        }
+
+        private readonly struct SkillDamageFormula
+        {
+            public SkillDamageFormula(
+                float baseDamage,
+                float damagePerLevel,
+                float baseDotDamage,
+                float dotDamagePerLevel)
+            {
+                BaseDamage = baseDamage;
+                DamagePerLevel = damagePerLevel;
+                BaseDotDamage = baseDotDamage;
+                DotDamagePerLevel = dotDamagePerLevel;
+            }
+
+            public float BaseDamage { get; }
+            public float DamagePerLevel { get; }
+            public float BaseDotDamage { get; }
+            public float DotDamagePerLevel { get; }
         }
 
         private static List<JudgementBalanceData> ReadJudgementBalances(

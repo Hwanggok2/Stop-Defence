@@ -23,159 +23,159 @@ MonoBehaviour:
       attack: 20
       attackSpeed: 0.81
       attackRange: 1
-      moveSpeed: 2
+      moveSpeed: 1.1
       dropCoin: 10
       experience: 10
     - level: 2
-      hp: 27
+      hp: 29
       attack: 25
       attackSpeed: 0.82
       attackRange: 1
-      moveSpeed: 2.1
+      moveSpeed: 1.2
       dropCoin: 11
       experience: 11
     - level: 3
-      hp: 36
+      hp: 44
       attack: 27.9
       attackSpeed: 0.83
       attackRange: 1
-      moveSpeed: 2.2
+      moveSpeed: 1.3
       dropCoin: 12
       experience: 12
     - level: 4
-      hp: 47
+      hp: 65
       attack: 30
       attackSpeed: 0.84
       attackRange: 1
-      moveSpeed: 2.3
+      moveSpeed: 1.4
       dropCoin: 13
       experience: 13
     - level: 5
-      hp: 60
+      hp: 92
       attack: 31.6
       attackSpeed: 0.85
       attackRange: 1
-      moveSpeed: 2.4
+      moveSpeed: 1.5
       dropCoin: 14
       experience: 14
     - level: 6
-      hp: 75
+      hp: 125
       attack: 32.9
       attackSpeed: 0.86
       attackRange: 1
-      moveSpeed: 2.5
+      moveSpeed: 1.6
       dropCoin: 15
       experience: 15
     - level: 7
-      hp: 92
+      hp: 164
       attack: 34
       attackSpeed: 0.87
       attackRange: 1
-      moveSpeed: 2.6
+      moveSpeed: 1.7
       dropCoin: 16
       experience: 16
     - level: 8
-      hp: 111
+      hp: 209
       attack: 35
       attackSpeed: 0.88
       attackRange: 1
-      moveSpeed: 2.7
+      moveSpeed: 1.8
       dropCoin: 17
       experience: 17
     - level: 9
-      hp: 132
+      hp: 260
       attack: 35.8
       attackSpeed: 0.89
       attackRange: 1
-      moveSpeed: 2.8
+      moveSpeed: 1.9
       dropCoin: 18
       experience: 18
     - level: 10
-      hp: 155
+      hp: 317
       attack: 36.6
       attackSpeed: 0.9
       attackRange: 1
-      moveSpeed: 2.9
+      moveSpeed: 2
       dropCoin: 19
       experience: 19
     - level: 11
-      hp: 180
+      hp: 380
       attack: 37.3
       attackSpeed: 0.91
       attackRange: 1
-      moveSpeed: 3
+      moveSpeed: 2.1
       dropCoin: 20
       experience: 20
     - level: 12
-      hp: 207
+      hp: 449
       attack: 37.9
       attackSpeed: 0.92
       attackRange: 1
-      moveSpeed: 3.1
+      moveSpeed: 2.2
       dropCoin: 21
       experience: 21
     - level: 13
-      hp: 236
+      hp: 524
       attack: 38.5
       attackSpeed: 0.93
       attackRange: 1
-      moveSpeed: 3.2
+      moveSpeed: 2.3
       dropCoin: 22
       experience: 22
     - level: 14
-      hp: 267
+      hp: 605
       attack: 39
       attackSpeed: 0.94
       attackRange: 1
-      moveSpeed: 3.3
+      moveSpeed: 2.4
       dropCoin: 23
       experience: 23
     - level: 15
-      hp: 300
+      hp: 692
       attack: 39.5
       attackSpeed: 0.95
       attackRange: 1
-      moveSpeed: 3.4
+      moveSpeed: 2.5
       dropCoin: 24
       experience: 24
     - level: 16
-      hp: 335
+      hp: 785
       attack: 40
       attackSpeed: 0.96
       attackRange: 1
-      moveSpeed: 3.5
+      moveSpeed: 2.6
       dropCoin: 25
       experience: 25
     - level: 17
-      hp: 372
+      hp: 884
       attack: 40.4
       attackSpeed: 0.97
       attackRange: 1
-      moveSpeed: 3.6
+      moveSpeed: 2.7
       dropCoin: 26
       experience: 26
     - level: 18
-      hp: 411
+      hp: 989
       attack: 40.8
       attackSpeed: 0.98
       attackRange: 1
-      moveSpeed: 3.7
+      moveSpeed: 2.8
       dropCoin: 27
       experience: 27
     - level: 19
-      hp: 452
+      hp: 1100
       attack: 41.2
       attackSpeed: 0.99
       attackRange: 1
-      moveSpeed: 3.8
+      moveSpeed: 2.9
       dropCoin: 28
       experience: 28
     - level: 20
-      hp: 495
+      hp: 1217
       attack: 41.6
       attackSpeed: 1
       attackRange: 1
-      moveSpeed: 3.9
+      moveSpeed: 3
       dropCoin: 29
       experience: 29
   - id: goblin_mage
@@ -184,11 +184,11 @@ MonoBehaviour:
     prefab: {fileID: 6433901326577123321, guid: 2a1231c7b0edcd14980cbda8711d2649, type: 3}
     levels:
     - level: 1
-      hp: 14
+      hp: 12
       attack: 8
       attackSpeed: 0.5
       attackRange: 8
-      moveSpeed: 1
+      moveSpeed: 0.4
       dropCoin: 10
       experience: 10
     - level: 2
@@ -196,151 +196,151 @@ MonoBehaviour:
       attack: 11
       attackSpeed: 0.5
       attackRange: 8
-      moveSpeed: 1.2
+      moveSpeed: 0.5
       dropCoin: 13
       experience: 13
     - level: 3
-      hp: 24
+      hp: 28
       attack: 14
       attackSpeed: 0.51
       attackRange: 8
-      moveSpeed: 1.4
+      moveSpeed: 0.6
       dropCoin: 16
       experience: 16
     - level: 4
-      hp: 30
+      hp: 42
       attack: 17
       attackSpeed: 0.52
       attackRange: 8
-      moveSpeed: 1.6
+      moveSpeed: 0.7
       dropCoin: 19
       experience: 19
     - level: 5
-      hp: 38
+      hp: 60
       attack: 20
       attackSpeed: 0.53
       attackRange: 8
-      moveSpeed: 1.8
+      moveSpeed: 0.8
       dropCoin: 22
       experience: 22
     - level: 6
-      hp: 46
+      hp: 82
       attack: 23
       attackSpeed: 0.54
       attackRange: 8
-      moveSpeed: 2
+      moveSpeed: 0.9
       dropCoin: 25
       experience: 25
     - level: 7
-      hp: 56
+      hp: 108
       attack: 26
       attackSpeed: 0.55
       attackRange: 8
-      moveSpeed: 2.2
+      moveSpeed: 1
       dropCoin: 28
       experience: 28
     - level: 8
-      hp: 66
+      hp: 138
       attack: 29
       attackSpeed: 0.56
       attackRange: 8
-      moveSpeed: 2.4
+      moveSpeed: 1.1
       dropCoin: 31
       experience: 31
     - level: 9
-      hp: 78
+      hp: 172
       attack: 32
       attackSpeed: 0.58
       attackRange: 8
-      moveSpeed: 2.6
+      moveSpeed: 1.2
       dropCoin: 34
       experience: 34
     - level: 10
-      hp: 90
+      hp: 210
       attack: 35
       attackSpeed: 0.6
       attackRange: 8
-      moveSpeed: 2.8
+      moveSpeed: 1.3
       dropCoin: 37
       experience: 37
     - level: 11
-      hp: 104
+      hp: 252
       attack: 38
       attackSpeed: 0.62
       attackRange: 8
-      moveSpeed: 3
+      moveSpeed: 1.4
       dropCoin: 40
       experience: 40
     - level: 12
-      hp: 118
+      hp: 298
       attack: 41
       attackSpeed: 0.64
       attackRange: 8
-      moveSpeed: 3.2
+      moveSpeed: 1.5
       dropCoin: 43
       experience: 43
     - level: 13
-      hp: 134
+      hp: 348
       attack: 44
       attackSpeed: 0.67
       attackRange: 8
-      moveSpeed: 3.4
+      moveSpeed: 1.6
       dropCoin: 46
       experience: 46
     - level: 14
-      hp: 150
+      hp: 402
       attack: 47
       attackSpeed: 0.7
       attackRange: 8
-      moveSpeed: 3.6
+      moveSpeed: 1.7
       dropCoin: 49
       experience: 49
     - level: 15
-      hp: 168
+      hp: 460
       attack: 50
       attackSpeed: 0.73
       attackRange: 8
-      moveSpeed: 3.8
+      moveSpeed: 1.8
       dropCoin: 52
       experience: 52
     - level: 16
-      hp: 186
+      hp: 522
       attack: 53
       attackSpeed: 0.76
       attackRange: 8
-      moveSpeed: 4
+      moveSpeed: 1.9
       dropCoin: 55
       experience: 55
     - level: 17
-      hp: 206
+      hp: 588
       attack: 56
       attackSpeed: 0.79
       attackRange: 8
-      moveSpeed: 4.2
+      moveSpeed: 2
       dropCoin: 58
       experience: 58
     - level: 18
-      hp: 226
+      hp: 658
       attack: 59
       attackSpeed: 0.82
       attackRange: 8
-      moveSpeed: 4.4
+      moveSpeed: 2.1
       dropCoin: 61
       experience: 61
     - level: 19
-      hp: 248
+      hp: 732
       attack: 62
       attackSpeed: 0.86
       attackRange: 8
-      moveSpeed: 4.6
+      moveSpeed: 2.2
       dropCoin: 64
       experience: 64
     - level: 20
-      hp: 270
+      hp: 810
       attack: 65
       attackSpeed: 0.9
       attackRange: 8
-      moveSpeed: 4.8
+      moveSpeed: 2.3
       dropCoin: 67
       experience: 67
   - id: boss
@@ -349,43 +349,43 @@ MonoBehaviour:
     prefab: {fileID: 820950947702502206, guid: ef862d873ebc8a145ac6f87e039fb160, type: 3}
     levels:
     - level: 1
-      hp: 400
+      hp: 250
       attack: 30
       attackSpeed: 0.24
       attackRange: 1
-      moveSpeed: 2
+      moveSpeed: 0.5
       dropCoin: 100
       experience: 100
     - level: 2
-      hp: 750
+      hp: 500
       attack: 60
       attackSpeed: 0.48
       attackRange: 1
-      moveSpeed: 3
+      moveSpeed: 0.9
       dropCoin: 200
       experience: 200
     - level: 3
-      hp: 1100
+      hp: 750
       attack: 90
       attackSpeed: 0.72
       attackRange: 1
-      moveSpeed: 4
+      moveSpeed: 1.3
       dropCoin: 300
       experience: 300
     - level: 4
-      hp: 1450
+      hp: 1000
       attack: 120
       attackSpeed: 0.96
       attackRange: 1
-      moveSpeed: 5
+      moveSpeed: 1.7
       dropCoin: 400
       experience: 400
     - level: 5
-      hp: 1800
+      hp: 1250
       attack: 150
       attackSpeed: 1.2
       attackRange: 1
-      moveSpeed: 6
+      moveSpeed: 2.1
       dropCoin: 500
       experience: 500
   spawnSchedule:
@@ -393,125 +393,125 @@ MonoBehaviour:
     enemyId: skeleton
     level: 1
     spawnPoint: 1
-    count: 3
+    count: 5
     interval: 1.2
   - time: 5
     enemyId: goblin_mage
     level: 1
-    spawnPoint: 5
-    count: 2
-    interval: 1.5
-  - time: 15
-    enemyId: skeleton
-    level: 1
-    spawnPoint: 3
-    count: 4
-    interval: 1
-  - time: 22
-    enemyId: goblin_mage
-    level: 2
     spawnPoint: 2
     count: 3
     interval: 1.2
+  - time: 15
+    enemyId: goblin_mage
+    level: 1
+    spawnPoint: 3
+    count: 5
+    interval: 1
+  - time: 22
+    enemyId: goblin_mage
+    level: 1
+    spawnPoint: 4
+    count: 3
+    interval: 2
   - time: 28
     enemyId: skeleton
-    level: 2
-    spawnPoint: 4
-    count: 4
+    level: 1
+    spawnPoint: 2
+    count: 5
     interval: 0.9
   - time: 34
     enemyId: goblin_mage
-    level: 2
-    spawnPoint: 1
+    level: 1
+    spawnPoint: 3
     count: 3
-    interval: 1.1
+    interval: 1.6
   - time: 40
     enemyId: skeleton
-    level: 3
-    spawnPoint: 5
+    level: 2
+    spawnPoint: 4
     count: 5
     interval: 0.8
   - time: 47
     enemyId: goblin_mage
-    level: 3
-    spawnPoint: 3
-    count: 3
-    interval: 1
+    level: 2
+    spawnPoint: 5
+    count: 4
+    interval: 1.4
   - time: 54
     enemyId: skeleton
     level: 4
-    spawnPoint: 2
+    spawnPoint: 5
     count: 5
-    interval: 0.7
+    interval: 0.75
   - time: 60
     enemyId: boss
     level: 1
-    spawnPoint: 3
+    spawnPoint: 5
     count: 1
     interval: 0
   - time: 65
+    enemyId: skeleton
+    level: 4
+    spawnPoint: 2
+    count: 5
+    interval: 0.7
+  - time: 71
     enemyId: goblin_mage
+    level: 3
+    spawnPoint: 2
+    count: 4
+    interval: 1.2
+  - time: 77
+    enemyId: skeleton
     level: 4
     spawnPoint: 4
-    count: 4
-    interval: 0.85
-  - time: 71
-    enemyId: skeleton
-    level: 5
-    spawnPoint: 1
-    count: 5
-    interval: 0.65
-  - time: 77
-    enemyId: goblin_mage
-    level: 5
-    spawnPoint: 5
-    count: 4
-    interval: 0.75
-  - time: 84
-    enemyId: skeleton
-    level: 6
-    spawnPoint: 2
     count: 6
-    interval: 0.55
-  - time: 90
+    interval: 0.65
+  - time: 84
     enemyId: goblin_mage
-    level: 6
-    spawnPoint: 4
+    level: 4
+    spawnPoint: 1
     count: 4
-    interval: 0.7
+    interval: 1
+  - time: 90
+    enemyId: skeleton
+    level: 4
+    spawnPoint: 5
+    count: 6
+    interval: 0.6
   - time: 96
-    enemyId: boss
-    level: 2
-    spawnPoint: 3
-    count: 1
+    enemyId: goblin_mage
+    level: 4
+    spawnPoint: 1
+    count: 2
     interval: 0
   - time: 100
     enemyId: skeleton
-    level: 7
-    spawnPoint: 1
+    level: 5
+    spawnPoint: 3
     count: 6
-    interval: 0.5
+    interval: 0.55
   - time: 105
     enemyId: goblin_mage
-    level: 7
+    level: 5
     spawnPoint: 5
-    count: 5
-    interval: 0.6
+    count: 4
+    interval: 0.9
   - time: 110
     enemyId: skeleton
-    level: 8
-    spawnPoint: 2
+    level: 5
+    spawnPoint: 1
     count: 7
-    interval: 0.42
+    interval: 0.5
   - time: 115
     enemyId: goblin_mage
-    level: 8
-    spawnPoint: 4
-    count: 5
-    interval: 0.55
+    level: 5
+    spawnPoint: 2
+    count: 4
+    interval: 0.8
   - time: 118
     enemyId: boss
-    level: 3
-    spawnPoint: 3
-    count: 1
+    level: 1
+    spawnPoint: 5
+    count: 2
     interval: 0
