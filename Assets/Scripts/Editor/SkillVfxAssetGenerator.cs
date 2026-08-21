@@ -1886,6 +1886,7 @@ namespace StopDefence.Editor
             serializedEffect.FindProperty("skillId").stringValue = skillId;
             serializedEffect.FindProperty("playOnEnable").boolValue = true;
             serializedEffect.FindProperty("destroyWhenFinished").boolValue = true;
+            serializedEffect.FindProperty("playbackSpeed").floatValue = 1.5f;
             serializedEffect.ApplyModifiedPropertiesWithoutUndo();
             return root;
         }

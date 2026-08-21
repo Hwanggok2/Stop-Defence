@@ -56,6 +56,7 @@ MonoBehaviour:
   skillId: skill_004
   playOnEnable: 1
   destroyWhenFinished: 1
+  playbackSpeed: 1.5
 --- !u!1 &614349309932257637
 GameObject:
   m_ObjectHideFlags: 0

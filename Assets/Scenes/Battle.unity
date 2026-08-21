@@ -10173,6 +10173,7 @@ MonoBehaviour:
   skillId: skill_010
   playOnEnable: 1
   destroyWhenFinished: 1
+  playbackSpeed: 1.5
 --- !u!4 &193642608
 Transform:
   m_ObjectHideFlags: 0
@@ -36048,6 +36049,18 @@ PrefabInstance:
       propertyPath: m_Sprite
       value: 
       objectReference: {fileID: 21300000, guid: f73f68fe6815f5548a6c2a61b9e49add, type: 3}
+    - target: {fileID: 3199260363128695370, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_Color.b
+      value: 0.72955966
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199260363128695370, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_Color.g
+      value: 0.72955966
+      objectReference: {fileID: 0}
+    - target: {fileID: 3199260363128695370, guid: e5119f32611e1714782231711f40bf68, type: 3}
+      propertyPath: m_Color.r
+      value: 0.72955966
+      objectReference: {fileID: 0}
     - target: {fileID: 3729236155191590447, guid: e5119f32611e1714782231711f40bf68, type: 3}
       propertyPath: m_Sprite
       value: 

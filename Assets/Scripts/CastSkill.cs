@@ -170,7 +170,8 @@ public sealed class CastSkill : MonoBehaviour
 
     private IEnumerator ApplyFireballImpact(Vector3 position, float multiplier)
     {
-        yield return new WaitForSeconds(0.48f);
+        yield return new WaitForSeconds(
+            AdjustEffectDuration(fireballEffectPrefab, 0.48f));
 
         foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, fireballRange))
         {
@@ -200,7 +201,8 @@ public sealed class CastSkill : MonoBehaviour
 
     private IEnumerator ApplyEarthMagicImpact(Vector3 origin, float multiplier)
     {
-        yield return new WaitForSeconds(0.04f);
+        yield return new WaitForSeconds(
+            AdjustEffectDuration(earthMagicEffectPrefab, 0.04f));
 
         foreach (Enemy.Enemy enemy in GetActiveEnemies())
         {
@@ -265,7 +267,7 @@ public sealed class CastSkill : MonoBehaviour
         StartCoroutine(ApplySingleTargetDamage(
             target,
             GetDamage(NailDrivingId, nailDrivingDamage) * multiplier,
-            0.45f,
+            AdjustEffectDuration(nailDrivingEffectPrefab, 0.45f),
             NailDrivingId));
         return true;
     }
@@ -297,7 +299,8 @@ public sealed class CastSkill : MonoBehaviour
 
     private IEnumerator ApplyPlagueImpact(Vector3 position, float multiplier)
     {
-        yield return new WaitForSeconds(0.54f);
+        yield return new WaitForSeconds(
+            AdjustEffectDuration(plagueMagicEffectPrefab, 0.54f));
 
         foreach (Enemy.Enemy enemy in FindEnemiesInRange(position, plagueRadius))
         {
@@ -355,7 +358,10 @@ public sealed class CastSkill : MonoBehaviour
         while (traveledDistance < IceLanceTravelDistance)
         {
             float nextDistance = Mathf.Min(
-                traveledDistance + IceLanceProjectileSpeed * Time.deltaTime,
+                traveledDistance +
+                IceLanceProjectileSpeed *
+                GetEffectPlaybackSpeed(iceLanceEffectPrefab) *
+                Time.deltaTime,
                 IceLanceTravelDistance);
             Vector3 segmentStart = origin + direction * traveledDistance;
             Vector3 segmentEnd = origin + direction * nextDistance;
@@ -507,6 +513,18 @@ public sealed class CastSkill : MonoBehaviour
         {
             Instantiate(prefab, position, Quaternion.identity, effectsRoot);
         }
+    }
+
+    private static float AdjustEffectDuration(
+        SkillParticleEffect effect,
+        float duration)
+    {
+        return duration / GetEffectPlaybackSpeed(effect);
+    }
+
+    private static float GetEffectPlaybackSpeed(SkillParticleEffect effect)
+    {
+        return effect != null ? effect.PlaybackSpeed : 1f;
     }
 
     private void SpawnTintedEffect(

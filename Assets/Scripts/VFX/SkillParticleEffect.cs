@@ -7,11 +7,14 @@ namespace StopDefence.Vfx
         [SerializeField] private string skillId;
         [SerializeField] private bool playOnEnable = true;
         [SerializeField] private bool destroyWhenFinished = true;
+        [SerializeField, Min(0.01f)] private float playbackSpeed = 1.5f;
 
         private ParticleSystem[] particleSystems;
+        private float[] baseSimulationSpeeds;
         private bool hasPlayed;
 
         public string SkillId => skillId;
+        public float PlaybackSpeed => Mathf.Max(0.01f, playbackSpeed);
 
         private void OnEnable()
         {
@@ -39,8 +42,11 @@ namespace StopDefence.Vfx
         {
             CacheParticleSystems();
 
-            foreach (ParticleSystem particleSystem in particleSystems)
+            for (int index = 0; index < particleSystems.Length; index++)
             {
+                ParticleSystem particleSystem = particleSystems[index];
+                ParticleSystem.MainModule main = particleSystem.main;
+                main.simulationSpeed = baseSimulationSpeeds[index] * PlaybackSpeed;
                 particleSystem.Stop(false, ParticleSystemStopBehavior.StopEmittingAndClear);
                 particleSystem.Play(false);
             }
@@ -76,7 +82,17 @@ namespace StopDefence.Vfx
 
         private void CacheParticleSystems()
         {
-            particleSystems ??= GetComponentsInChildren<ParticleSystem>(true);
+            if (particleSystems != null)
+            {
+                return;
+            }
+
+            particleSystems = GetComponentsInChildren<ParticleSystem>(true);
+            baseSimulationSpeeds = new float[particleSystems.Length];
+            for (int index = 0; index < particleSystems.Length; index++)
+            {
+                baseSimulationSpeeds[index] = particleSystems[index].main.simulationSpeed;
+            }
         }
     }
 }

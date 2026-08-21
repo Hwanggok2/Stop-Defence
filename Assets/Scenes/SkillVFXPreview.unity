@@ -168,6 +168,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6581918240373318137, guid: 0c58af57442552b4fa694f143e97b11b, type: 3}
+      propertyPath: playbackSpeed
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 6581918240373318137, guid: 0c58af57442552b4fa694f143e97b11b, type: 3}
       propertyPath: destroyWhenFinished
       value: 0
       objectReference: {fileID: 0}
@@ -199,6 +203,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3221088126802610326, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
+      propertyPath: playbackSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3221088126802610326, guid: 4e1cafeb87a1aad4fbd10c582274d9ae, type: 3}
       propertyPath: destroyWhenFinished
       value: 0
@@ -314,6 +322,10 @@ PrefabInstance:
     - target: {fileID: 7763665104407574574, guid: b6cf00f7ef834ff41a01968b543a49b1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8532317857354694227, guid: b6cf00f7ef834ff41a01968b543a49b1, type: 3}
+      propertyPath: playbackSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 8532317857354694227, guid: b6cf00f7ef834ff41a01968b543a49b1, type: 3}
       propertyPath: destroyWhenFinished
@@ -480,6 +492,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8723293806152144880, guid: 8b8d113a4a87b9747ae98ab6bfc87c24, type: 3}
+      propertyPath: playbackSpeed
+      value: 1.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8723293806152144880, guid: 8b8d113a4a87b9747ae98ab6bfc87c24, type: 3}
       propertyPath: destroyWhenFinished
       value: 0
       objectReference: {fileID: 0}
@@ -510,6 +526,10 @@ PrefabInstance:
     - target: {fileID: 143215362293683045, guid: 549f4308cc26f9d438a217748d781181, type: 3}
       propertyPath: m_Name
       value: Skill_010_Flashbang
+      objectReference: {fileID: 0}
+    - target: {fileID: 4800230670167135377, guid: 549f4308cc26f9d438a217748d781181, type: 3}
+      propertyPath: playbackSpeed
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 4800230670167135377, guid: 549f4308cc26f9d438a217748d781181, type: 3}
       propertyPath: destroyWhenFinished
@@ -702,6 +722,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1628960726783563903, guid: ee879f18eb1dc9b44a9a7773dbbbffa2, type: 3}
+      propertyPath: playbackSpeed
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 1628960726783563903, guid: ee879f18eb1dc9b44a9a7773dbbbffa2, type: 3}
       propertyPath: destroyWhenFinished
       value: 0
