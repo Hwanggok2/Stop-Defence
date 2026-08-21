@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using StopDefence.GameData;
 using TMPro;
@@ -18,6 +19,7 @@ namespace UI
         [SerializeField] private Image skillImage;
         [SerializeField] private TMP_Text skillText;
         [SerializeField] private TMP_Text pressedTimeText;
+        [SerializeField] private TMP_Text verdictText;
 
         [Header("Display")]
         [SerializeField, Min(0f)] private float displayWindow = 0.5f;
@@ -41,7 +43,14 @@ namespace UI
         [SerializeField, Min(0f)] private float perfectShakeDuration = 0.65f;
         [SerializeField, Min(0f)] private float perfectShakeStrength = 0.3f;
 
+        [Header("Verdict Popup")]
+        [SerializeField, Min(0f)] private float verdictDisplayDuration = 1f;
+        [SerializeField, Min(0f)] private float verdictTravelDistance = 80f;
+
         private Vector3 originalPressedTimeScale;
+        private Vector2 originalVerdictPosition;
+        private Coroutine verdictAnimation;
+        private bool verdictPositionInitialized;
 
         private void Awake()
         {
@@ -50,7 +59,23 @@ namespace UI
             if (pressedTimeText != null)
                 originalPressedTimeScale = pressedTimeText.transform.localScale;
 
+            CaptureVerdictPosition();
+
+            HideVerdictImmediately();
             ClearUI();
+        }
+
+        private void OnEnable()
+        {
+            ResolveReferences();
+            verdictPositionInitialized = false;
+            CaptureVerdictPosition();
+            HideVerdictImmediately();
+        }
+
+        private void OnDisable()
+        {
+            HideVerdictImmediately();
         }
 
         private void Update()
@@ -183,12 +208,17 @@ namespace UI
             float error,
             TimingJudgement judgement)
         {
-            if (pressedTimeText == null) return;
+            Color judgementColor = GetJudgementColor(judgement);
 
-            pressedTimeText.text = $"{error:F2}초";
-            pressedTimeText.gameObject.SetActive(true);
-            pressedTimeTimer = pressedTimeDisplayDuration;
-            ApplyJudgementVisual(judgement);
+            if (pressedTimeText != null)
+            {
+                pressedTimeText.text = $"{error:F2}초";
+                pressedTimeText.gameObject.SetActive(true);
+                pressedTimeTimer = pressedTimeDisplayDuration;
+                ApplyJudgementVisual(judgementColor, judgement);
+            }
+
+            ShowVerdict(judgement, judgementColor);
 
             if (judgement == TimingJudgement.Perfect)
             {
@@ -198,15 +228,102 @@ namespace UI
             }
         }
 
-        private void ApplyJudgementVisual(TimingJudgement judgement)
+        private Color GetJudgementColor(TimingJudgement judgement)
+        {
+            return judgement switch
+            {
+                TimingJudgement.Perfect => perfectColor,
+                TimingJudgement.Great   => greatColor,
+                TimingJudgement.Good    => goodColor,
+                _                       => badColor
+            };
+        }
+
+        private void ApplyJudgementVisual(Color color, TimingJudgement judgement)
         {
             switch (judgement)
             {
-                case TimingJudgement.Perfect: SetPressedTimeVisual(perfectColor, perfectScale); break;
-                case TimingJudgement.Great:   SetPressedTimeVisual(greatColor,   greatScale);   break;
-                case TimingJudgement.Good:    SetPressedTimeVisual(goodColor,    goodScale);    break;
-                case TimingJudgement.Bad:     SetPressedTimeVisual(badColor,     badScale);     break;
+                case TimingJudgement.Perfect: SetPressedTimeVisual(color, perfectScale); break;
+                case TimingJudgement.Great:   SetPressedTimeVisual(color, greatScale);   break;
+                case TimingJudgement.Good:    SetPressedTimeVisual(color, goodScale);    break;
+                case TimingJudgement.Bad:     SetPressedTimeVisual(color, badScale);     break;
             }
+        }
+
+        private void ShowVerdict(TimingJudgement judgement, Color color)
+        {
+            if (verdictText == null) return;
+
+            if (verdictAnimation != null)
+                StopCoroutine(verdictAnimation);
+
+            verdictText.SetText(judgement.ToString());
+            verdictText.gameObject.SetActive(true);
+            verdictAnimation = StartCoroutine(AnimateVerdict(color));
+        }
+
+        private IEnumerator AnimateVerdict(Color color)
+        {
+            RectTransform rectTransform = verdictText.rectTransform;
+            Vector2 halfTravel = Vector2.up * (verdictTravelDistance * 0.5f);
+            Vector2 startPosition = originalVerdictPosition + halfTravel;
+            Vector2 endPosition = originalVerdictPosition - halfTravel;
+            float duration = Mathf.Max(0.01f, verdictDisplayDuration);
+            float elapsed = 0f;
+
+            while (elapsed < duration)
+            {
+                elapsed += Time.unscaledDeltaTime;
+                float progress = Mathf.Clamp01(elapsed / duration);
+                float easedProgress = 1f - Mathf.Pow(1f - progress, 3f);
+                float fadeIn = Mathf.InverseLerp(0f, 0.15f, progress);
+                float fadeOut = 1f - Mathf.InverseLerp(0.65f, 1f, progress);
+
+                rectTransform.anchoredPosition = Vector2.LerpUnclamped(
+                    startPosition,
+                    endPosition,
+                    easedProgress);
+                verdictText.color = new Color(
+                    color.r,
+                    color.g,
+                    color.b,
+                    color.a * Mathf.Min(fadeIn, fadeOut));
+
+                yield return null;
+            }
+
+            ResetVerdictVisual();
+            verdictAnimation = null;
+        }
+
+        private void HideVerdictImmediately()
+        {
+            if (verdictAnimation != null)
+            {
+                StopCoroutine(verdictAnimation);
+                verdictAnimation = null;
+            }
+
+            ResetVerdictVisual();
+        }
+
+        private void ResetVerdictVisual()
+        {
+            if (verdictText == null) return;
+
+            if (verdictPositionInitialized)
+                verdictText.rectTransform.anchoredPosition = originalVerdictPosition;
+
+            verdictText.SetText(string.Empty);
+            verdictText.gameObject.SetActive(false);
+        }
+
+        private void CaptureVerdictPosition()
+        {
+            if (verdictText == null || verdictPositionInitialized) return;
+
+            originalVerdictPosition = verdictText.rectTransform.anchoredPosition;
+            verdictPositionInitialized = true;
         }
 
         private void SetPressedTimeVisual(Color color, float scale)
@@ -252,6 +369,18 @@ namespace UI
 
             if (skillInventory == null)
                 skillInventory = Object.FindFirstObjectByType<SkillInventory>();
+
+            if (verdictText == null)
+            {
+                foreach (TMP_Text text in GetComponentsInChildren<TMP_Text>(true))
+                {
+                    if (text.name.Trim().ToLowerInvariant() != "verdict") continue;
+
+                    verdictText = text;
+                    CaptureVerdictPosition();
+                    break;
+                }
+            }
         }
     }
 }

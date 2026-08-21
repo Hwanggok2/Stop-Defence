@@ -263,7 +263,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 24, y: 24}
-  m_SizeDelta: {x: 210, y: 130}
+  m_SizeDelta: {x: 152.0431, y: 169.55}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &5641120276427024328
 CanvasRenderer:
@@ -286,14 +286,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 0.33, g: 0.31, b: 0.31, a: 1}
+  m_Color: {r: 0.45911938, g: 0.45911938, b: 0.45911938, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 8848372255090490591, guid: a7903ba94fd843448bc5824771ad3ae2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1995,6 +1995,7 @@ MonoBehaviour:
   flashbangDurationPerAttackLevel: 0.1
   caffeineDamageMultiplier: 1.3
   caffeineDuration: 5
+  caffeineEffectColor: {r: 0.42, g: 0.18, b: 0.055, a: 1}
 --- !u!114 &1399077655092127493
 MonoBehaviour:
   m_ObjectHideFlags: 0

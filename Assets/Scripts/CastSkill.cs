@@ -65,6 +65,7 @@ public sealed class CastSkill : MonoBehaviour
     [SerializeField, Min(0f)] private float flashbangDurationPerAttackLevel = 0.1f;
     [SerializeField, Min(1f)] private float caffeineDamageMultiplier = 1.3f;
     [SerializeField, Min(0f)] private float caffeineDuration = 5f;
+    [SerializeField] private Color caffeineEffectColor = new Color(0.42f, 0.18f, 0.055f, 1f);
 
     private float activeDamageBuff = 1f;
     private Coroutine caffeineRoutine;
@@ -473,6 +474,7 @@ public sealed class CastSkill : MonoBehaviour
             StopCoroutine(caffeineRoutine);
         }
 
+        SpawnTintedEffect(flashbangEffectPrefab, GetOriginPosition(), caffeineEffectColor);
         caffeineRoutine = StartCoroutine(CaffeineRoutine());
         return true;
     }
@@ -504,6 +506,29 @@ public sealed class CastSkill : MonoBehaviour
         if (prefab != null)
         {
             Instantiate(prefab, position, Quaternion.identity, effectsRoot);
+        }
+    }
+
+    private void SpawnTintedEffect(
+        SkillParticleEffect prefab,
+        Vector3 position,
+        Color tint)
+    {
+        if (prefab == null)
+        {
+            return;
+        }
+
+        SkillParticleEffect instance =
+            Instantiate(prefab, position, Quaternion.identity, effectsRoot);
+        var properties = new MaterialPropertyBlock();
+        foreach (ParticleSystemRenderer renderer in
+                 instance.GetComponentsInChildren<ParticleSystemRenderer>(true))
+        {
+            renderer.GetPropertyBlock(properties);
+            properties.SetColor("_Color", tint);
+            renderer.SetPropertyBlock(properties);
+            properties.Clear();
         }
     }
 

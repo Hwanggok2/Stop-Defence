@@ -7,6 +7,8 @@ namespace Enemy
 {
     public abstract class Enemy : MonoBehaviour
     {
+        private const float KnockbackDuration = 0.2f;
+
         [SerializeField] protected EnemyStat stat;
         [SerializeField] private Player player;
 
@@ -17,8 +19,10 @@ namespace Enemy
         private Transform targetTransform;
         private bool isDead;
         private bool isDisrupted;
+        private bool isKnockedBack;
         private Coroutine slowRoutine;
         private Coroutine disruptionRoutine;
+        private Coroutine knockbackRoutine;
 
         public bool IsDead => isDead;
         public float CurrentHp => stat.hp;
@@ -58,8 +62,10 @@ namespace Enemy
             attackTimer = 0f;
             moveSpeedMultiplier = 1f;
             isDisrupted = false;
+            isKnockedBack = false;
             slowRoutine = null;
             disruptionRoutine = null;
+            knockbackRoutine = null;
             isDead = false;
             isInAttackRange = false;
             SetTarget(target);
@@ -148,7 +154,24 @@ namespace Enemy
                 return;
             }
 
-            transform.position += direction.normalized * distance;
+            float horizontalDirection = direction.x;
+            if (Mathf.Abs(horizontalDirection) <= Mathf.Epsilon && targetTransform != null)
+            {
+                horizontalDirection = transform.position.x - targetTransform.position.x;
+            }
+
+            if (Mathf.Abs(horizontalDirection) <= Mathf.Epsilon)
+            {
+                horizontalDirection = 1f;
+            }
+
+            if (knockbackRoutine != null)
+            {
+                StopCoroutine(knockbackRoutine);
+            }
+
+            knockbackRoutine = StartCoroutine(KnockbackRoutine(
+                Mathf.Sign(horizontalDirection) * distance));
         }
 
         protected virtual void Update()
@@ -158,7 +181,7 @@ namespace Enemy
                 return;
             }
 
-            if (isDisrupted)
+            if (isDisrupted || isKnockedBack)
             {
                 return;
             }
@@ -242,6 +265,34 @@ namespace Enemy
             yield return new WaitForSeconds(duration);
             isDisrupted = false;
             disruptionRoutine = null;
+        }
+
+        private IEnumerator KnockbackRoutine(float horizontalDistance)
+        {
+            isKnockedBack = true;
+            Vector3 startPosition = transform.position;
+            Vector3 targetPosition = startPosition + Vector3.right * horizontalDistance;
+            float elapsed = 0f;
+
+            while (elapsed < KnockbackDuration && !isDead)
+            {
+                elapsed += Time.deltaTime;
+                float normalizedTime = Mathf.Clamp01(elapsed / KnockbackDuration);
+                float easedTime = 1f - Mathf.Pow(1f - normalizedTime, 3f);
+                transform.position = Vector3.LerpUnclamped(
+                    startPosition,
+                    targetPosition,
+                    easedTime);
+                yield return null;
+            }
+
+            if (!isDead)
+            {
+                transform.position = targetPosition;
+            }
+
+            isKnockedBack = false;
+            knockbackRoutine = null;
         }
 
     }

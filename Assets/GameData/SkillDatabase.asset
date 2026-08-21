@@ -55,8 +55,8 @@ MonoBehaviour:
     damagePerLevel: 1.4
     baseDotDamage: 0
     dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
+    imagePath: Assets/Image/skill_003.png
+    image: {fileID: 3400621110975860975, guid: 4814b58e9db524145b033819fa4bb542, type: 3}
     enabled: 1
     statType: 0
     statValue: 0
@@ -87,8 +87,8 @@ MonoBehaviour:
     damagePerLevel: 0
     baseDotDamage: 0
     dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
+    imagePath: Assets/Image/skill_005.png
+    image: {fileID: -696002883184369294, guid: 06460fa298746024492de562da7894a5, type: 3}
     enabled: 1
     statType: 0
     statValue: 0
@@ -167,8 +167,8 @@ MonoBehaviour:
     damagePerLevel: 0
     baseDotDamage: 0
     dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
+    imagePath: Assets/Image/Caffeine addiction.png
+    image: {fileID: 6005198703021889846, guid: 54d51049c177e0041afd95afee76a5b3, type: 3}
     enabled: 1
     statType: 0
     statValue: 0
@@ -183,8 +183,8 @@ MonoBehaviour:
     damagePerLevel: 0
     baseDotDamage: 0
     dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
+    imagePath: Assets/Image/stat_001.png
+    image: {fileID: -8630923909508717717, guid: 163f3b415d49e744bb5d74eee763fdf5, type: 3}
     enabled: 1
     statType: 1
     statValue: 100
@@ -199,8 +199,8 @@ MonoBehaviour:
     damagePerLevel: 0
     baseDotDamage: 0
     dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
+    imagePath: Assets/Image/stat_002.png
+    image: {fileID: 615361555311009396, guid: 68fddff71aaf83e4db47e889b0eadbb5, type: 3}
     enabled: 1
     statType: 2
     statValue: 0.05
@@ -215,8 +215,8 @@ MonoBehaviour:
     damagePerLevel: 0
     baseDotDamage: 0
     dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
+    imagePath: Assets/Image/stat_003.png
+    image: {fileID: 2903848411162822477, guid: 1f64484953085a545b26b5ad75241774, type: 3}
     enabled: 1
     statType: 3
     statValue: 0.1
@@ -231,8 +231,8 @@ MonoBehaviour:
     damagePerLevel: 0
     baseDotDamage: 0
     dotDamagePerLevel: 0
-    imagePath: 
-    image: {fileID: 0}
+    imagePath: Assets/Image/stat_004.png
+    image: {fileID: 12085813604639031, guid: cc2827937adf0314ab9b4ee1eeff97d4, type: 3}
     enabled: 1
     statType: 4
     statValue: 1

@@ -635,3 +635,549 @@ MonoBehaviour:
     spawnPoint: 5
     count: 1
     interval: 0
+  - time: 185
+    enemyId: skeleton
+    level: 8
+    spawnPoint: 1
+    count: 6
+    interval: 0.9
+  - time: 189
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 3
+    count: 4
+    interval: 1
+  - time: 195
+    enemyId: skeleton
+    level: 8
+    spawnPoint: 2
+    count: 6
+    interval: 0.9
+  - time: 199
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 4
+    count: 4
+    interval: 1
+  - time: 205
+    enemyId: skeleton
+    level: 8
+    spawnPoint: 3
+    count: 6
+    interval: 0.9
+  - time: 209
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 5
+    count: 4
+    interval: 1
+  - time: 215
+    enemyId: skeleton
+    level: 8
+    spawnPoint: 4
+    count: 6
+    interval: 0.9
+  - time: 219
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 1
+    count: 4
+    interval: 1
+  - time: 225
+    enemyId: skeleton
+    level: 8
+    spawnPoint: 5
+    count: 6
+    interval: 0.9
+  - time: 229
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 2
+    count: 4
+    interval: 1
+  - time: 235
+    enemyId: skeleton
+    level: 8
+    spawnPoint: 1
+    count: 6
+    interval: 0.9
+  - time: 239
+    enemyId: goblin_mage
+    level: 10
+    spawnPoint: 3
+    count: 4
+    interval: 1
+  - time: 240
+    enemyId: boss
+    level: 3
+    spawnPoint: 5
+    count: 1
+    interval: 0
+  - time: 245
+    enemyId: skeleton
+    level: 9
+    spawnPoint: 2
+    count: 7
+    interval: 0.85
+  - time: 249
+    enemyId: goblin_mage
+    level: 11
+    spawnPoint: 4
+    count: 5
+    interval: 0.95
+  - time: 255
+    enemyId: skeleton
+    level: 9
+    spawnPoint: 3
+    count: 7
+    interval: 0.85
+  - time: 259
+    enemyId: goblin_mage
+    level: 11
+    spawnPoint: 5
+    count: 5
+    interval: 0.95
+  - time: 265
+    enemyId: skeleton
+    level: 9
+    spawnPoint: 4
+    count: 7
+    interval: 0.85
+  - time: 269
+    enemyId: goblin_mage
+    level: 11
+    spawnPoint: 1
+    count: 5
+    interval: 0.95
+  - time: 275
+    enemyId: skeleton
+    level: 9
+    spawnPoint: 5
+    count: 7
+    interval: 0.85
+  - time: 279
+    enemyId: goblin_mage
+    level: 11
+    spawnPoint: 2
+    count: 5
+    interval: 0.95
+  - time: 285
+    enemyId: skeleton
+    level: 9
+    spawnPoint: 1
+    count: 7
+    interval: 0.85
+  - time: 289
+    enemyId: goblin_mage
+    level: 11
+    spawnPoint: 3
+    count: 5
+    interval: 0.95
+  - time: 295
+    enemyId: skeleton
+    level: 9
+    spawnPoint: 2
+    count: 7
+    interval: 0.85
+  - time: 299
+    enemyId: goblin_mage
+    level: 11
+    spawnPoint: 4
+    count: 5
+    interval: 0.95
+  - time: 300
+    enemyId: boss
+    level: 4
+    spawnPoint: 5
+    count: 1
+    interval: 0
+  - time: 305
+    enemyId: skeleton
+    level: 10
+    spawnPoint: 3
+    count: 7
+    interval: 0.8
+  - time: 309
+    enemyId: goblin_mage
+    level: 12
+    spawnPoint: 5
+    count: 5
+    interval: 0.9
+  - time: 315
+    enemyId: skeleton
+    level: 10
+    spawnPoint: 4
+    count: 7
+    interval: 0.8
+  - time: 319
+    enemyId: goblin_mage
+    level: 12
+    spawnPoint: 1
+    count: 5
+    interval: 0.9
+  - time: 325
+    enemyId: skeleton
+    level: 10
+    spawnPoint: 5
+    count: 7
+    interval: 0.8
+  - time: 329
+    enemyId: goblin_mage
+    level: 12
+    spawnPoint: 2
+    count: 5
+    interval: 0.9
+  - time: 335
+    enemyId: skeleton
+    level: 10
+    spawnPoint: 1
+    count: 7
+    interval: 0.8
+  - time: 339
+    enemyId: goblin_mage
+    level: 12
+    spawnPoint: 3
+    count: 5
+    interval: 0.9
+  - time: 345
+    enemyId: skeleton
+    level: 10
+    spawnPoint: 2
+    count: 7
+    interval: 0.8
+  - time: 349
+    enemyId: goblin_mage
+    level: 12
+    spawnPoint: 4
+    count: 5
+    interval: 0.9
+  - time: 355
+    enemyId: skeleton
+    level: 10
+    spawnPoint: 3
+    count: 7
+    interval: 0.8
+  - time: 359
+    enemyId: goblin_mage
+    level: 12
+    spawnPoint: 5
+    count: 5
+    interval: 0.9
+  - time: 360
+    enemyId: boss
+    level: 4
+    spawnPoint: 5
+    count: 1
+    interval: 0
+  - time: 365
+    enemyId: skeleton
+    level: 11
+    spawnPoint: 4
+    count: 8
+    interval: 0.75
+  - time: 369
+    enemyId: goblin_mage
+    level: 13
+    spawnPoint: 1
+    count: 6
+    interval: 0.85
+  - time: 375
+    enemyId: skeleton
+    level: 11
+    spawnPoint: 5
+    count: 8
+    interval: 0.75
+  - time: 379
+    enemyId: goblin_mage
+    level: 13
+    spawnPoint: 2
+    count: 6
+    interval: 0.85
+  - time: 385
+    enemyId: skeleton
+    level: 11
+    spawnPoint: 1
+    count: 8
+    interval: 0.75
+  - time: 389
+    enemyId: goblin_mage
+    level: 13
+    spawnPoint: 3
+    count: 6
+    interval: 0.85
+  - time: 395
+    enemyId: skeleton
+    level: 11
+    spawnPoint: 2
+    count: 8
+    interval: 0.75
+  - time: 399
+    enemyId: goblin_mage
+    level: 13
+    spawnPoint: 4
+    count: 6
+    interval: 0.85
+  - time: 405
+    enemyId: skeleton
+    level: 11
+    spawnPoint: 3
+    count: 8
+    interval: 0.75
+  - time: 409
+    enemyId: goblin_mage
+    level: 13
+    spawnPoint: 5
+    count: 6
+    interval: 0.85
+  - time: 415
+    enemyId: skeleton
+    level: 11
+    spawnPoint: 4
+    count: 8
+    interval: 0.75
+  - time: 419
+    enemyId: goblin_mage
+    level: 13
+    spawnPoint: 1
+    count: 6
+    interval: 0.85
+  - time: 420
+    enemyId: boss
+    level: 4
+    spawnPoint: 5
+    count: 2
+    interval: 1.5
+  - time: 425
+    enemyId: skeleton
+    level: 12
+    spawnPoint: 5
+    count: 8
+    interval: 0.7
+  - time: 429
+    enemyId: goblin_mage
+    level: 14
+    spawnPoint: 2
+    count: 6
+    interval: 0.8
+  - time: 435
+    enemyId: skeleton
+    level: 12
+    spawnPoint: 1
+    count: 8
+    interval: 0.7
+  - time: 439
+    enemyId: goblin_mage
+    level: 14
+    spawnPoint: 3
+    count: 6
+    interval: 0.8
+  - time: 445
+    enemyId: skeleton
+    level: 12
+    spawnPoint: 2
+    count: 8
+    interval: 0.7
+  - time: 449
+    enemyId: goblin_mage
+    level: 14
+    spawnPoint: 4
+    count: 6
+    interval: 0.8
+  - time: 455
+    enemyId: skeleton
+    level: 12
+    spawnPoint: 3
+    count: 8
+    interval: 0.7
+  - time: 459
+    enemyId: goblin_mage
+    level: 14
+    spawnPoint: 5
+    count: 6
+    interval: 0.8
+  - time: 465
+    enemyId: skeleton
+    level: 12
+    spawnPoint: 4
+    count: 8
+    interval: 0.7
+  - time: 469
+    enemyId: goblin_mage
+    level: 14
+    spawnPoint: 1
+    count: 6
+    interval: 0.8
+  - time: 475
+    enemyId: skeleton
+    level: 12
+    spawnPoint: 5
+    count: 8
+    interval: 0.7
+  - time: 479
+    enemyId: goblin_mage
+    level: 14
+    spawnPoint: 2
+    count: 6
+    interval: 0.8
+  - time: 480
+    enemyId: boss
+    level: 5
+    spawnPoint: 5
+    count: 1
+    interval: 0
+  - time: 485
+    enemyId: skeleton
+    level: 13
+    spawnPoint: 1
+    count: 9
+    interval: 0.65
+  - time: 489
+    enemyId: goblin_mage
+    level: 15
+    spawnPoint: 3
+    count: 7
+    interval: 0.75
+  - time: 495
+    enemyId: skeleton
+    level: 13
+    spawnPoint: 2
+    count: 9
+    interval: 0.65
+  - time: 499
+    enemyId: goblin_mage
+    level: 15
+    spawnPoint: 4
+    count: 7
+    interval: 0.75
+  - time: 505
+    enemyId: skeleton
+    level: 13
+    spawnPoint: 3
+    count: 9
+    interval: 0.65
+  - time: 509
+    enemyId: goblin_mage
+    level: 15
+    spawnPoint: 5
+    count: 7
+    interval: 0.75
+  - time: 515
+    enemyId: skeleton
+    level: 13
+    spawnPoint: 4
+    count: 9
+    interval: 0.65
+  - time: 519
+    enemyId: goblin_mage
+    level: 15
+    spawnPoint: 1
+    count: 7
+    interval: 0.75
+  - time: 525
+    enemyId: skeleton
+    level: 13
+    spawnPoint: 5
+    count: 9
+    interval: 0.65
+  - time: 529
+    enemyId: goblin_mage
+    level: 15
+    spawnPoint: 2
+    count: 7
+    interval: 0.75
+  - time: 535
+    enemyId: skeleton
+    level: 13
+    spawnPoint: 1
+    count: 9
+    interval: 0.65
+  - time: 539
+    enemyId: goblin_mage
+    level: 15
+    spawnPoint: 3
+    count: 7
+    interval: 0.75
+  - time: 540
+    enemyId: boss
+    level: 5
+    spawnPoint: 5
+    count: 2
+    interval: 1.5
+  - time: 545
+    enemyId: skeleton
+    level: 14
+    spawnPoint: 2
+    count: 9
+    interval: 0.6
+  - time: 549
+    enemyId: goblin_mage
+    level: 16
+    spawnPoint: 4
+    count: 7
+    interval: 0.7
+  - time: 555
+    enemyId: skeleton
+    level: 14
+    spawnPoint: 3
+    count: 9
+    interval: 0.6
+  - time: 559
+    enemyId: goblin_mage
+    level: 16
+    spawnPoint: 5
+    count: 7
+    interval: 0.7
+  - time: 565
+    enemyId: skeleton
+    level: 14
+    spawnPoint: 4
+    count: 9
+    interval: 0.6
+  - time: 569
+    enemyId: goblin_mage
+    level: 16
+    spawnPoint: 1
+    count: 7
+    interval: 0.7
+  - time: 575
+    enemyId: skeleton
+    level: 14
+    spawnPoint: 5
+    count: 9
+    interval: 0.6
+  - time: 579
+    enemyId: goblin_mage
+    level: 16
+    spawnPoint: 2
+    count: 7
+    interval: 0.7
+  - time: 585
+    enemyId: skeleton
+    level: 14
+    spawnPoint: 1
+    count: 9
+    interval: 0.6
+  - time: 589
+    enemyId: goblin_mage
+    level: 16
+    spawnPoint: 3
+    count: 7
+    interval: 0.7
+  - time: 595
+    enemyId: skeleton
+    level: 14
+    spawnPoint: 2
+    count: 9
+    interval: 0.6
+  - time: 599
+    enemyId: goblin_mage
+    level: 16
+    spawnPoint: 4
+    count: 7
+    interval: 0.7
+  - time: 600
+    enemyId: boss
+    level: 5
+    spawnPoint: 5
+    count: 3
+    interval: 1.5
